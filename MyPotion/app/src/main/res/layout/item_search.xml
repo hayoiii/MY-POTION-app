@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:elevation="2dp"
+    app:cardCornerRadius="16dp"
+    app:cardUseCompatPadding="true"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="12dp">
+        <TextView
+            android:id="@+id/item_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:ellipsize="end"
+            android:maxLines="2"
+            tools:text="건강기능식품 이름"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/item_factory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_text"
+            tools:text="제조사 ex_동아제약"
+            android:textSize="@dimen/text_info"
+            android:textColor="@color/secondary_text"
+            />
+</LinearLayout>
