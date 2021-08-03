@@ -31,4 +31,13 @@ public class MyPotion {
 
     @ColumnInfo(name="memo")
     public String memo;
+
+    @ColumnInfo(name="days")
+    public int day;
+
+    @ColumnInfo(name="times")
+    public int times;
+
+    @ColumnInfo(name="when_flag")
+    public int whenFlag;
 }
