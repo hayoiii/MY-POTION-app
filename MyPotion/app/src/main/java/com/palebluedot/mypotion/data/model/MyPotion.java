@@ -3,7 +3,9 @@ package com.palebluedot.mypotion.data.model;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import java.sql.Date;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 @Entity(tableName = "my_potion")
 public class MyPotion {
@@ -27,7 +29,7 @@ public class MyPotion {
     public Date finishDate;
 
     @ColumnInfo(name="effect_tag")
-    public String[] effectTags;
+    public ArrayList<String> effectTags;
 
     @ColumnInfo(name="memo")
     public String memo;

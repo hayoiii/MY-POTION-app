@@ -5,10 +5,12 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 import com.palebluedot.mypotion.data.model.MyPotion;
 
 @Database(entities = {MyPotion.class}, version = 1)
+@TypeConverters({com.palebluedot.mypotion.data.TypeConverters.class})
 public abstract class MyPotionDatabase extends RoomDatabase {
     private static MyPotionDatabase instance = null;
 
