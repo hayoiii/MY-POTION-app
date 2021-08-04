@@ -48,4 +48,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    implementation 'com.sackcentury:shinebutton:1.0.0'
+    implementation 'com.wajahatkarim3.EasyFlipView:EasyFlipView:3.0.0'
+
+
 }

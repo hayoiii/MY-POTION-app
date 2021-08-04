@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:paddingTop="20dp"
+    android:paddingBottom="16dp"
+    android:paddingHorizontal="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="12dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+
+                android:text="상세 정보"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_title"
+                android:textStyle="bold" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="16dp"
+                android:background="@color/white"/>
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+
+                android:text="주된 기능성"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info_title"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/effect_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                tools:text="유산균 증식 및 유해균 억제 어쩌"
+                android:textColor="@color/secondary_text"
+                android:textSize="@dimen/text_info" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="16dp"
+                android:background="@color/divider"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+
+                android:text="성상"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info_title"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/shape_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                tools:text="이미, 이취가 없고 고유의 향미가 있는 미황색의 분말"
+                android:textColor="@color/secondary_text"
+                android:textSize="@dimen/text_info" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="16dp"
+                android:background="@color/divider"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+
+                android:text="섭취량 / 섭취방법"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/take_way_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                tools:text="1일 1회, 1회 1정을 물과 함께 섭취하십시오."
+                android:textColor="@color/secondary_text"
+                android:textSize="@dimen/text_info" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="16dp"
+                android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+
+                android:text="섭취 시 주의사항"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/caution_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                tools:text="특정질환, 특이체질, 알레르기체질, 임산부의 경우에는 간혹 개인에 따라 과민반응이 나타날 수 있으므로 원료를 확인하시고, 섭취전에 전문가와 상담하시기 바랍니다.
+이상사례 발생 시 섭취를 중단하고 전문가와 상담할 것
+임산부, 수유여성 및 어린이는 섭취에 주의
+우유 및 유제품에 대하여 알레르기를 나타내는 사람은 섭취에 주의"
+                android:textColor="@color/secondary_text"
+                android:textSize="@dimen/text_info" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="16dp"
+                android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+
+                android:text="유통기한"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/expiration_text"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                tools:text="제조일로부터 24개월까지 "
+                android:textColor="@color/secondary_text"
+                android:textSize="@dimen/text_info" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="16dp"
+                android:background="@color/divider" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+
+                android:text="보관 방법"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/store_way_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                tools:text="자외선이 닿지 않는 서늘한 곳에 보관"
+                android:textColor="@color/secondary_text"
+                android:textSize="@dimen/text_info" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="16dp"
+                android:background="@color/divider" />
+
+
+            <Button
+                android:id="@+id/detail_front_btn"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:icon = "@drawable/ic_navigate_next_24"
+                android:text="원재료"
+                android:textColor="@color/secondary_dark"
+                android:layout_marginBottom="@dimen/list_padding_bottom"
+                />
+        </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
