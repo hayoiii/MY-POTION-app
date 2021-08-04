@@ -35,7 +35,6 @@ public class SearchActivity extends AppCompatActivity {
     TextView mMaxpageNo;
     int pageNo = 1;
     int maxPageNo = 1;
-    String keyword = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,15 +92,15 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         mSearchButton.setOnClickListener(v -> {
-            keyword = mSearchView.getText().toString();
-            model.search(keyword, 1);
+            String keyword = mSearchView.getText().toString();
+            model.search(this, keyword, 1);
         });
 
         mNextButton.setOnClickListener(v -> {
             if (pageNo+1 <= maxPageNo){
                 pageNo++;
                 String keyword = mSearchView.getText().toString();
-                model.search(keyword, pageNo);
+                model.search(this, keyword, pageNo);
             }
         });
 
@@ -109,7 +108,7 @@ public class SearchActivity extends AppCompatActivity {
             if(pageNo > 1){
                 pageNo--;
                 String keyword = mSearchView.getText().toString();
-                model.search(keyword, pageNo);
+                model.search(this, keyword, pageNo);
             }
         });
     }
