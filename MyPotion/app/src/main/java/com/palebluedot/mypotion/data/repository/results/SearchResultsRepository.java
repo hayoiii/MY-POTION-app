@@ -29,9 +29,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class SearchResultsRepository {
     private static SearchResultsRepository instance;
-    Context context;
     @NonNull
-    MutableLiveData<SearchResults> data = new MutableLiveData<>();
+    MutableLiveData<SearchResults> data;
 
     @NonNull
     public MutableLiveData<SearchResults> getData() {
@@ -42,21 +41,21 @@ public class SearchResultsRepository {
         this.data = data;
     }
 
-    public static SearchResultsRepository getInstance(Application application) {
+    public static SearchResultsRepository getInstance() {
         if(instance == null) {
             synchronized (SearchResultsRepository.class) {
                 if(instance == null) {
-                    instance = new SearchResultsRepository(application);
+                    instance = new SearchResultsRepository();
                 }
             }
         }
         return instance;
     }
-    private SearchResultsRepository(Application application){
-        this.context = application.getApplicationContext();
+    private SearchResultsRepository(){
+        data = new MutableLiveData<>();
     }
 
-    public LiveData<SearchResults> getSearchResults(String keyword, int pageNo) {
+    public LiveData<SearchResults> getSearchResults(Context context, String keyword, int pageNo) {
         if(NetworkUtil.check(context)) {
             HtfsInfoServiceAPI task = new HtfsInfoServiceAPI(keyword, pageNo);
             try {
@@ -87,7 +86,6 @@ public class SearchResultsRepository {
 
         HtfsInfoServiceAPI(String keyword, int pageNo) {
             this.url = keyword == null || keyword.equals("") ? this.BASE_URI + "&pageNo=" + pageNo : this.BASE_URI + "&Prduct=" + keyword + "&pageNo=" + pageNo;
-            context = null;
         }
 
         /*백그라운드 스레드가 실행되기 전, 메인 스레드에 의해 호출되는 메서드
