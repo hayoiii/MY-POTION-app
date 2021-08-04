@@ -67,6 +67,8 @@ public class SearchResultsRepository {
                 e.printStackTrace();
             }
         } else {
+            data.setValue(new SearchResults(null, 1, 0, 0));
+
             // TODO: 네트워크 연결 안되어있을 때
 //            AlertUtil.failureCookieBar(this, "네트워크 연결").setEnableAutoDismiss(false).show();
 //            SearchListAdapter adapter = new SearchListAdapter(new ArrayList<>());
@@ -74,6 +76,7 @@ public class SearchResultsRepository {
 //            mListView.setAdapter(adapter);
         }
         return data;
+
     }
 
 
