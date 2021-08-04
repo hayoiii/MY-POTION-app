@@ -4,17 +4,18 @@ public class PotionDetail {
     private String takeWay;    //섭취방법
     private String name;   //품목명
     private String rawMaterials;  //원재료 (컴마로 구분)
-    private String POG_DAYCNT;  //유통기한
+    private String expiration;  //유통기한
     private String effect;  //주된 기능
     private String factory;     //제조사
     private String caution;  //섭취 시 주의사항
     private String storeWay;
     private String shape;  //성상성 (생김새)
 
-    public PotionDetail(String takeWay, String name, String rawMaterials, String effect, String factory, String caution, String storeWay, String shape) {
+    public PotionDetail(String takeWay, String name, String rawMaterials, String expiration, String effect, String factory, String caution, String storeWay, String shape) {
         this.takeWay = takeWay;
         this.name = name;
         this.rawMaterials = rawMaterials;
+        this.expiration = expiration;
         this.effect = effect;
         this.factory = factory;
         this.caution = caution;
@@ -44,14 +45,6 @@ public class PotionDetail {
 
     public void setRawMaterials(String rawMaterials) {
         this.rawMaterials = rawMaterials;
-    }
-
-    public String getPOG_DAYCNT() {
-        return POG_DAYCNT;
-    }
-
-    public void setPOG_DAYCNT(String POG_DAYCNT) {
-        this.POG_DAYCNT = POG_DAYCNT;
     }
 
     public String getEffect() {
@@ -92,5 +85,13 @@ public class PotionDetail {
 
     public void setShape(String shape) {
         this.shape = shape;
+    }
+
+    public String getExpiration() {
+        return expiration;
+    }
+
+    public void setExpiration(String expiration) {
+        this.expiration = expiration;
     }
 }

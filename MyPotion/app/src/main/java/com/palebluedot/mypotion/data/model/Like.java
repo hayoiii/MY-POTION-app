@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
+
 @Entity(tableName = "like")
 public class Like {
     @PrimaryKey(autoGenerate = true)
@@ -20,5 +22,5 @@ public class Like {
     public String serialNo;
 
     @ColumnInfo(name="effect_tag")
-    public String[] effectTags;
+    public ArrayList<String> effectTags;
 }

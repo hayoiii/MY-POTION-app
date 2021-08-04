@@ -1,21 +1,15 @@
 package com.palebluedot.mypotion.data.repository.detail;
 
-import android.app.Application;
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.palebluedot.mypotion.data.model.PotionDetail;
 import com.palebluedot.mypotion.data.repository.RetrofitUtil;
 import com.palebluedot.mypotion.data.repository.detail.model.DetailVo;
-import com.palebluedot.mypotion.data.repository.results.SearchResultsRepository;
 
 import java.io.IOException;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class DetailRepository {
@@ -54,8 +48,9 @@ public class DetailRepository {
                 String caution = detailVo.getC003().getRow().get(0).getIFTKN_ATNT_MATR_CN();
                 String storeWay = detailVo.getC003().getRow().get(0).getCSTDY_MTHD();
                 String rawMaterials = detailVo.getC003().getRow().get(0).getRAWMTRL_NM();
+                String expiration = detailVo.getC003().getRow().get(0).getPOG_DAYCNT();
 
-                data.setValue(new PotionDetail(takeWay, name, rawMaterials, effect, factory, caution, storeWay, shape));
+                data.setValue(new PotionDetail(takeWay, name, rawMaterials, expiration, effect, factory, caution, storeWay, shape));
             } else {
                 //TODO: 오류 코드 시 처리
             }
