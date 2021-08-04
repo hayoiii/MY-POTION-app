@@ -89,7 +89,7 @@
                     android:layout_marginRight="16dp"
 
                     android:src="@android:color/darker_gray"
-                    android:checked="@={viewmodel.like}"
+                    android:checked="@{viewmodel.like}"
                     app:btn_color="@color/contrastLight"
                     app:btn_fill_color="@color/secondary"
                     app:allow_random_color="false"

@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -17,14 +16,14 @@ import android.widget.TextView;
 import com.palebluedot.mypotion.R;
 import com.palebluedot.mypotion.data.model.PotionItem;
 import com.palebluedot.mypotion.data.model.SearchResults;
+import com.palebluedot.mypotion.feature.detail.DetailFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
     private SearchViewModel model;
-
+    private DetailFragment detailFragment;
     private EditText mSearchView;
     ListView mListView;
 
@@ -54,6 +53,16 @@ public class SearchActivity extends AppCompatActivity {
 
         final SearchListAdapter adapter = new SearchListAdapter(new ArrayList<>());
         mListView.setAdapter(adapter);
+        mListView.setOnItemClickListener((parent, view, position, id) -> {
+            //Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+            PotionItem potion = (PotionItem)parent.getItemAtPosition(position);
+            detailFragment = DetailFragment.newInstance(potion.getSerialNo());
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.search_layout, detailFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
 
         model = new ViewModelProvider(this).get(SearchViewModel.class);
         //observe : model의 LiveData를 관찰한다.

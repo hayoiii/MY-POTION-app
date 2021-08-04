@@ -5,15 +5,13 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 
 import com.palebluedot.mypotion.data.model.Like;
+import com.palebluedot.mypotion.data.repository.RepositoryCallback;
 import com.palebluedot.mypotion.data.repository.mypotion.MyPotionDatabase;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-interface RepositoryCallback<T> {
-    void onComplete(T result);
-}
 public class LikeRepository {
     private LikeDatabase database;
     private LikeDao dao;
