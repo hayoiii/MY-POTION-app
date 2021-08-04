@@ -5,8 +5,10 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 
 import com.palebluedot.mypotion.data.model.Like;
+import com.palebluedot.mypotion.data.model.PotionDetail;
 import com.palebluedot.mypotion.data.repository.RepositoryCallback;
 import com.palebluedot.mypotion.data.repository.mypotion.MyPotionDatabase;
+import com.palebluedot.mypotion.util.TagManager;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
@@ -27,6 +29,28 @@ public class LikeRepository {
             public void run() {
                 Like result = dao.findBySerialNo(serialNo);
                 callback.onComplete(result != null);
+            }
+        };
+        Executor diskIO= Executors.newSingleThreadExecutor();
+        diskIO.execute(runnable);
+    }
+
+    public void like(Like like){
+        Runnable runnable= new Runnable() {
+            @Override
+            public void run() {
+                dao.insert(like);
+            }
+        };
+        Executor diskIO= Executors.newSingleThreadExecutor();
+        diskIO.execute(runnable);
+    }
+
+    public void dislike(String serialNo){
+        Runnable runnable= new Runnable() {
+            @Override
+            public void run() {
+                dao.delete(serialNo);
             }
         };
         Executor diskIO= Executors.newSingleThreadExecutor();

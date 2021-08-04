@@ -23,4 +23,12 @@ public class Like {
 
     @ColumnInfo(name="effect_tag")
     public ArrayList<String> effectTags;
+
+
+    public Like(String name, String factory, String serialNo, ArrayList<String> effectTags) {
+        this.name = name;
+        this.factory = factory;
+        this.serialNo = serialNo;
+        this.effectTags = effectTags;
+    }
 }
