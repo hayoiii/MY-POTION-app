@@ -1,6 +1,7 @@
 package com.palebluedot.mypotion.feature.search;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -14,12 +15,12 @@ public class SearchViewModel extends AndroidViewModel {
     private LiveData<SearchResults> mData;
     public SearchViewModel(@NonNull Application application) {
         super(application);
-        repository = SearchResultsRepository.getInstance(application);
+        repository = SearchResultsRepository.getInstance();
         mData = repository.getData();
     }
 
-    public LiveData<SearchResults> search(String keyword, int pageNo) {
-        return repository.getSearchResults(keyword, pageNo);
+    public LiveData<SearchResults> search(Context context, String keyword, int pageNo) {
+        return repository.getSearchResults(context, keyword, pageNo);
     }
 
     public LiveData<SearchResults> get() {
