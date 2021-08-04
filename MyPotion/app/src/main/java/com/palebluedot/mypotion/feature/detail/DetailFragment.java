@@ -27,7 +27,7 @@ import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 
 //TODO: like db 추가, 성분 추가
-public class DetailFragment extends Fragment implements View.OnClickListener, ShineButton.OnCheckedChangeListener {
+public class DetailFragment extends Fragment implements View.OnClickListener {
 
     private DetailViewModel model;
 
@@ -87,14 +87,19 @@ public class DetailFragment extends Fragment implements View.OnClickListener, Sh
         View view = binding.getRoot();
 
         //부모 액티비티의 viewModel 가져옴
-        //TODO: 로딩 (데이터 바인딩으로 처리하기)
+        //TODO: 로딩 (데이터 바인딩으로 처리하기 visibility로 로딩 켜고 끄기)
         model.getDetail().observe(this.getActivity(), new Observer<PotionDetail>() {
             @Override
             public void onChanged(PotionDetail potionDetail) {
                 binding.setData(potionDetail);
             }
         });
-        binding.setViewmodel(model);
+        model.getLike().observe(this.getActivity(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                binding.setLike(aBoolean);
+            }
+        });
         binding.setLifecycleOwner(this);
 
         addBtn = view.findViewById(R.id.detail_add_btn);
@@ -119,7 +124,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener, Sh
 
         // action buttons
         addBtn.setOnClickListener(this::onClick);
-        likeBtn.setOnCheckStateChangeListener(this);
+        likeBtn.setOnCheckStateChangeListener(model);
 
         // 카드 뒤집는 동작
         detailFlip = view.findViewById(R.id.detail_flip);
@@ -168,87 +173,9 @@ public class DetailFragment extends Fragment implements View.OnClickListener, Sh
 //        }
     }
 
-//    private boolean insertOrDeleteLike(boolean insert){
-//        dbHelper = DbHelper.getInstance(getActivity());
-//        SQLiteDatabase db = dbHelper.getWritableDatabase();
-//
-//        if(insert){
-//            ContentValues values = new ContentValues();
-//            values.put(DbContract.LikesEntry.COLUMN_NAME_PRODUCT, product);
-//            values.put(DbContract.LikesEntry.COLUMN_NAME_FACTORY, factory);
-//            values.put(DbContract.LikesEntry.COLUMN_NAME_SERIALNO, mSerialNo);
-//            String tagsStr="";
-//            LinkedList<String> tags = TagManager.getInstance().extractTags(effect);
-//            for(int i=0; i<tags.size(); i++){
-//                tagsStr += "#"+tags.get(i)+" ";
-//            }
-//            values.put(DbContract.LikesEntry.COLUMN_NAME_TAGS, tagsStr);
-//
-//            long newRowId = db.insert(DbContract.LikesEntry.TABLE_NAME, null, values);
-//            db.close();
-//            return newRowId > 0;
-//        }
-//        else{
-//            int deleteCount = db.delete(DbContract.LikesEntry.TABLE_NAME, DbContract.LikesEntry.COLUMN_NAME_SERIALNO+ "=" + mSerialNo, null);
-//            db.close();
-//            return deleteCount > 0;
-//        }
-//    }
 
-//
-//    //TODO: error handling
-//    private void requestC00Api(String serialNo){
-//        Call<PotionDetail> res = OpenDataApiUtil.getInstance().getApi().getDetail(serialNo);
-//        res.enqueue(new Callback<PotionDetail>() {
-//            @Override
-//            public void onResponse(Call<PotionDetail> call, Response<PotionDetail> response) {
-//                if (response.body() != null) {
-//                    PotionDetail potionDetail = (PotionDetail) response.body();
-//                    if (potionDetail.getC003().getRESULT().getCODE().equals("INFO-000")) {
-//                        product = potionDetail.getC003().getRow().get(0).getPRDLST_NM();
-//                        factory = potionDetail.getC003().getRow().get(0).getBSSH_NM();
-//                        String shape = potionDetail.getC003().getRow().get(0).getDISPOS();
-//                        String takeWay = potionDetail.getC003().getRow().get(0).getNTK_MTHD();
-//                        effect = potionDetail.getC003().getRow().get(0).getPRIMARY_FNCLTY();
-//                        String caution = potionDetail.getC003().getRow().get(0).getIFTKN_ATNT_MATR_CN();
-//                        String storeWay = potionDetail.getC003().getRow().get(0).getCSTDY_MTHD();
-//                        String originalRawMaterials = potionDetail.getC003().getRow().get(0).getRAWMTRL_NM();
-//
-//                        String[] rawMaterials = originalRawMaterials.split(",");
-//
-//                        ArrayAdapter adapter = new ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, rawMaterials);
-//                        rawMaterialList.setAdapter(adapter);
-//
-//                        productText.setText(product);
-//                        factoryText.setText(factory);
-//
-//                        shapeText.setText(shape);
-//                        takeWayText.setText(takeWay);
-//                        effectText.setText(effect);
-//                        cautionText.setText(caution);
-//                        storeWayText.setText(storeWay);
-//
-//                        valid = true;
-//
-//                    }
-//                    else{
-//                        //TODO: 오류 코드 시 처리
-//                        productText.setText(potionDetail.getC003().getRESULT().getMSG());
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<PotionDetail> call, Throwable t) {
-//                Log.e("Err", t.getMessage());
-//            }
-//        });
-//    }
-//
 //    @Override
-    public void onCheckedChanged(View view, boolean checked) {
-
-    }
+//    public void onCheckedChanged(View view, boolean checked) {
 //        //TODO: 프로그레스바로 로딩 구현하기
 //        if(valid) {
 //            boolean succeed = insertOrDeleteLike(checked);
