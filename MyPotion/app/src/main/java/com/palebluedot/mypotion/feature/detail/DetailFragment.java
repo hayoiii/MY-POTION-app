@@ -14,6 +14,8 @@ import android.widget.TextView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.palebluedot.mypotion.R;
@@ -84,14 +86,16 @@ public class DetailFragment extends Fragment implements View.OnClickListener, Sh
         FragmentDetailBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false);
         View view = binding.getRoot();
 
-        FragmentDetailFlipFrontBinding flipFrontBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_flip_front, container, false);
-
         //부모 액티비티의 viewModel 가져옴
-        PotionDetail detailData = model.getDetail();
-        binding.setData(detailData);
+        //TODO: 로딩 (데이터 바인딩으로 처리하기)
+        model.getDetail().observe(this.getActivity(), new Observer<PotionDetail>() {
+            @Override
+            public void onChanged(PotionDetail potionDetail) {
+                binding.setData(potionDetail);
+            }
+        });
         binding.setViewmodel(model);
         binding.setLifecycleOwner(this);
-        flipFrontBinding.setData(detailData);
 
         addBtn = view.findViewById(R.id.detail_add_btn);
         likeBtn = view.findViewById(R.id.like_fab);

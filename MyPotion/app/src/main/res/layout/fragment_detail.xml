@@ -117,7 +117,9 @@
                     <include layout="@layout/fragment_detail_flip_back" />
 
                     <!-- Front Layout Goes Here -->
-                    <include layout="@layout/fragment_detail_flip_front" />
+                    <include
+                        layout="@layout/fragment_detail_flip_front"
+                        app:data="@{data}" />
 
                 </com.wajahatkarim3.easyflipview.EasyFlipView>
 
