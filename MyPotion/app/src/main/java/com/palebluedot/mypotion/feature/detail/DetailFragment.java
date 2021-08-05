@@ -1,14 +1,19 @@
 package com.palebluedot.mypotion.feature.detail;
 
+import static android.content.Context.CLIPBOARD_SERVICE;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -38,7 +43,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     private EasyFlipView detailFlip;
     private View noDataView;
     private ListView rawMaterialList;
-
+    private ArrayAdapter adapter;
     private ListView activityListView;
     private LinearLayout activityPageLayout;
 
@@ -77,6 +82,18 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             if(potionDetail.isNoData()) {
                 noDataView.setVisibility(View.VISIBLE);
                 detailFlip.setVisibility(View.GONE);
+            }
+            else {
+                String[] rawMaterials = potionDetail.getRawMaterials().split(",");
+                adapter = new ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, rawMaterials);
+                rawMaterialList.setAdapter(adapter);
+                rawMaterialList.setOnItemClickListener((adapterView, view1, i, l) -> {
+                    String material = (String) adapterView.getItemAtPosition(i);
+                    ClipboardManager clipboard = (ClipboardManager) requireActivity().getSystemService(CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("copy_raw_material", material);
+                    clipboard.setPrimaryClip(clip);
+                    Toast.makeText(requireContext(), "클립보드에 복사하였습니다", Toast.LENGTH_SHORT).show();
+                });
             }
         });
         model.getLike().observe(this.getActivity(), aBoolean -> binding.setLike(aBoolean));
