@@ -67,7 +67,7 @@ public class DetailViewModel extends AndroidViewModel implements ShineButton.OnC
                 //api result code == 'code-200' no matched data
                 result = new PotionDetail(name, factory);
             }
-            tags = TagManager.getInstance().extract(result.getEffect());
+            else tags = TagManager.getInstance().extract(result.getEffect());
             mData.postValue(result);
         }
     };

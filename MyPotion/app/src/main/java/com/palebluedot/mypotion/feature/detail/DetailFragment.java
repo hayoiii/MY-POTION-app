@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,7 +24,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.palebluedot.mypotion.R;
 import com.palebluedot.mypotion.databinding.FragmentDetailBinding;
 import com.palebluedot.mypotion.util.MyUtil;
-import com.palebluedot.mypotion.util.TagManager;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
@@ -40,11 +39,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     private DetailViewModel model;
     String mSerialNo = null;
 
-    private ImageView mBottomBtn;
-    private Button rawMaterialBtn;
-    private Button goToFrontBtn;
-    private ShineButton likeBtn;
-    private Button addBtn;
     private EasyFlipView detailFlip;
     private View noDataView;
     private ListView rawMaterialList;
@@ -85,6 +79,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         //TODO: 로딩 (데이터 바인딩으로 처리하기 visibility로 로딩 켜고 끄기)
         model.getDetail().observe(this.getActivity(), potionDetail -> {
             if(potionDetail.isNoData()) {
+                binding.setData(potionDetail);
                 noDataView.setVisibility(View.VISIBLE);
                 detailFlip.setVisibility(View.GONE);
             }
@@ -111,29 +106,28 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         //터치 못하도록 막기
         activityListView = requireActivity().findViewById(R.id.result_list_view);
         activityListView.setVisibility(View.INVISIBLE);
-        activityPageLayout = requireActivity().findViewById(R.id.search_bottom_page_layout);
-        activityPageLayout.setVisibility(View.GONE);
+        activityPageLayout = requireActivity().findViewById(R.id.search_pagination);
+        activityPageLayout.setVisibility(View.INVISIBLE);
 
-        //페이지 컨트롤러를 닫기 버튼으로 만들기
-        mBottomBtn = requireActivity().findViewById(R.id.detail_bottom_btn);
-        mBottomBtn.setVisibility(View.VISIBLE);
-        mBottomBtn.setOnClickListener(v -> {
+
+        // action buttons
+        Button addBtn = view.findViewById(R.id.detail_add_btn);
+        ShineButton likeBtn = view.findViewById(R.id.like_fab);
+        addBtn.setOnClickListener(this::onClick);
+        likeBtn.setOnCheckStateChangeListener(model);
+
+        ImageButton mCloseBtn = view.findViewById(R.id.detail_close_btn);
+        mCloseBtn.setOnClickListener(v -> {
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction().remove(DetailFragment.this).commit();
         });
 
-        // action buttons
-        addBtn = view.findViewById(R.id.detail_add_btn);
-        likeBtn = view.findViewById(R.id.like_fab);
-        addBtn.setOnClickListener(this::onClick);
-        likeBtn.setOnCheckStateChangeListener(model);
-
         // 카드 뒤집는 동작
         detailFlip = view.findViewById(R.id.detail_flip);
-        goToFrontBtn = view.findViewById(R.id.detail_back_btn);
-        goToFrontBtn.setOnClickListener(v -> detailFlip.flipTheView());
-        rawMaterialBtn = view.findViewById(R.id.detail_front_btn);
+        Button rawMaterialBtn = view.findViewById(R.id.detail_front_btn);
+        Button goToFrontBtn = view.findViewById(R.id.detail_back_btn);
         rawMaterialBtn.setOnClickListener(v -> detailFlip.flipTheView());
+        goToFrontBtn.setOnClickListener(v -> detailFlip.flipTheView());
 
         rawMaterialList = view.findViewById(R.id.raw_material_list);
         return view;
@@ -146,8 +140,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 //        CookieBar.dismiss(getActivity());
         activityListView.setVisibility(View.VISIBLE);
         activityPageLayout.setVisibility(View.VISIBLE);
-        mBottomBtn.setVisibility(View.GONE);
-        Log.e("DetailFragment","onDestroyView");
     }
 
     @Override
