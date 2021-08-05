@@ -55,8 +55,8 @@ public class SearchActivity extends AppCompatActivity {
         mListView.setOnItemClickListener((parent, view, position, id) -> {
             //Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
             PotionItem potion = (PotionItem)parent.getItemAtPosition(position);
-            detailFragment = DetailFragment.newInstance(potion.getSerialNo());
 
+            detailFragment = DetailFragment.newInstance(potion.getSerialNo(), potion.getProduct(), potion.getFactory());
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.search_layout, detailFragment)
                     .addToBackStack(potion.getSerialNo())

@@ -10,6 +10,7 @@ public class PotionDetail {
     private String caution;  //섭취 시 주의사항
     private String storeWay;
     private String shape;  //성상성 (생김새)
+    private boolean noData = false;
 
     public PotionDetail(String takeWay, String name, String rawMaterials, String expiration, String effect, String factory, String caution, String storeWay, String shape) {
         this.takeWay = takeWay;
@@ -21,6 +22,20 @@ public class PotionDetail {
         this.caution = caution;
         this.storeWay = storeWay;
         this.shape = shape;
+    }
+
+    public PotionDetail(String name, String factory) {
+        this.name = name;
+        this.factory = factory;
+        this.noData = true;
+
+        this.takeWay = "";
+        this.rawMaterials = "";
+        this.expiration = "";
+        this.effect = "";
+        this.caution = "";
+        this.storeWay = "";
+        this.shape = "";
     }
 
     public String getTakeWay() {
@@ -93,5 +108,9 @@ public class PotionDetail {
 
     public void setExpiration(String expiration) {
         this.expiration = expiration;
+    }
+
+    public boolean isNoData() {
+        return noData;
     }
 }

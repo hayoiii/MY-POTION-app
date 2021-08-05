@@ -26,6 +26,17 @@ public class DetailViewModel extends AndroidViewModel implements ShineButton.OnC
     private Like likeItem = null;
     private String serialNo;
 
+    private String name;
+    private String factory;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setFactory(String factory) {
+        this.factory = factory;
+    }
+
     public DetailViewModel(@NonNull Application application) {
         super(application);
         detailRepository = DetailRepository.getInstance();
@@ -50,8 +61,11 @@ public class DetailViewModel extends AndroidViewModel implements ShineButton.OnC
 
     private final RepositoryCallback<PotionDetail> detailCallback = new RepositoryCallback<PotionDetail>() {
         @Override
-        public void onComplete(Object result) {
+        public void onComplete(PotionDetail result) {
             if(result == null) {
+                //api result code == 'code-200' no matched data
+                result = new PotionDetail(name, factory);
+            }
             mData.postValue((PotionDetail) result);
         }
     };

@@ -28,44 +28,31 @@ import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 //TODO: like db 추가, 성분 추가
 public class DetailFragment extends Fragment implements View.OnClickListener {
-
-    private DetailViewModel model;
-
-    String product = null;
-    String factory = null;
-    String mSerialNo = null;
-    String effect = null;
-    private boolean valid = false;
-    private static boolean like_flag = false;
-
     public DetailFragment() {
         // Required empty public constructor
     }
-    private TextView effectText;
-    private TextView shapeText;
-    private TextView cautionText;
-    private TextView takeWayText;
-    private TextView storeWayText;
-    private TextView productText;
-    private TextView factoryText;
+
+    private DetailViewModel model;
+    String mSerialNo = null;
+
+    private ImageView mBottomBtn;
     private Button rawMaterialBtn;
     private Button goToFrontBtn;
-
-    private ListView rawMaterialList;
-
     private ShineButton likeBtn;
     private Button addBtn;
-
     private EasyFlipView detailFlip;
+    private View noDataView;
+    private ListView rawMaterialList;
 
     private ListView activityListView;
     private LinearLayout activityPageLayout;
-    private ImageView mBottomBtn;
 
 
-    public static DetailFragment newInstance(String serialNo) {
+    public static DetailFragment newInstance(String serialNo, String name, String factory) {
         Bundle args = new Bundle();
         args.putString("serialNo",serialNo);
+        args.putString("name", name);
+        args.putString("factory", factory);
 
         DetailFragment fragment = new DetailFragment();
         fragment.setArguments(args);
@@ -78,6 +65,8 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         mSerialNo = getArguments().getString("serialNo");
         model = new ViewModelProvider(this).get(DetailViewModel.class);
         model.build(mSerialNo);
+        model.setName(getArguments().getString("name"));
+        model.setFactory(getArguments().getString("factory"));
     }
 
     @Override
@@ -92,6 +81,10 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onChanged(PotionDetail potionDetail) {
                 binding.setData(potionDetail);
+                if(potionDetail.isNoData()) {
+                    noDataView.setVisibility(View.VISIBLE);
+                    detailFlip.setVisibility(View.GONE);
+                }
             }
         });
         model.getLike().observe(this.getActivity(), new Observer<Boolean>() {
@@ -102,14 +95,11 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         });
         binding.setLifecycleOwner(this);
 
-        addBtn = view.findViewById(R.id.detail_add_btn);
-        likeBtn = view.findViewById(R.id.like_fab);
-
+        noDataView = view.findViewById(R.id.no_data);
 
         //터치 못하도록 막기
         activityListView = requireActivity().findViewById(R.id.result_list_view);
         activityListView.setVisibility(View.INVISIBLE);
-
         activityPageLayout = requireActivity().findViewById(R.id.search_bottom_page_layout);
         activityPageLayout.setVisibility(View.GONE);
 
@@ -122,6 +112,8 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         });
 
         // action buttons
+        addBtn = view.findViewById(R.id.detail_add_btn);
+        likeBtn = view.findViewById(R.id.like_fab);
         addBtn.setOnClickListener(this::onClick);
         likeBtn.setOnCheckStateChangeListener(model);
 

@@ -20,17 +20,14 @@
         <!-- The primary full-screen view. This can be replaced with whatever view
              is needed to present your content, e.g. VideoView, SurfaceView,
              TextureView, etc. -->
-        <androidx.cardview.widget.CardView android:layout_width="match_parent"
+        <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="12dp"
-
             app:cardBackgroundColor="@color/white"
-
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:elevation="32dp"
             app:cardCornerRadius="12dp"
             app:cardUseCompatPadding="true">
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -76,7 +73,6 @@
                         android:layout_gravity="center"
                         android:layout_marginVertical="16dp"
                         android:text="포션 만들기" />
-
                 </LinearLayout>
 
                 <com.sackcentury.shinebuttonlib.ShineButton
@@ -103,8 +99,10 @@
                     app:small_shine_color="@color/secondary"
                     app:small_shine_offset_angle="20" />
 
+                <include layout="@layout/component_no_data" android:id="@+id/no_data" android:visibility="gone"/>
                 <com.wajahatkarim3.easyflipview.EasyFlipView
                     android:id="@+id/detail_flip"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/upper_layout"
@@ -119,12 +117,8 @@
                     <include
                         layout="@layout/fragment_detail_flip_front"
                         app:data="@{data}" />
-
                 </com.wajahatkarim3.easyflipview.EasyFlipView>
-
             </RelativeLayout>
-
-
         </androidx.cardview.widget.CardView>
     </FrameLayout>
 </layout>
