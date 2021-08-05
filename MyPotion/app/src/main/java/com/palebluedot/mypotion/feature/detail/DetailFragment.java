@@ -9,19 +9,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.palebluedot.mypotion.R;
-import com.palebluedot.mypotion.data.model.PotionDetail;
 import com.palebluedot.mypotion.databinding.FragmentDetailBinding;
-import com.palebluedot.mypotion.databinding.FragmentDetailFlipFrontBinding;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
@@ -77,22 +72,14 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
         //부모 액티비티의 viewModel 가져옴
         //TODO: 로딩 (데이터 바인딩으로 처리하기 visibility로 로딩 켜고 끄기)
-        model.getDetail().observe(this.getActivity(), new Observer<PotionDetail>() {
-            @Override
-            public void onChanged(PotionDetail potionDetail) {
-                binding.setData(potionDetail);
-                if(potionDetail.isNoData()) {
-                    noDataView.setVisibility(View.VISIBLE);
-                    detailFlip.setVisibility(View.GONE);
-                }
+        model.getDetail().observe(this.getActivity(), potionDetail -> {
+            binding.setData(potionDetail);
+            if(potionDetail.isNoData()) {
+                noDataView.setVisibility(View.VISIBLE);
+                detailFlip.setVisibility(View.GONE);
             }
         });
-        model.getLike().observe(this.getActivity(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                binding.setLike(aBoolean);
-            }
-        });
+        model.getLike().observe(this.getActivity(), aBoolean -> binding.setLike(aBoolean));
         binding.setLifecycleOwner(this);
 
         noDataView = view.findViewById(R.id.no_data);
@@ -120,13 +107,9 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         // 카드 뒤집는 동작
         detailFlip = view.findViewById(R.id.detail_flip);
         goToFrontBtn = view.findViewById(R.id.detail_back_btn);
-        goToFrontBtn.setOnClickListener(v -> {
-            detailFlip.flipTheView();
-        });
+        goToFrontBtn.setOnClickListener(v -> detailFlip.flipTheView());
         rawMaterialBtn = view.findViewById(R.id.detail_front_btn);
-        rawMaterialBtn.setOnClickListener(v -> {
-            detailFlip.flipTheView();
-        });
+        rawMaterialBtn.setOnClickListener(v -> detailFlip.flipTheView());
 
         rawMaterialList = view.findViewById(R.id.raw_material_list);
         return view;

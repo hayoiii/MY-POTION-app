@@ -52,12 +52,7 @@ public class DetailViewModel extends AndroidViewModel implements ShineButton.OnC
     public LiveData<PotionDetail> getDetail() { return mData; }
     public LiveData<Boolean> getLike() { return like; }
 
-    private RepositoryCallback<Boolean> likeCallback = new RepositoryCallback() {
-        @Override
-        public void onComplete(Object result) {
-            like.postValue((Boolean) result);
-        }
-    };
+    private RepositoryCallback<Boolean> likeCallback = (RepositoryCallback) result -> like.postValue((Boolean) result);
 
     private final RepositoryCallback<PotionDetail> detailCallback = new RepositoryCallback<PotionDetail>() {
         @Override
