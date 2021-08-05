@@ -1,6 +1,7 @@
 package com.palebluedot.mypotion.util;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TagManager {
     private static TagManager instance = null;
@@ -60,4 +61,11 @@ public class TagManager {
         return tags;
     }
 
+    public String toTagStyle(List<String> extractedTags) {
+        String ret="";
+        for(String tag : extractedTags) {
+            ret+="#" + tag + " ";
+        }
+        return ret.trim();
+    }
 }

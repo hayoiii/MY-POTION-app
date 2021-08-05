@@ -26,6 +26,7 @@ public class DetailViewModel extends AndroidViewModel implements ShineButton.OnC
     private Like likeItem = null;
     private String serialNo;
 
+    ArrayList<String> tags;
     private String name;
     private String factory;
 
@@ -36,6 +37,11 @@ public class DetailViewModel extends AndroidViewModel implements ShineButton.OnC
     public void setFactory(String factory) {
         this.factory = factory;
     }
+
+    public String getTagStyleString() {
+        return TagManager.getInstance().toTagStyle(tags);
+    }
+
 
     public DetailViewModel(@NonNull Application application) {
         super(application);
@@ -61,7 +67,8 @@ public class DetailViewModel extends AndroidViewModel implements ShineButton.OnC
                 //api result code == 'code-200' no matched data
                 result = new PotionDetail(name, factory);
             }
-            mData.postValue((PotionDetail) result);
+            tags = TagManager.getInstance().extract(result.getEffect());
+            mData.postValue(result);
         }
     };
 
@@ -72,7 +79,6 @@ public class DetailViewModel extends AndroidViewModel implements ShineButton.OnC
             //like 데이터 생성
             if(likeItem == null){
                 PotionDetail potionDetail = mData.getValue();
-                ArrayList<String> tags = TagManager.getInstance().extract(potionDetail.getEffect());
                 likeItem = new Like(potionDetail.getName(), potionDetail.getFactory(), serialNo, tags);
             }
             likeRepository.like(likeItem);

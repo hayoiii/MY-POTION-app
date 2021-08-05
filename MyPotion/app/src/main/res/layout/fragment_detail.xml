@@ -70,8 +70,7 @@
                         android:id="@+id/detail_effect_tags"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_top_text"
-                        android:text="@{data.name}"
+                        android:layout_marginTop="12dp"
                         android:textAlignment="center"
                         android:textColor="@color/secondary_dark"
                         android:textSize="@dimen/text_info"
@@ -82,13 +81,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginVertical="16dp">
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="8dp">
 
                         <com.sackcentury.shinebuttonlib.ShineButton
                             android:id="@+id/like_fab"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
-                            android:layout_marginRight="4dp"
+                            android:layout_marginRight="8dp"
                             android:checked="@{like}"
                             android:src="@android:color/darker_gray"
                             app:allow_random_color="false"
@@ -112,17 +112,19 @@
                             style="@style/Widget.MaterialComponents.Button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="36dp"
+                            android:layout_marginStart="44dp"
                             android:text="포션 만들기"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
                 </LinearLayout>
 
-
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/upper_layout"
+                    android:background="@color/contrastLight" />
                 <include layout="@layout/component_no_data" android:id="@+id/no_data" android:visibility="gone"/>
                 <com.wajahatkarim3.easyflipview.EasyFlipView
                     android:id="@+id/detail_flip"

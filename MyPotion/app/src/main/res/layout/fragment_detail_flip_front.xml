@@ -8,38 +8,46 @@
             name="data"
             type="com.palebluedot.mypotion.data.model.PotionDetail" />
     </data>
-
-    <androidx.core.widget.NestedScrollView
-
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/padding_card"
 
-        android:paddingTop="20dp"
-        android:paddingBottom="16dp"
-        android:paddingHorizontal="8dp">
+        android:orientation="vertical"
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_section_title_bottom"
 
+            android:layout_weight="1"
+            android:text="상세 정보"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/detail_front_btn"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="성분 보기 >"
+            android:textColor="@color/secondary_dark"
+            />
+    </LinearLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="12dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-
-                android:text="상세 정보"
-                android:textColor="@color/primary_text"
-                android:textSize="@dimen/text_title"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginVertical="16dp"
-                android:background="@color/white" />
-
+            android:paddingBottom="@dimen/list_padding_bottom"
+            >
 
             <TextView
                 android:layout_width="match_parent"
@@ -196,24 +204,10 @@
                 android:textColor="@color/secondary_text"
                 android:textSize="@dimen/text_info" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginVertical="16dp"
-                android:background="@color/divider" />
 
-
-            <Button
-                android:id="@+id/detail_front_btn"
-                style="@style/Widget.MaterialComponents.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:icon="@drawable/ic_navigate_next_24"
-                android:text="원재료"
-                android:textColor="@color/secondary_dark"
-                android:layout_marginBottom="@dimen/list_padding_bottom" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
 </layout>
