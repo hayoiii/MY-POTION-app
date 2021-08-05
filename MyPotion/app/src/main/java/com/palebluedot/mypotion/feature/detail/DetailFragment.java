@@ -76,7 +76,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSerialNo = getArguments().getString("serialNo");
-        model = new ViewModelProvider(requireActivity()).get(DetailViewModel.class);
+        model = new ViewModelProvider(this).get(DetailViewModel.class);
         model.build(mSerialNo);
     }
 
@@ -119,7 +119,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         mBottomBtn.setOnClickListener(v -> {
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction().remove(DetailFragment.this).commit();
-            fragmentManager.popBackStack();
         });
 
         // action buttons

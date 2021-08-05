@@ -19,10 +19,10 @@ import com.sackcentury.shinebuttonlib.ShineButton;
 import java.util.ArrayList;
 
 public class DetailViewModel extends AndroidViewModel implements ShineButton.OnCheckedChangeListener {
-    private DetailRepository detailRepository;
-    private LikeRepository likeRepository;
-    private MutableLiveData<PotionDetail> mData = new MutableLiveData<>();
-    private MutableLiveData<Boolean> like = new MutableLiveData<>(false);
+    private final DetailRepository detailRepository;
+    private final LikeRepository likeRepository;
+    private final MutableLiveData<PotionDetail> mData = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> like = new MutableLiveData<>(false);
     private Like likeItem = null;
     private String serialNo;
 
@@ -35,23 +35,24 @@ public class DetailViewModel extends AndroidViewModel implements ShineButton.OnC
     public void build(String serialNo) {
         this.serialNo = serialNo;
         detailRepository.fetchDetail(serialNo, detailCallback);
-        likeRepository.isLiked(serialNo, isLikedCallback);
+        likeRepository.isLiked(serialNo, likeCallback);
     }
 
     public LiveData<PotionDetail> getDetail() { return mData; }
     public LiveData<Boolean> getLike() { return like; }
 
-    private RepositoryCallback<Boolean> isLikedCallback = new RepositoryCallback() {
+    private RepositoryCallback<Boolean> likeCallback = new RepositoryCallback() {
         @Override
         public void onComplete(Object result) {
-            like.setValue((Boolean) result);
+            like.postValue((Boolean) result);
         }
     };
 
-    private RepositoryCallback<LiveData<PotionDetail>> detailCallback = new RepositoryCallback() {
+    private final RepositoryCallback<PotionDetail> detailCallback = new RepositoryCallback<PotionDetail>() {
         @Override
         public void onComplete(Object result) {
-            mData.setValue((PotionDetail) ((LiveData<?>) result).getValue());
+            if(result == null) {
+            mData.postValue((PotionDetail) result);
         }
     };
 

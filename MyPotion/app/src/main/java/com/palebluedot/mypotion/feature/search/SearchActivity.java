@@ -59,7 +59,7 @@ public class SearchActivity extends AppCompatActivity {
 
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.search_layout, detailFragment)
-                    .addToBackStack(null)
+                    .addToBackStack(potion.getSerialNo())
                     .commit();
         });
 

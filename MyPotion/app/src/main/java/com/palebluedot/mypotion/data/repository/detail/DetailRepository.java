@@ -23,7 +23,6 @@ public class DetailRepository {
     private static DetailRepository instance = null;
     private RetrofitUtil mRetrofitUtil;
     private DetailApi api;
-    MutableLiveData<PotionDetail> data = new MutableLiveData<>();
 
     private DetailRepository() {
         this.mRetrofitUtil = RetrofitUtil.getInstance();
@@ -41,7 +40,7 @@ public class DetailRepository {
         return instance;
     }
 
-    public void fetchDetail(@NonNull String serialNo, @NonNull RepositoryCallback<LiveData<PotionDetail>> callback) {
+    public void fetchDetail(@NonNull String serialNo, @NonNull RepositoryCallback<PotionDetail> callback) {
         //TODO: error handling
         Call<DetailVo> res = api.getDetail(serialNo);
         res.enqueue(new Callback<DetailVo>() {
@@ -60,7 +59,7 @@ public class DetailRepository {
                         String rawMaterials = detailVo.getC003().getRow().get(0).getRAWMTRL_NM();
                         String expiration = detailVo.getC003().getRow().get(0).getPOG_DAYCNT();
 
-                        data.setValue(new PotionDetail(takeWay, name, rawMaterials, expiration, effect, factory, caution, storeWay, shape));
+                        PotionDetail data = new PotionDetail(takeWay, name, rawMaterials, expiration, effect, factory, caution, storeWay, shape);
                         callback.onComplete(data);
                     } else {
                         //TODO: 오류 코드 시 처리
