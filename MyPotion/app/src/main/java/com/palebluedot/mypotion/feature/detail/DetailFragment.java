@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.databinding.DataBindingUtil;
@@ -22,8 +23,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.palebluedot.mypotion.R;
 import com.palebluedot.mypotion.databinding.FragmentDetailBinding;
+import com.palebluedot.mypotion.util.MyUtil;
+import com.palebluedot.mypotion.util.TagManager;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
+
+import java.util.ArrayList;
 
 
 //TODO: like db 추가, 성분 추가
@@ -46,6 +51,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     private ArrayAdapter adapter;
     private ListView activityListView;
     private LinearLayout activityPageLayout;
+    private TextView tagsText;
 
 
     public static DetailFragment newInstance(String serialNo, String name, String factory) {
@@ -74,17 +80,18 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         FragmentDetailBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false);
         View view = binding.getRoot();
-
+        tagsText = view.findViewById(R.id.detail_effect_tags);
         //부모 액티비티의 viewModel 가져옴
         //TODO: 로딩 (데이터 바인딩으로 처리하기 visibility로 로딩 켜고 끄기)
         model.getDetail().observe(this.getActivity(), potionDetail -> {
-            binding.setData(potionDetail);
             if(potionDetail.isNoData()) {
                 noDataView.setVisibility(View.VISIBLE);
                 detailFlip.setVisibility(View.GONE);
             }
             else {
-                String[] rawMaterials = potionDetail.getRawMaterials().split(",");
+                binding.setData(potionDetail);
+                tagsText.setText(model.getTagStyleString());
+                ArrayList<String> rawMaterials = MyUtil.splitByComma(potionDetail.getRawMaterials());
                 adapter = new ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, rawMaterials);
                 rawMaterialList.setAdapter(adapter);
                 rawMaterialList.setOnItemClickListener((adapterView, view1, i, l) -> {
