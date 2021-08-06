@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/when_chip_frame"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+<com.google.android.material.chip.ChipGroup
+    android:id="@+id/when_chip_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="horizontal"
+    app:chipSpacingHorizontal="0dp"
+    app:singleLine="true"
+    android:isScrollContainer="true"
+    android:scrollbarAlwaysDrawHorizontalTrack="true"
+    >
+
+        <com.google.android.material.chip.Chip
+        android:tag="1"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        android:text="아침"/>
+
+        <com.google.android.material.chip.Chip
+        android:tag="2"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        android:text="오전"/>
+        <com.google.android.material.chip.Chip
+        android:tag="4"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+
+        android:text="점심"/>
+        <com.google.android.material.chip.Chip
+        android:tag="8"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+
+        android:text="오후"/>
+        <com.google.android.material.chip.Chip
+        android:tag="16"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        android:text="저녁"/>
+        <com.google.android.material.chip.Chip
+        android:tag="32"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        app:chipStartPadding="8dp"
+        app:chipEndPadding="10dp"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        android:text="밤"/>
+</com.google.android.material.chip.ChipGroup>
+</FrameLayout>
