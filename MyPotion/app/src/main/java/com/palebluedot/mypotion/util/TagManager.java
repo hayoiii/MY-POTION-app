@@ -51,8 +51,8 @@ public class TagManager {
             "충치"
     };
 
-    public ArrayList<String> extract(String effect){
-        ArrayList<String> tags = new ArrayList<>();
+    public List<String> extract(String effect){
+        List<String> tags = new ArrayList<>();
         for(int i =0; i<keywords.length; i++){
             if(effect.contains(keywords[i]) && !tags.contains(keywords[i])){
                 tags.add(Constant.TAGS_FOR_EXTRACT[i]);
