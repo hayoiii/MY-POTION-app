@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".feature.search.SearchActivity">
+
+    <LinearLayout
+        android:id="@+id/search_upper_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/primary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="20dp"
+            android:layout_marginBottom="@dimen/margin_section_title_bottom"
+            android:gravity="bottom"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:id="@+id/search_view"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:gravity="bottom|center_horizontal"
+                android:hint="품명으로 검색하세요"
+                android:textAlignment="gravity"/>
+
+            <ImageButton
+                android:id="@+id/search_button"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="?android:attr/actionModeWebSearchDrawable"
+                android:text="검색하기"
+                app:tint="@color/secondary" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/search_total_layout"
+            tools:visibility="visible"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_marginLeft="@dimen/margin_padding_global"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_info"
+                android:text="총"/>
+            <TextView
+                android:id="@+id/total"
+                android:paddingLeft="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_info"
+                android:textStyle="bold"
+                android:textColor="@color/primary_text"
+                tools:text="298"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_info"
+                android:text="건"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/result_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/search_pagination"
+        android:layout_below="@id/search_upper_layout"
+        android:layout_marginHorizontal="@dimen/margin_padding_global"
+        android:background="@color/light_background"
+        android:overScrollMode="always"
+        android:paddingBottom="@dimen/margin_padding_global"
+        tools:listitem="@layout/item_search" />
+
+    <LinearLayout
+        android:id="@+id/search_pagination"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        tools:visibility="visible">
+
+        <ImageButton
+            android:id="@+id/previous_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+
+            android:src="@drawable/ic_navigate_before_24" />
+
+        <TextView
+            android:id="@+id/curr_pageNo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/text_info_title"
+            android:textStyle="bold"
+            tools:text="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="/"
+            android:textAlignment="center"
+            android:textColor="@color/secondary_text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/max_pageNo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            tools:text="98" />
+
+        <ImageButton
+            android:id="@+id/next_button"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+
+            android:src="@drawable/ic_navigate_next_24" />
+
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_card"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_section_title_bottom"
+
+            android:layout_weight="1"
+            android:text="원재료"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/detail_back_btn"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="돌아가기 >"
+            android:textColor="@color/secondary_dark"
+            />
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/raw_material_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        tool:listitem="@android:layout/simple_list_item_1" />
+</LinearLayout>
+
+
+

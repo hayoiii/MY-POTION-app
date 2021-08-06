@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="like"
+            type="boolean" />
+        <variable
+            name="data"
+            type="com.palebluedot.mypotion.data.model.PotionDetail" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#50000000"
+        tools:context=".feature.detail.DetailFragment">
+
+        <!-- The primary full-screen view. This can be replaced with whatever view
+             is needed to present your content, e.g. VideoView, SurfaceView,
+             TextureView, etc. -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            app:cardBackgroundColor="@color/white"
+            android:elevation="32dp"
+            app:cardCornerRadius="12dp"
+            app:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/detail_close_btn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="#00FFFFFF"
+                    android:src="@drawable/ic_close_24" />
+                <LinearLayout
+                    android:id="@+id/upper_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="24dp"
+
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingTop="48dp">
+
+                    <TextView
+                        android:id="@+id/detail_factory_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="@{data.factory}"
+                        android:textAlignment="center"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="@dimen/text_info"
+                        tools:text="제조사 ex_동아제약" />
+
+                    <TextView
+                        android:id="@+id/detail_product_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{data.name}"
+                        android:textAlignment="center"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/text_title"
+                        android:textStyle="bold"
+                        tools:text="홍삼 튼튼" />
+
+                    <TextView
+                        android:id="@+id/detail_effect_tags"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/secondary_dark"
+                        android:textSize="@dimen/text_info"
+                        android:textStyle="bold"
+                        tools:text="#유산균 #지방 감소 #지방 감소 #지방 감소 #지방 감소 #지방 감소 #지방 감소" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="8dp">
+
+                        <com.sackcentury.shinebuttonlib.ShineButton
+                            android:id="@+id/like_fab"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginRight="8dp"
+                            android:checked="@{like}"
+                            android:src="@android:color/darker_gray"
+                            app:allow_random_color="false"
+                            app:big_shine_color="@color/primary_accent"
+                            app:btn_color="@color/secondary_light"
+                            app:btn_fill_color="@color/secondary"
+                            app:click_animation_duration="200"
+                            app:enable_flashing="false"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/detail_add_btn"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:shine_animation_duration="1500"
+                            app:shine_count="8"
+                            app:shine_turn_angle="10"
+                            app:siShape="@drawable/heart"
+                            app:small_shine_color="@color/secondary"
+                            app:small_shine_offset_angle="20" />
+
+                        <Button
+                            android:id="@+id/detail_add_btn"
+                            style="@style/Widget.MaterialComponents.Button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="44dp"
+                            android:text="포션 만들기"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/upper_layout"
+                    android:background="@color/contrastLight" />
+                <include layout="@layout/component_no_data" android:id="@+id/no_data" android:visibility="gone"/>
+                <com.wajahatkarim3.easyflipview.EasyFlipView
+                    android:id="@+id/detail_flip"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/upper_layout"
+                    app:flipDuration="400"
+                    app:flipEnabled="true"
+                    app:flipOnTouch="false"
+                    app:flipType="horizontal">
+                    <!-- Back Layout Goes Here -->
+                    <include layout="@layout/fragment_detail_flip_back" />
+
+                    <!-- Front Layout Goes Here -->
+                    <include
+                        layout="@layout/fragment_detail_flip_front"
+                        app:data="@{data}" />
+                </com.wajahatkarim3.easyflipview.EasyFlipView>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+</layout>
