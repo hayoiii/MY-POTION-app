@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity(tableName = "like")
 public class Like {
@@ -22,10 +23,9 @@ public class Like {
     public String serialNo;
 
     @ColumnInfo(name="effect_tag")
-    public ArrayList<String> effectTags;
+    public List<String> effectTags;
 
-
-    public Like(String name, String factory, String serialNo, ArrayList<String> effectTags) {
+    public Like(String name, String factory, String serialNo, List<String> effectTags) {
         this.name = name;
         this.factory = factory;
         this.serialNo = serialNo;

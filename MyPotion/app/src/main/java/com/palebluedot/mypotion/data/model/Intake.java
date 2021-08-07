@@ -20,7 +20,7 @@ public class Intake {
     public int id;
 
     @ColumnInfo(name="intake_date")
-    public Date date;
+    public String date;
 
     @ColumnInfo(name = "intake_time")
     public Time time;
