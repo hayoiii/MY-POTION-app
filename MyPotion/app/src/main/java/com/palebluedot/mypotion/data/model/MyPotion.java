@@ -58,6 +58,7 @@ public class MyPotion {
     @ColumnInfo(name="when_flag")
     public int whenFlag;
 
+    @Nullable
     @ColumnInfo(name="serial_no")
     public String serialNo;
 }

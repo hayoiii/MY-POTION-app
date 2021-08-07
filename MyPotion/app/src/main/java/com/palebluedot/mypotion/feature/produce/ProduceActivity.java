@@ -93,28 +93,27 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
 
     @Override
     public void onCompletedForm() {
-        if(!CUSTOM_MODE) {
-            String alias = aliasStep.getStepData();
-            if (alias.equals(""))
-                alias = name;
-            String memo = memoStep.getStepData();
-            List<String> tags = tagsStep.getStepData();
+        String alias = CUSTOM_MODE ? customNameStep.getStepData() : aliasStep.getStepData();
+        if (!CUSTOM_MODE && alias.equals(""))
+            alias = name;
 
-            int mDate[] = beginDateStep.getStepData();
-            GregorianCalendar calendar = new GregorianCalendar(mDate[0], mDate[1], mDate[2]);
-            String dateStr = Constant.DATE_FORMAT.format(calendar.getTime());
-            PeriodStep.PeriodHolder periodHolder = periodStep.getStepData();
+        String memo = memoStep.getStepData();
+        List<String> tags = tagsStep.getStepData();
 
-            int days = periodHolder.days;
-            int times = periodHolder.times;
-            int whenFlag = periodHolder.whenFlag;
+        int mDate[] = beginDateStep.getStepData();
+        GregorianCalendar calendar = new GregorianCalendar(mDate[0], mDate[1], mDate[2]);
+        String dateStr = Constant.DATE_FORMAT.format(calendar.getTime());
+        PeriodStep.PeriodHolder periodHolder = periodStep.getStepData();
 
-            MyPotion potion = new MyPotion(serialNo, alias, name, factory, dateStr, "", tags, memo, days, times, whenFlag);
-            repository.insert(potion);
-        }
-        else {
+        int days = periodHolder.days;
+        int times = periodHolder.times;
+        int whenFlag = periodHolder.whenFlag;
 
-        }
+        if(CUSTOM_MODE)
+            factory = factoryStep.getStepData();
+        MyPotion potion = new MyPotion(serialNo, alias, name, factory, dateStr, "", tags, memo, days, times, whenFlag);
+        repository.insert(potion);
+
     }
 
     // TODO : sweet alert
