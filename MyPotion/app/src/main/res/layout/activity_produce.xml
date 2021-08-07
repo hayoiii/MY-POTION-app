@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".feature.produce.ProduceActivity"
+    >
+
+    <ernestoyaquello.com.verticalstepperform.VerticalStepperFormView
+        android:padding="@dimen/margin_padding_global"
+        android:id="@+id/stepper_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:form_horizontal_margin_from_step_numbers_to_content="4dp"
+
+        app:form_circle_background_color="@color/contrastDark"
+        app:form_circle_completed_background_color="@color/secondary"
+        app:form_circle_error_background_color="@color/contrastDark"
+        app:form_next_button_text="NEXT"
+        app:form_next_button_background_color="@color/secondary"
+        app:form_next_button_pressed_background_color="@color/secondary_dark"
+
+        app:form_include_confirmation_step="true"
+        app:form_confirmation_step_title_text="제조하기"
+        app:form_last_button_text="FINISH"
+
+
+        app:form_display_cancel_button_in_last_step="true"
+        app:form_cancel_button_background_color="@android:color/transparent"
+        app:form_cancel_button_pressed_background_color="@android:color/transparent"
+        app:form_cancel_button_text_color="@color/contrastDark"
+        app:form_cancel_button_pressed_text_color="@color/contrastLight"
+
+        app:form_display_step_data_in_subtitle_of_closed_steps="true"
+        />
+<!--        app:form_step_error_message_font_family="@font/b_nanumbarunpen"-->
+<!--        app:form_step_title_font_family="@font/r_nanumbarunpen"-->
+<!--        app:form_step_number_font_family="@font/b_nanumbarunpen"-->
+<!--        app:form_step_subtitle_font_family="@font/r_nanumbarunpen"-->
+
+</RelativeLayout>

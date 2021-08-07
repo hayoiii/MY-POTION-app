@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <NumberPicker
+            android:id="@+id/add_days_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="일 마다"
+            android:textSize="@dimen/text_info_title"
+            android:textColor="@color/primary_text"
+            android:textStyle="normal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginLeft="16dp"
+            android:text="하루"
+            android:textSize="@dimen/text_info_title"
+            android:textColor="@color/primary_text"
+            android:textStyle="normal"/>
+        <NumberPicker
+            android:id="@+id/add_times_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="회씩"
+            android:textSize="@dimen/text_info_title"
+            android:textColor="@color/primary_text"
+            android:textStyle="normal"/>
+    </LinearLayout>
+    <include layout="@layout/component_when_chip_group"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="해당 시간대에 복용 알림을 합니다"
+        android:textSize="@dimen/text_info"
+        android:textColor="@color/secondary_text"
+        android:textStyle="normal"/>
+</LinearLayout>

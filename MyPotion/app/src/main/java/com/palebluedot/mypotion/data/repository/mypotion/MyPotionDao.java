@@ -1,5 +1,6 @@
 package com.palebluedot.mypotion.data.repository.mypotion;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -7,6 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.palebluedot.mypotion.data.model.MyPotion;
+import com.palebluedot.mypotion.data.model.MyPotionId;
 
 import java.util.List;
 
@@ -17,5 +19,8 @@ public interface MyPotionDao {
     LiveData<List<MyPotion>> getAll();
 
     @Insert
-    void insert(MyPotion potion);
+    void insert(@NonNull MyPotion potion);
+
+    @Query("SELECT rowid FROM my_potion WHERE alias = :alias LIMIT 1")
+    MyPotionId[] findDuplicatedAliasId(String alias);
 }

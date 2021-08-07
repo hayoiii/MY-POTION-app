@@ -3,6 +3,7 @@ package com.palebluedot.mypotion.feature.detail;
 import static android.content.Context.CLIPBOARD_SERVICE;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +23,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.palebluedot.mypotion.R;
+import com.palebluedot.mypotion.data.model.PotionDetail;
 import com.palebluedot.mypotion.databinding.FragmentDetailBinding;
+import com.palebluedot.mypotion.feature.produce.ProduceActivity;
+import com.palebluedot.mypotion.feature.search.SearchActivity;
 import com.palebluedot.mypotion.util.MyUtil;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
@@ -144,23 +148,20 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-//        switch (v.getId()){
-//            case R.id.detail_add_btn:
-//                //AddElixirActivity 실행
-//                if(valid) {
-//                    CookieBar.dismiss(getActivity());
-//                    Intent intent = new Intent(getActivity(), AddElixirActivity.class);
-//                    Log.e("DetailFragment", "isNew:");
-//                    intent.putExtra("isNew", true);
-//                    intent.putExtra("product", product);
-//                    intent.putExtra("factory", factory);
-//                    intent.putExtra("effect", effect);
-//                    intent.putExtra("serialNo", mSerialNo);
-//                    ((SearchActivity)getActivity()).goToAdd(intent);
-//                }
-//                CookieBar.dismiss(getActivity());
-//                break;
-//        }
+        switch (v.getId()){
+            case R.id.detail_add_btn:
+                PotionDetail detail = model.getDetail().getValue();
+                if(detail == null)  return;
+                //AddElixirActivity 실행
+                    Intent intent = new Intent(getActivity(), ProduceActivity.class);
+                    intent.putExtra("EDIT_MODE", false);
+                    intent.putExtra("name", detail.getName());
+                    intent.putExtra("factory", detail.getFactory());
+                    intent.putExtra("effect", detail.getEffect());
+                    intent.putExtra("serialNo", mSerialNo);
+                    startActivity(intent);
+                break;
+        }
     }
 
 
