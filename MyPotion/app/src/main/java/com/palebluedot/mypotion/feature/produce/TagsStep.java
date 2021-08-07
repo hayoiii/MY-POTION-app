@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import ernestoyaquello.com.verticalstepperform.Step;
 
 public class TagsStep extends Step<LinkedList<String>> {
-
+//TODO: 다이얼로그로 빼기
     private LinkedList<String> tags;
     private View tagsStepContent;
 
