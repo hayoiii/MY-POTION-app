@@ -8,17 +8,21 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.palebluedot.mypotion.R;
+import com.palebluedot.mypotion.data.repository.RepositoryCallback;
+import com.palebluedot.mypotion.data.repository.mypotion.MyPotionRepository;
 
 import ernestoyaquello.com.verticalstepperform.Step;
 
 public class CustomNameStep extends Step<String> {
-    private static final int MIN_CHARACTERS_ALARM_NAME = 1;
+    private static final int MIN_CHARACTERS_ALARM_NAME = 2;
+    private MyPotionRepository repository;
 
     private TextInputEditText nameEditText;
     private String minCharacterErrorString;
     private String duplicationErrorString;
     private String old = null;
-    private boolean isNew = true;
+    private boolean EDIT_MODE = false;
+    boolean isDuplicated = false;
 
     public CustomNameStep(String title) {
         super(title);
@@ -27,22 +31,23 @@ public class CustomNameStep extends Step<String> {
     public CustomNameStep(String title, String old) {
         super(title);
         this.old = old;
-        this.isNew = false;
+        this.EDIT_MODE = true;
     }
 
     @NonNull
     @Override
     protected View createStepContentLayout() {
+        repository = new MyPotionRepository(getContext());
         // We create this step view programmatically
         nameEditText = new TextInputEditText(getContext());
 
 //        Typeface typeFace = Typeface.createFromAsset(getContext().getAssets(), "font/r_nanumbarunpen.ttf");
 //        nameEditText.setTypeface(typeFace);
 
-        if(!isNew)
+        if(EDIT_MODE)
             nameEditText.setText(old);
 
-        nameEditText.setHint(R.string.form_hint_name);
+        nameEditText.setHint(R.string.form_custom_name);
         nameEditText.setSingleLine(true);
 
         nameEditText.addTextChangedListener(new TextWatcher() {
@@ -62,8 +67,8 @@ public class CustomNameStep extends Step<String> {
             return false;
         });
 
-        minCharacterErrorString = getContext().getResources().getString(R.string.form_error_custom_name_min_characters);
-        duplicationErrorString = getContext().getResources().getString(R.string.form_error_custom_name_duplication);
+        minCharacterErrorString = getContext().getResources().getString(R.string.form_error_min_characters);
+        duplicationErrorString = getContext().getResources().getString(R.string.form_error_potion_duplication);
 
         return nameEditText;
     }
@@ -100,7 +105,7 @@ public class CustomNameStep extends Step<String> {
     @Override
     public String getStepDataAsHumanReadableString() {
         String name = getStepData();
-        return name == null || name.isEmpty()
+        return name.equals("")
                 ? getContext().getString(R.string.form_empty_field)
                 : name;
     }
@@ -118,17 +123,20 @@ public class CustomNameStep extends Step<String> {
             String titleError = String.format(minCharacterErrorString, MIN_CHARACTERS_ALARM_NAME);
             return new IsDataValid(false, titleError);
         } else {
-            if(!isNew && old.equals(stepData))
+            if(EDIT_MODE && old.equals(stepData))
                 return new IsDataValid(true);
             //TODO: 중복 확인
-//            Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT " + DbContract.MyElixirEntry.COLUMN_NAME_ALIAS + " FROM " + DbContract.MyElixirEntry.TABLE_NAME +
-//                    " WHERE " + DbContract.MyElixirEntry.COLUMN_NAME_ALIAS + "='" + stepData +"'", null);
-//            if(c.moveToFirst()){
-//                return new IsDataValid(false, duplicationErrorString);
-//            }
+            if(repository.isDuplicatedAlias(getStepData()))
+                return new IsDataValid(false, duplicationErrorString);
         }
         return new IsDataValid(true);
     }
-
+    RepositoryCallback<Boolean> callback = new RepositoryCallback<Boolean>() {
+        @Override
+        public void onComplete(Boolean result) {
+            isDuplicated = result;
+            isStepDataValid(getStepData());
+        }
+    };
 
 }

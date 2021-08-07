@@ -6,18 +6,26 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.palebluedot.mypotion.R;
+import com.palebluedot.mypotion.data.model.MyPotion;
+import com.palebluedot.mypotion.data.repository.mypotion.MyPotionRepository;
+import com.palebluedot.mypotion.data.repository.results.SearchResultsRepository;
+import com.palebluedot.mypotion.util.Constant;
+import com.palebluedot.mypotion.util.MyUtil;
+
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.LinkedList;
+import java.util.List;
 
 import ernestoyaquello.com.verticalstepperform.VerticalStepperFormView;
 import ernestoyaquello.com.verticalstepperform.listener.StepperFormListener;
 
 public class ProduceActivity extends AppCompatActivity implements StepperFormListener {
-
-    public static final int DB_SUCCESS = 213124;
-    public static final int DB_CANCLED = 45945;
+    private MyPotionRepository repository;
 
     private VerticalStepperFormView verticalStepperForm;
-    private final String[] steps = {"별칭", "메모", "효과 태그", "시작 날짜", "복용 주기"};
-    private final String[] mySteps = {"이름", "제조사", "메모", "효과 태그", "시작 날짜", "복용 주기"};  //for customizing
+    private final String[] steps = {"포션 이름", "메모", "효과 태그", "시작 날짜", "복용 주기"};
+    private final String[] mySteps = {"포션 이름", "제조사", "메모", "효과 태그", "시작 날짜", "복용 주기"};  //for customizing
 
     private CustomNameStep customNameStep;
     private OptionalStep factoryStep;
@@ -39,15 +47,17 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        repository = new MyPotionRepository(this);
         setContentView(R.layout.activity_produce);
 //        Toolbar toolbar = findViewById(R.id.main_toolbar);
 //        setSupportActionBar(toolbar);
+        verticalStepperForm = findViewById(R.id.stepper_form);
 
         Intent intent = getIntent();
         EDIT_MODE = intent.getBooleanExtra("EDIT_MODE", false);
+        CUSTOM_MODE = intent.getBooleanExtra("CUSTOM_MODE", false);
         id = intent.getIntExtra("id", -1);
-
-        name = intent.getStringExtra("product");
+        name = intent.getStringExtra("name");
         factory = intent.getStringExtra("factory");
         effect = intent.getStringExtra("effect");
         serialNo = intent.getStringExtra("serialNo");
@@ -55,99 +65,56 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
         if(EDIT_MODE){
             // TODO: get old data
         }
-        if(!CUSTOM_MODE) {
-            aliasStep = new OptionalStep(steps[0], OptionalStep.FORM_TYPE_ALIAS);
-            aliasStep.setName(name);
-            memoStep = new OptionalStep(steps[1], OptionalStep.FORM_TYPE_MEMO);
-            tagsStep = new TagsStep(steps[2]);
-            tagsStep.initTags(effect);
-            beginDateStep = new BeginDateStep(steps[3]);
-            periodStep = new PeriodStep(steps[4]);
-        }
-        else {
+
+        aliasStep = new OptionalStep(steps[0], OptionalStep.FORM_TYPE_ALIAS);
+        aliasStep.setName(name);
+        memoStep = new OptionalStep(steps[1], OptionalStep.FORM_TYPE_MEMO);
+        tagsStep = new TagsStep(steps[2]);
+        tagsStep.initTags(effect);
+        beginDateStep = new BeginDateStep(steps[3]);
+        periodStep = new PeriodStep(steps[4]);
+
+        if(CUSTOM_MODE) {
+            //aliasStep 대신 customNameStep 사용
+            //factoryStep 추가
             customNameStep = new CustomNameStep(mySteps[0]);
             factoryStep = new OptionalStep(mySteps[1], OptionalStep.FORM_TYPE_FACTORY);
-            memoStep = new OptionalStep(mySteps[2], OptionalStep.FORM_TYPE_MEMO);
-            tagsStep = new TagsStep(mySteps[3]);
-            beginDateStep = new BeginDateStep(mySteps[4]);
-            periodStep = new PeriodStep(mySteps[5]);
+
+            verticalStepperForm
+                    .setup(this, customNameStep, factoryStep, memoStep, tagsStep, beginDateStep, periodStep)
+                    .init();
         }
-
-        verticalStepperForm = findViewById(R.id.stepper_form);
-        verticalStepperForm
-                .setup(this, aliasStep, memoStep, tagsStep, beginDateStep, periodStep)
-                .init();
+        else {
+            verticalStepperForm
+                    .setup(this, aliasStep, memoStep, tagsStep, beginDateStep, periodStep)
+                    .init();
+        }
     }
-
-
-
-//    @Override
-//    public void onCompletedForm() {
-//        String alias = aliasStep.getStepData();
-//        if(alias.equals(""))
-//            alias = name;
-//        String memo = memoStep.getStepData();
-//        String tags = tagsStep.getStepDataAsHumanReadableString();
-//        if(tags.equals(getString(R.string.form_empty_field)))
-//            tags = "";
-//
-//        int mDate[] = beginDateStep.getStepData();
-//        GregorianCalendar calendar = new GregorianCalendar(mDate[0], mDate[1], mDate[2]);
-//        String dateStr = DbContract.DATE_FORMAT.format(calendar.getTime());
-//        PeriodStep.PeriodHolder periodHolder = periodStep.getStepData();
-//
-//        int days = periodHolder.days;
-//        int times = periodHolder.times;
-//        int whenFlag = periodHolder.whenFlag;
-//
-//        SQLiteDatabase db = dbHelper.getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put(DbContract.MyElixirEntry.COLUMN_NAME_PRODUCT, name);
-//        values.put(DbContract.MyElixirEntry.COLUMN_NAME_FACTORY, factory);
-//        values.put(DbContract.MyElixirEntry.COLUMN_NAME_SERIALNO, serialNo);
-//
-//        values.put(DbContract.MyElixirEntry.COLUMN_NAME_ALIAS, alias);
-//        values.put(DbContract.MyElixirEntry.COLUMN_NAME_MEMO, memo);
-//        values.put(DbContract.MyElixirEntry.COLUMN_NAME_TAGS, tags);
-//        values.put(DbContract.MyElixirEntry.COLUMN_NAME_BEGIN, dateStr);
-//        values.put(DbContract.MyElixirEntry.COLUMN_NAME_DAYS, days);
-//        values.put(DbContract.MyElixirEntry.COLUMN_NAME_TIMES, times);
-//        values.put(DbContract.MyElixirEntry.COLUMN_NAME_WHEN, whenFlag);
-//
-//        if(EDIT_MODE) {
-//            long newRowId = db.insert(DbContract.MyElixirEntry.TABLE_NAME, null, values);
-//            if(newRowId>0) {
-//                showResultSAD(this, true, "새로운 엘릭서를 추가하였습니다.");
-//                setResult(DB_SUCCESS);
-//            }
-//            else{
-//                showResultSAD(this, false, "저장");
-//                setResult(DB_CANCLED);
-//                db.close();
-//                return;
-//            }
-//        }
-//        //update
-//        else{
-//            int num = db.update(DbContract.MyElixirEntry.TABLE_NAME, values, DbContract.MyElixirEntry._ID+"="+ id, null);
-//            if(num>0) {
-//                showResultSAD(this, true, "엘릭서를 수하였습니다.");
-//                setResult(DB_SUCCESS);
-//            }
-//            else{
-//                showResultSAD(this, false, "저장");
-//                setResult(DB_CANCLED);
-//                db.close();
-//                return;
-//            }
-//        }
-//        db.close();
-//        finish();
-//    }
 
     @Override
     public void onCompletedForm() {
+        if(!CUSTOM_MODE) {
+            String alias = aliasStep.getStepData();
+            if (alias.equals(""))
+                alias = name;
+            String memo = memoStep.getStepData();
+            List<String> tags = tagsStep.getStepData();
 
+            int mDate[] = beginDateStep.getStepData();
+            GregorianCalendar calendar = new GregorianCalendar(mDate[0], mDate[1], mDate[2]);
+            String dateStr = Constant.DATE_FORMAT.format(calendar.getTime());
+            PeriodStep.PeriodHolder periodHolder = periodStep.getStepData();
+
+            int days = periodHolder.days;
+            int times = periodHolder.times;
+            int whenFlag = periodHolder.whenFlag;
+
+            MyPotion potion = new MyPotion(serialNo, alias, name, factory, dateStr, "", tags, memo, days, times, whenFlag);
+            repository.insert(potion);
+        }
+        else {
+
+        }
     }
 
     // TODO : sweet alert

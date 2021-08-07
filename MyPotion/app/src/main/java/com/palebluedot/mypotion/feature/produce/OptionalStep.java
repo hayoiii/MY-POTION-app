@@ -10,10 +10,13 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.palebluedot.mypotion.R;
+import com.palebluedot.mypotion.data.repository.RepositoryCallback;
+import com.palebluedot.mypotion.data.repository.mypotion.MyPotionRepository;
 
 import ernestoyaquello.com.verticalstepperform.Step;
 
 public class OptionalStep extends Step<String> {
+    private MyPotionRepository repository;
 
     private TextInputEditText editText;
     public final static int FORM_TYPE_MEMO = 0;
@@ -23,34 +26,36 @@ public class OptionalStep extends Step<String> {
     private String duplicationErrorString;
 
     private int type=-1;
-    private boolean isNew = true;
+    private boolean EDIT_MODE = false;
     private String old = null;
-    private String product = null;
+    private String name = null;
+    boolean isDuplicated = false;
 
     public OptionalStep(String title, String old, int type) {
         super(title);
         this.type = type;
         this.old = old;
-        this.isNew = false;
+        this.EDIT_MODE = true;
     }
     public OptionalStep(String title, int type){
         super(title);
         this.type = type;
     }
-    public void setName(String product){
-        this.product = product;
+    public void setName(String name){
+        this.name = name;
     }
 
     @NonNull
     @Override
     protected View createStepContentLayout() {
+        repository = new MyPotionRepository(getContext());
         // We create this step view programmatically
         editText = new TextInputEditText(getContext());
 //        Typeface typeFace = Typeface.createFromAsset(getContext().getAssets(), "font/r_nanumbarunpen.ttf");
 //        editText.setTypeface(typeFace);
         imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        if(!isNew)
+        if(EDIT_MODE)
             editText.setText(old);
 
         if(type == FORM_TYPE_MEMO) {
@@ -80,7 +85,7 @@ public class OptionalStep extends Step<String> {
             getFormView().goToNextStep(true);
             return false;
         });
-        duplicationErrorString = getContext().getResources().getString(R.string.form_error_custom_name_duplication);
+        duplicationErrorString = getContext().getResources().getString(R.string.form_error_potion_duplication);
 
         return editText;
     }
@@ -98,6 +103,7 @@ public class OptionalStep extends Step<String> {
     @Override
     protected void onStepMarkedAsCompleted(boolean animated) {
         // No need to do anything here
+
     }
 
     @Override
@@ -118,12 +124,12 @@ public class OptionalStep extends Step<String> {
     public String getStepDataAsHumanReadableString() {
         String description = getStepData();
         if(type == FORM_TYPE_ALIAS){
-            return description == null || description.isEmpty()
-                    ? product
+            return description.equals("")
+                    ? name
                     : description;
         }
 
-        return description == null || description.isEmpty()
+        return description.equals("")
                 ? getContext().getString(R.string.form_empty_field)
                 : description;
     }
@@ -138,18 +144,23 @@ public class OptionalStep extends Step<String> {
     @Override
     protected IsDataValid isStepDataValid(String stepData) {
         if(type == FORM_TYPE_ALIAS){
-            if(!isNew && old.equals(stepData))
+            if(EDIT_MODE && old.equals(stepData))
                 return new IsDataValid(true);
 
-            if(stepData.equals("") && product!=null)
-                stepData = product;
-                //TODO: 중복 확인
-//                Cursor c = dbHelper.getReadableDatabase().rawQuery("SELECT " + DbContract.MyElixirEntry.COLUMN_NAME_ALIAS + " FROM " + DbContract.MyElixirEntry.TABLE_NAME +
-//                        " WHERE " + DbContract.MyElixirEntry.COLUMN_NAME_ALIAS + "='" + stepData +"'", null);
-//                if(c.moveToFirst()){
-//                    return new IsDataValid(false, duplicationErrorString);
-//                }
+            if(stepData.equals("") && name != null)
+                stepData = name;
+                // 중복 확인
+                if(repository.isDuplicatedAlias(stepData)){
+                    return new IsDataValid(false, duplicationErrorString);
+                }
             }
         return new IsDataValid(true);
     }
+    RepositoryCallback<Boolean> callback = new RepositoryCallback<Boolean>() {
+        @Override
+        public void onComplete(Boolean result) {
+            isDuplicated = result;
+            isStepDataValid(getStepData());
+        }
+    };
 }

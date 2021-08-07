@@ -23,7 +23,7 @@ public class BeginDateStep extends Step<int[]> {
 
     private DatePicker datePicker;
     private int mDate[] = new int[3];
-    private boolean isNew = true;
+    private boolean EDIT_MODE = false;
     private String old = null;
 
     public BeginDateStep(String title) {
@@ -33,8 +33,7 @@ public class BeginDateStep extends Step<int[]> {
     public BeginDateStep(String title, String old) {
         super(title);
         this.old = old;
-        this.isNew = false;
-
+        this.EDIT_MODE = true;
     }
 
     @NonNull
@@ -46,7 +45,8 @@ public class BeginDateStep extends Step<int[]> {
         View beginDateStepContent = inflater.inflate(R.layout.form_date_picker, null, false);
         datePicker = beginDateStepContent.findViewById(R.id.form_date_picker);
         Calendar today = new GregorianCalendar();
-        if(isNew) {
+
+        if(!EDIT_MODE) {
             mDate[0] = today.get(Calendar.YEAR);
             mDate[1] = today.get(Calendar.MONTH);
             mDate[2] = today.get(Calendar.DAY_OF_MONTH);

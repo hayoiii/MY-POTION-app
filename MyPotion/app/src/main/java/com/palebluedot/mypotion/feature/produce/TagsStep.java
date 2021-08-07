@@ -26,7 +26,7 @@ public class TagsStep extends Step<LinkedList<String>> {
     ChipGroup checkedChips;
     private ChipGroup allChips;
 
-    private boolean isNew = true;
+    private boolean EDIT_MODE = false;
 
 
     public TagsStep(String title) {
@@ -36,7 +36,7 @@ public class TagsStep extends Step<LinkedList<String>> {
 
     public TagsStep(String title, String old) {
         super(title);
-        isNew = false;
+        EDIT_MODE = true;
         String[] tagsStrArray = old.split("#");
         // 공백 제거
         for(int i =1; i< tagsStrArray.length; i++){
@@ -47,7 +47,7 @@ public class TagsStep extends Step<LinkedList<String>> {
     }
     public void initTags(String effect){
         if(tags!=null)
-            tags = (LinkedList<String>) TagManager.getInstance().extract(effect);
+            tags = new LinkedList<String>(TagManager.getInstance().extract(effect));
     }
 
     @NonNull
@@ -86,7 +86,7 @@ public class TagsStep extends Step<LinkedList<String>> {
 
             //allChips에서 아이템 클릭 시
             chip.setOnClickListener(v -> {
-                if(chip.isChecked())
+                if(!chip.isChecked())
                     addToCheckedChips(v.getTag().toString());
                 else
                     removeFromCheckedChips(v.getTag().toString());
@@ -99,7 +99,7 @@ public class TagsStep extends Step<LinkedList<String>> {
             }
         }
         //customized tag가 있을 때
-        if(!isNew && count>0){
+        if(EDIT_MODE && count>0){
             int size = tags.size();
             for(int i =0; i<size; i++) {
                 addCustomizedTag(tags.get(i), true);
@@ -107,8 +107,6 @@ public class TagsStep extends Step<LinkedList<String>> {
         }
         return tagsStepContent;
     }
-
-
 
     private void addCustomizedTag(String rawTag, boolean init) {
         String customizedTag = rawTag;
@@ -195,11 +193,8 @@ public class TagsStep extends Step<LinkedList<String>> {
         int num = tags.size();
         if(num == 0)
             return getContext().getString(R.string.form_empty_field);
-        String checkedTags="";
-        for(int i=0; i<num; i++){
-            String tag = tags.get(i);
-            checkedTags += "#"+tag+" ";
-        }
+
+        String checkedTags= TagManager.getInstance().toTagStyle(tags);
         return checkedTags;
     }
 

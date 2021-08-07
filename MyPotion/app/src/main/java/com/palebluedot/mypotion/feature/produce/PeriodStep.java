@@ -23,7 +23,7 @@ public class PeriodStep extends Step<PeriodStep.PeriodHolder> {
     private ChipGroup whenChips;
     private PeriodHolder mData;
     private int old_days, old_times, old_when;
-    private boolean isNew = true;
+    private boolean EDIT_MODE = false;
 
     public PeriodStep(String title){
         super(title);
@@ -33,7 +33,7 @@ public class PeriodStep extends Step<PeriodStep.PeriodHolder> {
         this.old_days = old_days;
         this.old_times = old_times;
         this.old_when = old_whenFlag;
-        isNew = false;
+        EDIT_MODE = true;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class PeriodStep extends Step<PeriodStep.PeriodHolder> {
         timesPicker.setWrapSelectorWheel(false);
         timesPicker.setOnValueChangedListener(((picker, oldVal, newVal) -> mData.times = newVal));
 
-        if(!isNew){
+        if(EDIT_MODE){
             daysPicker.setValue(old_days);
             timesPicker.setValue(old_times);
             for(int i = 0; i< WhenManager.WHEN_FLAGS.length; i++){
@@ -85,7 +85,7 @@ public class PeriodStep extends Step<PeriodStep.PeriodHolder> {
             whenList.add(chip.getText().toString());
         }
 
-        return "하루 "+ mData.times +" 회씩 "+ mData.days+"일 마다\n"
+        return mData.days+"일 마다"+ "하루 "+ mData.times +" 회씩\n"
                 +TextUtils.join(", ",whenList);
     }
 
