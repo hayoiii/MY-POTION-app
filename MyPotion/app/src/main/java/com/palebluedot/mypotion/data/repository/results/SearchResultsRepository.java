@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -130,8 +131,11 @@ public class SearchResultsRepository {
                 e.printStackTrace();
             }
 
+            if(doc.getDocumentElement() == null){
+                return null;
+            }
             // root tag
-            doc.getDocumentElement().normalize();
+            Objects.requireNonNull(doc.getDocumentElement()).normalize();
 
             //page 정보
             NodeList nHeaderList = doc.getElementsByTagName("header");
