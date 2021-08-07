@@ -83,13 +83,12 @@ public class TagsStep extends Step<LinkedList<String>> {
             chip.setText(Constant.TAGS[i]);
             chip.setCloseIconVisible(false);
             chip.setTag(Constant.TAGS[i]);
+            chip.setCheckable(true);
+            chip.setChecked(false);
 
             //allChips에서 아이템 클릭 시
             chip.setOnClickListener(v -> {
-                if(!chip.isChecked())
                     addToCheckedChips(v.getTag().toString());
-                else
-                    removeFromCheckedChips(v.getTag().toString());
             });
 
             allChips.addView(chip);
@@ -119,6 +118,7 @@ public class TagsStep extends Step<LinkedList<String>> {
 
         Chip newChip = new Chip(getContext());
 
+        newChip.setCloseIconVisible(true);
         newChip.setText(customizedTag);
         newChip.setChipBackgroundColorResource(R.color.secondary_light);
         newChip.setTag(customizedTag);
@@ -138,10 +138,13 @@ public class TagsStep extends Step<LinkedList<String>> {
     private void addToCheckedChips(String tag){
         Chip existingChip = ((Chip) checkedChips.findViewWithTag(tag));
         if(existingChip != null) {
+            //이미 체크되어있는 칩이면 체크 취소
+            removeFromCheckedChips(tag);
             return;
         }
         Chip newChip = new Chip(getContext());
 
+        newChip.setCloseIconVisible(true);
         newChip.setText(tag);
         newChip.setTag(tag);
         newChip.setChipBackgroundColorResource(R.color.secondary_light);
@@ -150,6 +153,7 @@ public class TagsStep extends Step<LinkedList<String>> {
         checkedChips.addView(newChip, 0);
 
         //allChips에서 해당 chip을 checked 상태로 만들기
+        //TODO: checked ui 변경
         ((Chip) allChips.findViewWithTag(tag)).setChecked(true);
         if(!tags.contains(tag))
             tags.add(tag);
