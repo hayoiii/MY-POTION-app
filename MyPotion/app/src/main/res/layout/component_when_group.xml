@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="8dp"
+    android:paddingVertical="4dp"
+    android:scrollbarAlwaysDrawHorizontalTrack="true"
+    >
+        <LinearLayout
+            android:id="@+id/when_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView
+                android:tag="1"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:backgroundTint="@color/contrastLight"
+                android:background="@drawable/chip_shape"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="아침"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info" />
+
+            <TextView
+                android:tag="2"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/chip_shape"
+                android:backgroundTint="@color/contrastLight"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="오전"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info" />
+
+            <TextView
+                android:tag="4"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:backgroundTint="@color/contrastLight"
+                android:background="@drawable/chip_shape"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="점심"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info" />
+
+            <TextView
+                android:tag="8"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/chip_shape"
+                android:backgroundTint="@color/contrastLight"
+
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="오후"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info" />
+            <TextView
+                android:tag="16"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:backgroundTint="@color/contrastLight"
+                android:background="@drawable/chip_shape"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="저녁"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info" />
+
+            <TextView
+                android:tag="32"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/chip_shape"
+                android:backgroundTint="@color/contrastLight"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="밤"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info" />
+          
+        </LinearLayout>
+</HorizontalScrollView>

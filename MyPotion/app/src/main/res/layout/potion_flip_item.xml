@@ -1,0 +1,17 @@
+<com.wajahatkarim3.easyflipview.EasyFlipView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/home_flip_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/light_background"
+    app:flipDuration="400"
+    app:flipEnabled="true"
+    app:flipOnTouch="true">
+    <!-- Back Layout Goes Here -->
+    <include layout="@layout/potion_flip_back" />
+
+    <!-- Front Layout Goes Here -->
+    <include layout="@layout/potion_flip_front" />
+
+</com.wajahatkarim3.easyflipview.EasyFlipView>

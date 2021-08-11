@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="4dp"
+    android:layout_height="280dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+
+        app:cardElevation="20dp"
+        app:cardCornerRadius="12dp"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/front_top_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_section_title_bottom"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp">
+
+                <TextView
+                    android:id="@+id/front_alias_or_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="12dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold"
+                    tools:text="네이쳐드림 혈행 개선에 좋은 어쩌고 저쩌 오메가3" />
+
+                <TextView
+                    android:id="@+id/front_tags_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollHorizontally="true"
+                    android:textAlignment="center"
+
+                    android:textColor="@color/secondary_text"
+                    android:textSize="@dimen/text_info"
+                    tools:text="#효과1 #효과2 #효과3" />
+
+                <TextView
+                    android:id="@+id/front_memo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="sample memo"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_info_title" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_above="@id/front_when">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_info"
+                    android:text="하루 "/>
+                <TextView
+                    android:id="@+id/front_times"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+
+                    android:textColor="@color/primary_text"
+                    android:background="#80FFCC80"
+                    android:textSize="@dimen/text_info"
+                    tools:text="3"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_info"
+                    android:text="회씩 "/>
+
+                <TextView
+                    android:id="@+id/front_days"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:textColor="@color/primary_text"
+                    android:background="#80FFCC80"
+                    android:textSize="@dimen/text_info"
+                    tools:text="2"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_info"
+                    android:text="일마다"/>
+            </LinearLayout>
+
+            <include
+                android:id="@+id/front_when"
+                layout="@layout/component_when_group"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_above="@id/front_btn"
+                android:layout_alignParentEnd="true"
+                android:paddingHorizontal="20dp" />
+
+
+            <ImageButton
+                android:id="@+id/front_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:layout_alignParentBottom="true"
+
+                android:background="@color/primary"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:src="@drawable/ic_filled_check_circle_24" />
+<!--            android:layout_above="@id/front_progress"-->
+<!--            <com.mackhartley.roundedprogressbar.RoundedProgressBar-->
+<!--                android:id="@+id/front_progress"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="8dp"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                app:rpbProgressBgColor="@color/contrastLight"-->
+<!--                app:rpbProgressColor="@color/secondary"-->
+<!--                app:rpbShowProgressText="true"-->
+<!--                app:rpbTextSize="8dp"-->
+<!--                app:rpbTextColor="@color/white"-->
+<!--                app:rpbBgTextColor="@color/secondary_dark"/>-->
+
+            <ImageButton
+                android:id="@+id/front_menu_btn"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="8dp"
+                android:background="@drawable/ic_baseline_more_vert_24"
+                android:backgroundTint="@color/contrastDark"
+                tools:ignore="TouchTargetSizeCheck" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+<!--    <include layout="@layout/front_chat_balloon"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_centerHorizontal="true"/>-->
+
+
+</RelativeLayout>
