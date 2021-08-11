@@ -15,4 +15,18 @@
     <string name="form_empty_field">(비어있음)</string>
     <string name="form_error_min_characters">최소 %1$d자 이상 입력하세요.</string>
     <string name="form_error_potion_duplication">이미 존재하는 포션 이름입니다.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main">@string/app_label</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">홈</string>
+    <string name="menu_storage">저장소</string>
+    <string name="menu_calendar">캘린더</string>
+    <string name="app_slogan">나의 첫 번째 포션북</string>
 </resources>
