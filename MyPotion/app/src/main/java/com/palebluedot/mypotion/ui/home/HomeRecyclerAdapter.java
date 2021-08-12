@@ -15,20 +15,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.palebluedot.mypotion.R;
 import com.palebluedot.mypotion.data.model.MyPotion;
-import com.palebluedot.mypotion.data.model.MyPotionItem;
-import com.palebluedot.mypotion.databinding.ItemHomeBinding;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-
+//TODO: onClickItem -> viewmodel의 pos값 바꾸기, 클릭된 아이템 색깔 바꾸기
 public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder> {
     private ColorStateList secondaryLight;
     private ColorStateList secondary;
     private ColorStateList contrastDark;
     private ColorStateList contrastLight;
 
-    protected LiveData<ArrayList<MyPotion>> mData = null;
+    protected ArrayList<MyPotion> mData = null;
+
+    public HomeRecyclerAdapter() {
+        mData = new ArrayList<>();
+    }
+
+    public HomeRecyclerAdapter(ArrayList<MyPotion> mData) {
+        this.mData = mData;
+    }
+
+    public void setData(ArrayList<MyPotion> data) {
+        this.mData = data;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -48,7 +59,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull HomeRecyclerAdapter.ViewHolder holder, int position) {
-        MyPotion potion = Objects.requireNonNull(mData.getValue()).get(position);
+        MyPotion potion = Objects.requireNonNull(mData).get(position);
         holder.aliasText.setText(potion.alias);
         holder.factoryText.setText(potion.factory);
         //TODO: dday
