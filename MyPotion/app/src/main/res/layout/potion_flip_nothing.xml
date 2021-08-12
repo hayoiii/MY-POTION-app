@@ -8,7 +8,7 @@
         android:id="@+id/selected_nothing_layout"
         android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="@dimen/card_min_height"
 
         app:cardElevation="20dp"
         app:cardCornerRadius="12dp"

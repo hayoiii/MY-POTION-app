@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="4dp"
-    android:layout_height="280dp">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="@dimen/card_min_height"
         android:layout_centerHorizontal="true"
 
 
@@ -18,7 +18,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingHorizontal="20dp">
+                android:paddingHorizontal="@dimen/padding_card">
 
                 <TextView
                     android:id="@+id/back_product"
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/back_top_layout"
                 android:orientation="horizontal"
-                android:paddingLeft="20dp">
+                android:paddingLeft="@dimen/padding_card">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -88,13 +88,13 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/back_ing_layout"
+                android:id="@+id/back_last_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/back_begin_layout"
                 android:layout_marginTop="@dimen/margin_top_text"
                 android:orientation="horizontal"
-                android:paddingLeft="20dp">
+                android:paddingLeft="@dimen/padding_card">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -112,8 +112,6 @@
                     android:layout_marginLeft="28dp"
                     android:textColor="@color/secondary_text"
                     tools:text="7일 전" />
-
-
             </LinearLayout>
 
             <TextView
@@ -137,32 +135,29 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_above="@id/back_progressbar"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="4dp"
                 android:background="@color/primary"
                 android:text="자세히"
                 android:tint="@color/secondary" />
 
-<!--            <com.mackhartley.roundedprogressbar.RoundedProgressBar-->
-<!--                android:id="@+id/back_progressbar"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="8dp"-->
-<!--                android:layout_alignParentBottom="true"-->
-<!--                app:rpbBgTextColor="@color/secondary_dark"-->
-<!--                app:rpbProgressBgColor="@color/contrastLight"-->
-<!--                app:rpbProgressColor="@color/secondary"-->
-<!--                app:rpbShowProgressText="true"-->
-<!--                app:rpbTextColor="@color/white"-->
-<!--                app:rpbTextSize="8dp" />-->
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/back_progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true" />
 
             <ImageButton
                 android:id="@+id/back_menu_btn"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/ic_baseline_more_vert_24"
                 android:backgroundTint="@color/contrastDark" />
 
