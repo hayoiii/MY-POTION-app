@@ -198,7 +198,7 @@ public class TagsStep extends Step<LinkedList<String>> {
         if(num == 0)
             return getContext().getString(R.string.form_empty_field);
 
-        String checkedTags= TagManager.getInstance().toTagStyle(tags);
+        String checkedTags= TagManager.getInstance().listToString(tags);
         return checkedTags;
     }
 

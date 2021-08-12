@@ -39,7 +39,7 @@ public class DetailViewModel extends AndroidViewModel implements ShineButton.OnC
     }
 
     public String getTagStyleString() {
-        return TagManager.getInstance().toTagStyle(tags);
+        return TagManager.getInstance().listToString(tags);
     }
 
 

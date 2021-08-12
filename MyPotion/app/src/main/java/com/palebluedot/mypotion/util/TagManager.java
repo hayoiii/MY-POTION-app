@@ -61,7 +61,7 @@ public class TagManager {
         return tags;
     }
 
-    public String toTagStyle(List<String> extractedTags) {
+    public String listToString(List<String> extractedTags) {
         String ret="";
         for(String tag : extractedTags) {
             ret+="#" + tag + " ";

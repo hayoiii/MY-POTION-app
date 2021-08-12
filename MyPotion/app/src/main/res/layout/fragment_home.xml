@@ -1,41 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <FrameLayout
-        android:id="@+id/home_card_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-        <include layout="@layout/potion_flip_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:visibility="visible"
-            android:visibility="gone" />
-        <include layout="@layout/potion_flip_nothing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:visibility="gone"
-            android:visibility="visible"/>
-    </FrameLayout>
+    <data>
+        <variable
+            name="model"
+            type="com.palebluedot.mypotion.ui.home.HomeViewModel" />
+        <variable
+            name="data"
+            type="com.palebluedot.mypotion.data.model.MyPotion" />
+    </data>
 
-    <androidx.core.widget.NestedScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/home_card_layout"
-        android:descendantFocusability="blocksDescendants"
-        android:overScrollMode="always"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        tools:context=".MainActivity">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/home_recycler"
+        <FrameLayout
+            android:id="@+id/home_card_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                layout="@layout/potion_flip_item"
+                app:model="@{model}"
+                app:data="@{data}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:visibility="visible"
+                android:visibility="gone" />
+
+            <include
+                layout="@layout/potion_flip_nothing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:visibility="gone"
+                android:visibility="visible" />
+        </FrameLayout>
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/list_padding_bottom"
-            tools:listitem="@layout/item_home" />
-    </androidx.core.widget.NestedScrollView>
-</RelativeLayout>
+            android:layout_below="@id/home_card_layout"
+            android:descendantFocusability="blocksDescendants"
+            android:overScrollMode="always"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/list_padding_bottom"
+                tools:listitem="@layout/item_home" />
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
+</layout>

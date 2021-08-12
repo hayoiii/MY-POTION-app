@@ -38,4 +38,7 @@ public class HomeViewModel extends ViewModel {
         String ret = "TODAY";
         return ret;
     }
+    public String getEffect() {
+        return TagManager.getInstance().listToString(mPotion.getValue().effectTags);
+    }
 }
