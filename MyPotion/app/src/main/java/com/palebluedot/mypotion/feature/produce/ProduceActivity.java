@@ -81,7 +81,7 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
             factoryStep = new OptionalStep(mySteps[1], OptionalStep.FORM_TYPE_FACTORY);
 
             verticalStepperForm
-                    .setup(this, customNameStep, factoryStep, memoStep, tagsStep, beginDateStep, periodStep)
+                    .setup(this, customNameStep, factoryStep, aliasStep, memoStep, tagsStep, beginDateStep, periodStep)
                     .init();
         }
         else {
@@ -93,8 +93,8 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
 
     @Override
     public void onCompletedForm() {
-        String alias = CUSTOM_MODE ? customNameStep.getStepData() : aliasStep.getStepData();
-        if (!CUSTOM_MODE && alias.equals(""))
+        String alias = aliasStep.getStepData();
+        if (alias.equals(""))
             alias = name;
 
         String memo = memoStep.getStepData();
@@ -109,11 +109,12 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
         int times = periodHolder.times;
         int whenFlag = periodHolder.whenFlag;
 
-        if(CUSTOM_MODE)
+        if(CUSTOM_MODE) {
+            name = customNameStep.getStepData();
             factory = factoryStep.getStepData();
+        }
         MyPotion potion = new MyPotion(serialNo, alias, name, factory, dateStr, "", tags, memo, days, times, whenFlag);
         repository.insert(potion);
-
     }
 
     // TODO : sweet alert
