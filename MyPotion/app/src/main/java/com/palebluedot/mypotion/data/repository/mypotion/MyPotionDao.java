@@ -18,6 +18,9 @@ public interface MyPotionDao {
     @Query("SELECT * FROM my_potion")
     LiveData<List<MyPotion>> getAll();
 
+    @Query("SELECT * FROM my_potion WHERE finish_date = '' || finish_date is null")
+    LiveData<List<MyPotion>> getAllInProgress();
+
     @Insert
     void insert(@NonNull MyPotion potion);
 
