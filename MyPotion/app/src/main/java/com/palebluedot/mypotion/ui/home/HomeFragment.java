@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         model =
-                new ViewModelProvider(getActivity()).get(HomeViewModel.class);
+                new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         binding.setModel(model);
@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
         emptyCard = root.findViewById(R.id.empty_card);
         potionCard = root.findViewById(R.id.potion_card);
 
-        model.mList.observe((LifecycleOwner) getActivity(), new Observer<List<MyPotion>>() {
+        model.mList.observe(getActivity(), new Observer<List<MyPotion>>() {
             @Override
             public void onChanged(List<MyPotion> myPotions) {
                 adapter.setData(new ArrayList<>(myPotions));

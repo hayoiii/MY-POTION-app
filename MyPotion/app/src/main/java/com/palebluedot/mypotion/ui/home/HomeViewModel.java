@@ -23,7 +23,7 @@ public class HomeViewModel extends ViewModel {
     public MutableLiveData<MyPotion> mPotion;
     private MyPotionRepository repository;
     public MutableLiveData<Integer> pos;
-
+//TODO: Caused by: java.lang.InstantiationException: java.lang.Class<com.palebluedot.mypotion.ui.home.HomeViewModel> has no zero argument constructor
     public HomeViewModel(Context context) {
         repository = new MyPotionRepository(context);
         mPotion = new MutableLiveData<MyPotion>();

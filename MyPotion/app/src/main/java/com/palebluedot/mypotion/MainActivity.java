@@ -20,11 +20,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.palebluedot.mypotion.databinding.ActivityMainBinding;
 import com.palebluedot.mypotion.feature.produce.ProduceActivity;
 import com.palebluedot.mypotion.feature.search.SearchActivity;
+import com.palebluedot.mypotion.ui.home.HomeFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private HomeFragment homeFragement;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         searchBtn.setOnClickListener(this);
         addBtn.setOnClickListener(this);
+
+        homeFragement = new HomeFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.nav_host_fragment_content_main, homeFragement)
+                .addToBackStack("home")
+                .commit();
     }
 
     @Override
