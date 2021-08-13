@@ -19,28 +19,11 @@ public class MyPotionRepository {
     private MyPotionDatabase database;
     MyPotionDao dao;
     MutableLiveData<List<MyPotion>> listData;
-    MutableLiveData<MyPotion> potionData;
 
     public MyPotionRepository(Context context) {
         this.database = MyPotionDatabase.getInstance(context);
         this.dao = database.myPotionDao();
         listData = new MutableLiveData<>();
-        potionData = new MutableLiveData<>();
-    }
-    public LiveData<MyPotion> getPotionData() {
-        return potionData;
-    }
-    public LiveData<MyPotion> getSelectedPotion(int id, RepositoryCallback callback) {
-        HomePotionService service = new HomePotionService(id);
-        try {
-            return service.execute().get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            return null;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     public LiveData<List<MyPotion>> getHomeList(){
@@ -99,18 +82,6 @@ public class MyPotionRepository {
             List<MyPotion> result = dao.getAllInProgress();
             listData.postValue(result);
             return listData;
-        }
-    }
-    private class HomePotionService extends AsyncTask<Void, Void, LiveData<MyPotion>> {
-        int id;
-        public HomePotionService(int id) {
-            this.id = id;
-        }
-        @Override
-        protected LiveData<MyPotion> doInBackground(Void... voids) {
-            MyPotion result = dao.getPotionById(id);
-            potionData.postValue(result);
-            return potionData;
         }
     }
 }
