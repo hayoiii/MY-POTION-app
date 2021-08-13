@@ -23,6 +23,7 @@
             android:layout_height="wrap_content">
 
             <include
+                android:id="@+id/potion_card"
                 layout="@layout/potion_flip_item"
                 app:model="@{model}"
                 app:data="@{data}"
@@ -32,6 +33,7 @@
                 android:visibility="gone" />
 
             <include
+                android:id="@+id/empty_card"
                 layout="@layout/potion_flip_nothing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

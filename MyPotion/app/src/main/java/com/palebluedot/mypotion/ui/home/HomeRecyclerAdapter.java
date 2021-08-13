@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.palebluedot.mypotion.R;
@@ -27,13 +28,11 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     private ColorStateList contrastLight;
 
     protected ArrayList<MyPotion> mData = null;
+    HomeViewModel model;
 
-    public HomeRecyclerAdapter() {
+    public HomeRecyclerAdapter(HomeViewModel model) {
         mData = new ArrayList<>();
-    }
-
-    public HomeRecyclerAdapter(ArrayList<MyPotion> mData) {
-        this.mData = mData;
+        this.model = model;
     }
 
     public void setData(ArrayList<MyPotion> data) {
@@ -67,7 +66,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -77,6 +76,12 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
             aliasText = itemView.findViewById(R.id.home_item_alias);
             factoryText = itemView.findViewById(R.id.home_item_factory);
             ddayText = itemView.findViewById(R.id.home_item_label);
+
+            itemView.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                model.pos.setValue(pos);
+                // HomeViewModel would be update selected potion
+            });
         }
     }
 }

@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.palebluedot.mypotion.R;
 import com.palebluedot.mypotion.data.model.MyPotion;
 import com.palebluedot.mypotion.databinding.FragmentHomeBinding;
 
@@ -32,7 +33,12 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         binding.setModel(model);
         RecyclerView recyclerView = binding.homeRecycler;
-        HomeRecyclerAdapter adapter = new HomeRecyclerAdapter();
+        HomeRecyclerAdapter adapter = new HomeRecyclerAdapter(model);
+
+        View root = binding.getRoot();
+        View emptyCard, potionCard;
+        emptyCard = root.findViewById(R.id.empty_card);
+        potionCard = root.findViewById(R.id.potion_card);
 
         model.mList.observe((LifecycleOwner) getActivity(), new Observer<List<MyPotion>>() {
             @Override
@@ -48,7 +54,21 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        View root = binding.getRoot();
+        model.pos.observe(getActivity(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer pos) {
+                if (pos < 0) {
+                    emptyCard.setVisibility(View.VISIBLE);
+                    potionCard.setVisibility(View.GONE);
+                }
+                else {
+                    emptyCard.setVisibility(View.GONE);
+                    potionCard.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+
         return root;
     }
 

@@ -127,8 +127,9 @@
                         android:layout_gravity="bottom"
                         android:layout_marginLeft="28dp"
                         android:textColor="@color/secondary_text"
-                        tools:text="7일 전" />
-<!--TODO: 마지막 복용 날짜.diff(today)-->
+                        tools:text="7일 전"
+                        android:text="@{model.diffFromLast}"
+                        />
                 </LinearLayout>
 
                 <TextView
@@ -145,8 +146,9 @@
                     android:paddingVertical="4dp"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_info"
-                    tools:text="D+1" />
-<!-- TODO: beginDate.diff(today)-->
+                    tools:text="1일 째 진행중"
+                    android:text="@{model.ingDays}"
+                    />
                 <Button
                     android:id="@+id/back_detail_btn"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
