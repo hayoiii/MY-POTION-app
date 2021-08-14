@@ -24,30 +24,20 @@ public class HomeViewModel extends AndroidViewModel {
     public LiveData<List<MyPotion>> mList;
     public MutableLiveData<MyPotion> mPotion;
     private MyPotionRepository repository;
-    public MutableLiveData<Integer> pos;
 //TODO: Caused by: java.lang.InstantiationException: java.lang.Class<com.palebluedot.mypotion.ui.home.HomeViewModel> has no zero argument constructor
     public HomeViewModel(Application application) {
         super(application);
         repository = new MyPotionRepository(application.getApplicationContext());
         mPotion = new MutableLiveData<MyPotion>();
         mList = repository.getHomeList();
-        pos = new MutableLiveData<Integer>(-1);
-
-        pos.observe((LifecycleOwner) application.getApplicationContext(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                if(integer > -1)
-                    mPotion.setValue(mList.getValue().get(integer));
-            }
-        });
     }
 
     /* potion card data */
     public String getAlias() {
-        return mList.getValue().get(pos.getValue()).alias;
+        return mPotion.getValue()!=null ? mPotion.getValue().alias : null;
     }
     public String getFactory() {
-        return mList.getValue().get(pos.getValue()).factory;
+        return mPotion.getValue()!=null ? mPotion.getValue().factory : null;
     }
     public String getDday() {
         //TODO: calendar repo 연결 후 dday 계산
@@ -60,14 +50,25 @@ public class HomeViewModel extends AndroidViewModel {
         return ret;
     }
     public String getEffect() {
-        return TagManager.getInstance().listToString(mPotion.getValue().effectTags);
+        if(mPotion.getValue() != null)
+            return TagManager.getInstance().listToString(mPotion.getValue().effectTags);
+        else
+            return null;
     }
     public String getIngDays() {
-        String beginStr = mList.getValue().get(pos.getValue()).beginDate;
+        if(mPotion.getValue() == null){
+            return null;
+        }
+        String beginStr = mPotion.getValue().beginDate;
         Date today = MyUtil.getFormattedToday();
         Date beginDate = MyUtil.stringToDate(beginStr);
         long msDiff = beginDate.getTime() - today.getTime();
         long dayDiff = msDiff / (24 * 60 * 60 * 1000);
         return String.valueOf(dayDiff)+"일 째 진행중";
+    }
+
+    public void onItemClickListener(int pos) {
+        if(pos > -1)
+            mPotion.setValue(mList.getValue().get(pos));
     }
 }

@@ -79,7 +79,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
-                model.pos.setValue(pos);
+                model.onItemClickListener(pos);
                 // HomeViewModel would be update selected potion
             });
         }
