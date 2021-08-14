@@ -1,7 +1,9 @@
 package com.palebluedot.mypotion.ui.home;
 
+import android.app.Application;
 import android.content.Context;
 
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -18,19 +20,20 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-public class HomeViewModel extends ViewModel {
+public class HomeViewModel extends AndroidViewModel {
     public LiveData<List<MyPotion>> mList;
     public MutableLiveData<MyPotion> mPotion;
     private MyPotionRepository repository;
     public MutableLiveData<Integer> pos;
 //TODO: Caused by: java.lang.InstantiationException: java.lang.Class<com.palebluedot.mypotion.ui.home.HomeViewModel> has no zero argument constructor
-    public HomeViewModel(Context context) {
-        repository = new MyPotionRepository(context);
+    public HomeViewModel(Application application) {
+        super(application);
+        repository = new MyPotionRepository(application.getApplicationContext());
         mPotion = new MutableLiveData<MyPotion>();
         mList = repository.getHomeList();
         pos = new MutableLiveData<Integer>(-1);
 
-        pos.observe((LifecycleOwner) context, new Observer<Integer>() {
+        pos.observe((LifecycleOwner) application.getApplicationContext(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 if(integer > -1)
