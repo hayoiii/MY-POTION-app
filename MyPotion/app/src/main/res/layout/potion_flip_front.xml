@@ -103,7 +103,7 @@
                             android:textColor="@color/primary_text"
                             android:textSize="@dimen/text_info"
                             tools:text="3"
-                            android:text="@{data.times}"
+                            android:text="@{String.valueOf(data.times)}"
                             />
 
                         <TextView
@@ -122,7 +122,7 @@
                             android:textColor="@color/primary_text"
                             android:textSize="@dimen/text_info"
                             tools:text="2"
-                            android:text="@{data.day}"
+                            android:text="@{String.valueOf(data.day)}"
                             />
 
                         <TextView

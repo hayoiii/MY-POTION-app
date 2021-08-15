@@ -21,10 +21,12 @@
         app:flipOnTouch="true">
         <!-- Back Layout Goes Here -->
         <include layout="@layout/potion_flip_back"
+            android:id="@+id/potion_flip_back"
             />
 
         <!-- Front Layout Goes Here -->
         <include layout="@layout/potion_flip_front"
+            android:id="@+id/potion_flip_front"
             app:model="@{model}"
             app:data="@{data}"
             />
