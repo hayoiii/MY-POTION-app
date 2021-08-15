@@ -18,7 +18,7 @@ public interface MyPotionDao {
     @Query("SELECT * FROM my_potion")
     List<MyPotion> getAll();
 
-    @Query("SELECT * FROM my_potion WHERE finish_date = '' || finish_date is null")
+    @Query("SELECT * FROM my_potion WHERE finish_date is null")
     List<MyPotion> getAllInProgress();
 
     @Query("SELECT * FROM my_potion WHERE rowid = :id")

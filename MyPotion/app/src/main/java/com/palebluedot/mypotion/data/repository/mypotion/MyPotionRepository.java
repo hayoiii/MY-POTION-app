@@ -29,7 +29,8 @@ public class MyPotionRepository {
     public LiveData<List<MyPotion>> getHomeList(){
         HomeListService service = new HomeListService();
         try {
-            return service.execute().get();
+            service.execute().get();
+            return listData;
         } catch (ExecutionException e) {
             e.printStackTrace();
             return null;
@@ -83,5 +84,6 @@ public class MyPotionRepository {
             listData.postValue(result);
             return listData;
         }
+
     }
 }
