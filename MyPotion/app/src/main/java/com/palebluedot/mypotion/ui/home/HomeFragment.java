@@ -31,7 +31,7 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         binding.setModel(model);
-        binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(getActivity());
 
         RecyclerView recyclerView = binding.homeRecycler;
         HomeRecyclerAdapter adapter = new HomeRecyclerAdapter(model);
