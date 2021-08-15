@@ -10,6 +10,7 @@ import com.palebluedot.mypotion.data.model.MyPotion;
 import com.palebluedot.mypotion.data.repository.mypotion.MyPotionRepository;
 import com.palebluedot.mypotion.data.repository.results.SearchResultsRepository;
 import com.palebluedot.mypotion.util.Constant;
+import com.palebluedot.mypotion.util.MyCode;
 import com.palebluedot.mypotion.util.MyUtil;
 
 import java.util.Date;
@@ -56,6 +57,8 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
         Intent intent = getIntent();
         EDIT_MODE = intent.getBooleanExtra("EDIT_MODE", false);
         CUSTOM_MODE = intent.getBooleanExtra("CUSTOM_MODE", false);
+
+        /* non-null only if CUSTOM_MODE == false */
         id = intent.getIntExtra("id", -1);
         name = intent.getStringExtra("name");
         factory = intent.getStringExtra("factory");
@@ -70,7 +73,9 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
         aliasStep.setName(name);
         memoStep = new OptionalStep(steps[1], OptionalStep.FORM_TYPE_MEMO);
         tagsStep = new TagsStep(steps[2]);
-        tagsStep.initTags(effect);
+
+        if(!CUSTOM_MODE)
+            tagsStep.initTags(effect);
         beginDateStep = new BeginDateStep(steps[3]);
         periodStep = new PeriodStep(steps[4]);
 
@@ -113,16 +118,20 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
             name = customNameStep.getStepData();
             factory = factoryStep.getStepData();
         }
-        MyPotion potion = new MyPotion(serialNo, alias, name, factory, dateStr, "", tags, memo, days, times, whenFlag);
+        MyPotion potion = new MyPotion(serialNo, alias, name, factory, dateStr, null, tags, memo, days, times, whenFlag);
         repository.insert(potion);
+
+        finishActivity(MyCode.PRODUCE_COMPLETE);
     }
 
     // TODO : sweet alert
     @Override
     public void onCancelledForm() {
-//        SweetAlertDialog cancleSAD =AlertUtil.createCancleSAD(this, null);
+//        SweetAlertDialog cancleSAD = AlertUtil.createCancleSAD(this, null);
 //        cancleSAD.show();
 //        AlertUtil.setSAD(this, cancleSAD, R.color.warning_stroke_color);
+
+        finishActivity(MyCode.PRODUCE_CANCEL);
     }
 
     @Override
