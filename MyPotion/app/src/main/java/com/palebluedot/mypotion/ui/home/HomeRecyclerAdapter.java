@@ -40,8 +40,9 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     @Override
     public HomeRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_home, parent, false) ;
+        View view = LayoutInflater.from(context)
+                .inflate(R.layout.item_home, parent, false);
+
         HomeRecyclerAdapter.ViewHolder vh = new HomeRecyclerAdapter.ViewHolder(view);
 
         secondaryLight= ColorStateList.valueOf(context.getResources().getColor(R.color.secondary_light, context.getTheme()));
@@ -58,6 +59,8 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         holder.aliasText.setText(potion.alias);
         holder.factoryText.setText(potion.factory);
         //TODO: dday
+
+        holder.setOnClickListener(model, position);
     }
 
     @Override
@@ -65,19 +68,18 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         return mData.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView aliasText, factoryText, ddayText;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        final TextView aliasText, factoryText, ddayText;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             aliasText = itemView.findViewById(R.id.home_item_alias);
             factoryText = itemView.findViewById(R.id.home_item_factory);
             ddayText = itemView.findViewById(R.id.home_item_label);
+        }
 
-            itemView.setOnClickListener(v -> {
-                int pos = getAdapterPosition();
-                model.onItemClickListener(pos);
-                // HomeViewModel would be update selected potion
-            });
+        public void setOnClickListener(HomeViewModel model, int position) {
+            model.onItemClickListener(position);
+            // HomeViewModel would be update selected potion
         }
     }
 }

@@ -35,6 +35,7 @@ public class HomeFragment extends Fragment {
 
         RecyclerView recyclerView = binding.homeRecycler;
         HomeRecyclerAdapter adapter = new HomeRecyclerAdapter(model);
+        recyclerView.setAdapter(adapter);
 
         View root = binding.getRoot();
         View emptyCard, potionCard;
