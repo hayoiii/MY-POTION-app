@@ -68,10 +68,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addBtn.setOnClickListener(this);
 
         homeFragement = new HomeFragment();
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.nav_host_fragment_content_main, homeFragement)
-                .addToBackStack("home")
-                .commit();
+        navController.navigate(R.id.nav_home);
+//        getSupportFragmentManager().beginTransaction()
+//                .add(R.id.nav_host_fragment_content_main, homeFragement)
+//                .addToBackStack("home")
+//                .commit();
     }
 
     @Override

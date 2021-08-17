@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.palebluedot.mypotion.R;
@@ -35,6 +36,7 @@ public class HomeFragment extends Fragment {
 
         RecyclerView recyclerView = binding.homeRecycler;
         HomeRecyclerAdapter adapter = new HomeRecyclerAdapter(model);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
 
         View root = binding.getRoot();
