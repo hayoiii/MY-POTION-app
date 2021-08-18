@@ -144,11 +144,11 @@
                     android:background="@color/secondary_light"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="4dp"
+                    android:text="@{model.ingDays}"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_info"
-                    tools:text="1일 째 진행중"
-                    android:text="@{model.ingDays}"
-                    />
+                    tools:text="1일 째 진행중" />
+
                 <Button
                     android:id="@+id/back_detail_btn"
                     style="@style/Widget.MaterialComponents.Button.TextButton"

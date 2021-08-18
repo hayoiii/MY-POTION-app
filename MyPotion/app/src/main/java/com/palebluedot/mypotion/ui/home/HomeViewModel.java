@@ -76,7 +76,7 @@ public class HomeViewModel extends AndroidViewModel {
         Date today = MyUtil.getFormattedToday();
         Date beginDate = MyUtil.stringToDate(beginStr);
         long msDiff = beginDate.getTime() - today.getTime();
-        long dayDiff = msDiff / (24 * 60 * 60 * 1000);
+        long dayDiff = msDiff / (24 * 60 * 60 * 1000) + 1;
         return String.valueOf(dayDiff)+"일 째 진행중";
     }
 
