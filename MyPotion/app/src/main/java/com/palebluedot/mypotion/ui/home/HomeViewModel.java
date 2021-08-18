@@ -48,7 +48,7 @@ public class HomeViewModel extends AndroidViewModel {
     }
     public String getDiffFromLast() {
         if(mPotion.getValue() == null)
-            return "null";
+            return null;
         // intake_calendar - 마지막 복용일로부터 지난 일 수 계산
         Intake last = intakeRepository.getLastIntake(mPotion.getValue().id);
         if (last == null){
