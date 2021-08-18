@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,7 +43,7 @@ public class HomeFragment extends Fragment {
         emptyCard = root.findViewById(R.id.empty_card);
         potionCard = root.findViewById(R.id.potion_card);
 
-        model.mList.observe(getViewLifecycleOwner(), new Observer<List<MyPotion>>() {
+        model.mPotionList.observe(getViewLifecycleOwner(), new Observer<List<MyPotion>>() {
             @Override
             public void onChanged(List<MyPotion> myPotions) {
                 adapter.setData(new ArrayList<>(myPotions));

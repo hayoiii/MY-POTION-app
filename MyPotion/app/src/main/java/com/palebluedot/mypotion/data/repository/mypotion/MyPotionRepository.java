@@ -84,6 +84,5 @@ public class MyPotionRepository {
             listData.postValue(result);
             return listData;
         }
-
     }
 }

@@ -22,6 +22,8 @@
         <!-- Back Layout Goes Here -->
         <include layout="@layout/potion_flip_back"
             android:id="@+id/potion_flip_back"
+            app:model="@{model}"
+            app:data="@{data}"
             />
 
         <!-- Front Layout Goes Here -->
