@@ -141,7 +141,7 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
 
-                    android:background="@color/secondary_light"
+                    android:background="@color/primary_accent_light"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="4dp"
                     android:text="@{model.ingDays}"
