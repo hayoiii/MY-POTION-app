@@ -2,6 +2,7 @@ package com.palebluedot.mypotion.util;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MyUtil {
@@ -42,6 +43,15 @@ public class MyUtil {
             e.printStackTrace();
         }
         return today;
+    }
+
+    public static String dateToString(Date date) {
+        String dateStr = Constant.DATE_FORMAT.format(date);
+        return dateStr;
+    }
+
+    public static String dateToTimeString(Date datetime){
+        return Constant.TIME_FORMAT.format(datetime);
     }
 
     public static Date stringToDate(String formattedStr){
