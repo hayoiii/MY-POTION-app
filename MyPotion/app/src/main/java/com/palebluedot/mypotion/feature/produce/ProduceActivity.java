@@ -58,7 +58,7 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
         EDIT_MODE = intent.getBooleanExtra("EDIT_MODE", false);
         CUSTOM_MODE = intent.getBooleanExtra("CUSTOM_MODE", false);
 
-        /* non-null only if CUSTOM_MODE == false */
+        /* null when CUSTOM_MODE */
         id = intent.getIntExtra("id", -1);
         name = intent.getStringExtra("name");
         factory = intent.getStringExtra("factory");
@@ -99,6 +99,11 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
     @Override
     public void onCompletedForm() {
         String alias = aliasStep.getStepData();
+        if(CUSTOM_MODE) {
+            name = customNameStep.getStepData();
+            factory = factoryStep.getStepData();
+        }
+
         if (alias.equals(""))
             alias = name;
 
@@ -114,10 +119,7 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
         int times = periodHolder.times;
         int whenFlag = periodHolder.whenFlag;
 
-        if(CUSTOM_MODE) {
-            name = customNameStep.getStepData();
-            factory = factoryStep.getStepData();
-        }
+
         MyPotion potion = new MyPotion(serialNo, alias, name, factory, dateStr, null, tags, memo, days, times, whenFlag);
         repository.insert(potion);
 
