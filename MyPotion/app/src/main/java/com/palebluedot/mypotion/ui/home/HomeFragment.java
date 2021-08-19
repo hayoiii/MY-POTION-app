@@ -50,9 +50,7 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         View emptyCard = binding.emptyCard.getRoot();
         EasyFlipView potionCard = binding.potionCard.homeFlipView;
-//        binding.homeCardLayout.setOnClickListener(v -> {
-//            potionCard.flipTheView();
-//        });
+        binding.potionCard.potionFlipFront.frontBtn.setOnClickListener(view -> model.intake());
 
         model.mPotionList.observe(getViewLifecycleOwner(), new Observer<List<MyPotion>>() {
             @Override

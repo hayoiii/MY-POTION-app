@@ -1,6 +1,7 @@
 package com.palebluedot.mypotion.ui.home;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -12,6 +13,7 @@ import com.palebluedot.mypotion.data.repository.intake.IntakeRepository;
 import com.palebluedot.mypotion.data.repository.mypotion.MyPotionRepository;
 import com.palebluedot.mypotion.util.MyUtil;
 import com.palebluedot.mypotion.util.TagManager;
+import com.palebluedot.mypotion.util.WhenManager;
 
 import java.util.Date;
 import java.util.List;
@@ -31,6 +33,27 @@ public class HomeViewModel extends AndroidViewModel {
         mPotion = new MutableLiveData<MyPotion>();
         mPotionList = potionRepository.getHomeList();
         mLastIntake = new MutableLiveData<>();
+    }
+
+    public void intake() {
+        if(mPotion.getValue() == null) return;
+
+        boolean update = mLastIntake.getValue() != null;
+
+        String date = MyUtil.dateToString(new Date());
+        String time = MyUtil.dateToTimeString(new Date());
+        int totalTimes = 1;
+        int whenFlag = WhenManager.now(getApplication().getSharedPreferences(WhenManager.SP_NAME, Context.MODE_PRIVATE));
+        if(update) {
+            Intake oldIntake = mLastIntake.getValue();
+            totalTimes = oldIntake.totalTimes + 1;
+            whenFlag |= oldIntake.whenFlag;
+            time = oldIntake.time + time;
+        }
+
+        Intake intake = new Intake(date, time, totalTimes, whenFlag, mPotion.getValue().id);
+        intakeRepository.intake(intake, update);
+        mLastIntake.setValue(intake);
     }
 
     /* potion card data */
@@ -128,7 +151,9 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public void onItemClick(int pos) {
-        if(pos > -1 && mPotionList.getValue().size() > pos)
+        if(pos > -1 && mPotionList.getValue().size() > pos) {
             mPotion.setValue(mPotionList.getValue().get(pos));
+            mLastIntake.postValue(intakeRepository.getLastIntake(mPotion.getValue().id));
+        }
     }
 }
