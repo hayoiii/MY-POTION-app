@@ -25,4 +25,12 @@ public class Intake {
 
     @ColumnInfo(name = "potion_id")
     public int potionId;
+
+    public Intake(String date, String time, int totalTimes, int whenFlag, int potionId) {
+        this.date = date;
+        this.time = time;
+        this.totalTimes = totalTimes;
+        this.whenFlag = whenFlag;
+        this.potionId = potionId;
+    }
 }

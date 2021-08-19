@@ -3,6 +3,7 @@ package com.palebluedot.mypotion.data.repository.intake;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.palebluedot.mypotion.data.model.Intake;
 
@@ -15,4 +16,9 @@ public interface IntakeDao {
 
     @Insert
     void insert(Intake intake);
+
+    @Query("UPDATE intake_calendar " +
+            "SET intake_time = :time, total_times = :totalTimes, when_flag = :whenFlag " +
+            "WHERE rowid = :intakeId")
+    void update(int intakeId, String time, int totalTimes, int whenFlag);
 }

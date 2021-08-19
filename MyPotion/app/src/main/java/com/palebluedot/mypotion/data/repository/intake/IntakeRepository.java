@@ -41,11 +41,14 @@ public class IntakeRepository {
         return null;
     }
 
-    public void intake(Intake intake){
+    public void intake(Intake intake, boolean update){
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                dao.insert(intake);
+                if(!update)
+                    dao.insert(intake);
+                else
+                    dao.update(intake.id, intake.time, intake.totalTimes, intake.whenFlag);
             }
         };
         Executor diskIO = Executors.newSingleThreadExecutor();
