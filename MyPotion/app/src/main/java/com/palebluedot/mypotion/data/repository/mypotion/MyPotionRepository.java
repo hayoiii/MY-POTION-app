@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.palebluedot.mypotion.data.model.MyPotion;
 import com.palebluedot.mypotion.data.model.MyPotionId;
-import com.palebluedot.mypotion.data.repository.RepositoryCallback;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -80,7 +79,7 @@ public class MyPotionRepository {
     private class HomeListService extends AsyncTask<Void, Void, LiveData<List<MyPotion>>> {
         @Override
         protected LiveData<List<MyPotion>> doInBackground(Void... voids) {
-            List<MyPotion> result = dao.getAllInProgress();
+            List<MyPotion> result = dao.getAllExceptFinsihed();
             listData.postValue(result);
             return listData;
         }

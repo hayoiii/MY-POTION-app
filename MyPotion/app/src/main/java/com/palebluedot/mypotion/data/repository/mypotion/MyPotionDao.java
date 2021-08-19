@@ -18,8 +18,8 @@ public interface MyPotionDao {
     @Query("SELECT * FROM my_potion")
     List<MyPotion> getAll();
 
-    @Query("SELECT * FROM my_potion WHERE finish_date is null and begin_date >= date('now', 'localtime')")
-    List<MyPotion> getAllInProgress();
+    @Query("SELECT * FROM my_potion WHERE finish_date is null")
+    List<MyPotion> getAllExceptFinsihed();
 
     @Query("SELECT * FROM my_potion WHERE rowid = :id")
     MyPotion getPotionById(int id);
