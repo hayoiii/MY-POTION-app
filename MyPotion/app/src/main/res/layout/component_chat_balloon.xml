@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="dday"
+            type="String" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/chat_balloon_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_chat_bubble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="60dp"
+            android:paddingHorizontal="8dp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            tools:text="TODAY"
+            android:text="@{dday}"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/text_info_title"
+            android:background="@drawable/round_rect"
+            android:backgroundTint="@color/secondary"/>
+
+        <ImageView
+            android:src="@drawable/chat_down_arrow"
+            android:layout_below="@id/text_chat_bubble"
+            android:layout_centerHorizontal="true"
+            android:layout_width="16dip"
+            android:layout_height="16dip"
+            android:layout_gravity="center_horizontal"
+            app:tint="@color/secondary" />
+
+    </RelativeLayout>
+</layout>
