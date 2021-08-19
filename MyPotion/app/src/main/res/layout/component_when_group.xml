@@ -2,10 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 <!--TODO: color -->
     <data>
-        <import type="androidx.core.content.ContextCompat" />
         <variable
             name="flag"
-            type="java.lang.Integer" />
+            type="int" />
     </data>
 
     <HorizontalScrollView
@@ -24,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
-                android:backgroundTint="@{flag==1 ? @color/primary_accent_light : @color/contrastLight}"
+                android:backgroundTint="@{(flag | 1) == flag ? @color/primary_accent_light : @color/contrastLight}"
                 android:background="@drawable/chip_shape"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="2dp"
@@ -39,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/chip_shape"
-                android:backgroundTint="@{flag==2 ? @color/primary_accent_light : @color/contrastLight}"
+                android:backgroundTint="@{(flag | 2 )== flag ? @color/primary_accent_light : @color/contrastLight}"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="2dp"
                 android:text="오전"
@@ -52,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
-                android:backgroundTint="@{flag==4 ? @color/primary_accent_light : @color/contrastLight}"
+                android:backgroundTint="@{(flag | 4) == flag ? @color/primary_accent_light : @color/contrastLight}"
                 android:background="@drawable/chip_shape"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="2dp"
@@ -67,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/chip_shape"
-                android:backgroundTint="@{flag==8 ? @color/primary_accent_light : @color/contrastLight}"
+                android:backgroundTint="@{(flag | 8) == flag ? @color/primary_accent_light : @color/contrastLight}"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="2dp"
                 android:text="오후"
@@ -80,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
-                android:backgroundTint="@{flag==16 ? @color/primary_accent_light : @color/contrastLight}"
+                android:backgroundTint="@{(flag | 16) == flag ? @color/primary_accent_light : @color/contrastLight}"
                 android:background="@drawable/chip_shape"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="2dp"
@@ -95,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/chip_shape"
-                android:backgroundTint="@{flag==32 ? @color/primary_accent_light : @color/contrastLight}"
+                android:backgroundTint="@{(flag | 32)  == flag ? @color/primary_accent_light : @color/contrastLight}"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="2dp"
                 android:text="  밤  "
