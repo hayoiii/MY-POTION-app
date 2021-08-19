@@ -118,7 +118,7 @@ public class HomeViewModel extends AndroidViewModel {
         long dayDiff = Math.abs(msDiff) / (24 * 60 * 60 * 1000);
 
         // 아직 시작 전인 포션
-        if(beginDate.before(today)){
+        if(today.before(beginDate)){
             return dayDiff + "일 후 시작";
         }
 
