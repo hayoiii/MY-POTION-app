@@ -123,6 +123,7 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
         MyPotion potion = new MyPotion(serialNo, alias, name, factory, dateStr, null, tags, memo, days, times, whenFlag);
         repository.insert(potion);
 
+        //TODO: doen't work
         finishActivity(MyCode.PRODUCE_COMPLETE);
     }
 

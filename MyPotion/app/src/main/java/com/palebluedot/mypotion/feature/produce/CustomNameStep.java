@@ -125,7 +125,6 @@ public class CustomNameStep extends Step<String> {
         } else {
             if(EDIT_MODE && old.equals(stepData))
                 return new IsDataValid(true);
-            //TODO: 중복 확인
             if(repository.isDuplicatedAlias(getStepData()))
                 return new IsDataValid(false, duplicationErrorString);
         }

@@ -70,7 +70,6 @@ public class AutoCompleteAdapter extends BaseAdapter implements Filterable {
         }
 
         TextView itemView = convertView.findViewById(R.id.auto_complete_item);
-        //TODO: itemView.setOnClickListener(AddStep1Fragment.)
 
         //getItem(position) 코드로 자동완성 될 아이템을 가져온다
         String tagItem = (String) filteredItemList.get(position);

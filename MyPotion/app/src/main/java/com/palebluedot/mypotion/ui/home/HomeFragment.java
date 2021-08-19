@@ -36,6 +36,8 @@ public class HomeFragment extends Fragment {
 
         RecyclerView recyclerView = binding.homeRecycler;
         HomeRecyclerAdapter adapter = new HomeRecyclerAdapter(model);
+
+        //TODO: select effect
         adapter.setOnItemClickListener(new HomeRecyclerAdapter.OnItemClickEventListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -50,8 +52,9 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         View emptyCard = binding.emptyCard.getRoot();
         EasyFlipView potionCard = binding.potionCard.homeFlipView;
-        binding.potionCard.potionFlipFront.frontBtn.setOnClickListener(view -> model.intake());
 
+        //TODO: flip card, image button - touch prob
+        binding.potionCard.potionFlipFront.frontBtn.setOnClickListener(view -> model.intake());
         model.mPotionList.observe(getViewLifecycleOwner(), new Observer<List<MyPotion>>() {
             @Override
             public void onChanged(List<MyPotion> myPotions) {
@@ -65,6 +68,7 @@ public class HomeFragment extends Fragment {
                 if(selectedPotion != null) {
                     binding.setData(selectedPotion);
                     binding.setModel(model);
+                    //TODO: replace with binding
                     emptyCard.setVisibility(View.GONE);
                     potionCard.setVisibility(View.VISIBLE);
                 }

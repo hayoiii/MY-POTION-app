@@ -42,7 +42,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
+//TODO: databinding
         mTotalLayout = findViewById(R.id.search_total_layout);
         mPagination = findViewById(R.id.search_pagination);
         mPageNo = findViewById(R.id.curr_pageNo);

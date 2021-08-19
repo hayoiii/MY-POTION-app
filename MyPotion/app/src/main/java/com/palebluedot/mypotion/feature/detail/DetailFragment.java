@@ -34,7 +34,6 @@ import com.wajahatkarim3.easyflipview.EasyFlipView;
 import java.util.ArrayList;
 
 
-//TODO: like db 추가, 성분 추가
 public class DetailFragment extends Fragment implements View.OnClickListener {
     public DetailFragment() {
         // Required empty public constructor
@@ -167,7 +166,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
 //    @Override
 //    public void onCheckedChanged(View view, boolean checked) {
-//        //TODO: 프로그레스바로 로딩 구현하기
 //        if(valid) {
 //            boolean succeed = insertOrDeleteLike(checked);
 //            if (!succeed) {
@@ -185,7 +183,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 //                            .setTitle("저장되었습니다.").setTitleColor(R.color.primary_text)
 //                            .setMessage("저장소에서 확인하실 수 있습니다.\n기록을 시작하려면 엘릭서를 제조하세요.").setMessageColor(R.color.primary_text)
 //                            .setIcon(R.drawable.ic_filled_check_circle_24)
-//                            //TODO : when from likes
 //                            .setAction("저장소로 이동", () -> {
 //                                //MainActivity의 likes로 이동
 //                                CookieBar.dismiss(getActivity());
