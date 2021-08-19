@@ -147,8 +147,14 @@ public class HomeViewModel extends AndroidViewModel {
         }
 
         return dayDiff +"일 째 진행중";
-
     }
+    public int getTotalTimes() {
+        if(mPotion.getValue() == null || mLastIntake.getValue() == null)
+            return 0;
+
+        return mLastIntake.getValue().totalTimes;
+    }
+    /* -- potion card data --*/
 
     public void onItemClick(int pos) {
         if(pos > -1 && mPotionList.getValue().size() > pos) {
