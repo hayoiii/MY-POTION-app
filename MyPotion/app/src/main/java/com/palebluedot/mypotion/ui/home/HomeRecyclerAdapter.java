@@ -65,9 +65,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         MyPotion potion = Objects.requireNonNull(mData).get(position);
         holder.aliasText.setText(potion.alias);
         holder.factoryText.setText(potion.factory);
-        //TODO: dday
-
-        holder.setOnClickListener(model, position);
+        holder.ddayText.setText(model.getDday(potion.id));
     }
 
     @Override

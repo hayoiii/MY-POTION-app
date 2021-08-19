@@ -41,10 +41,46 @@ public class HomeViewModel extends AndroidViewModel {
         return mPotion.getValue()!=null ? mPotion.getValue().factory : null;
     }
     public String getDday(int potionId) {
-        //TODO: calendar repo 연결 후 dday 계산
-        String ret = "TODAY";
+        if(mPotion.getValue() == null)  return null;
 
-        return ret;
+        // intake_calendar - 마지막 복용일로부터 몇 일 후 복용해야 하는 지 계산
+        Intake last = intakeRepository.getLastIntake(mPotion.getValue().id);
+        //복용 데이터 없을 때
+        if (last == null){
+            return "TODAY";
+        }
+        Date beginDate = MyUtil.stringToDate(mPotion.getValue().beginDate);
+        Date lastDate = MyUtil.stringToDate(last.date);
+        Date today = MyUtil.getFormattedToday();
+
+        // 아직 시작 전인 포션
+        if(beginDate.before(today)){
+            long msDiff = beginDate.getTime() - today.getTime();
+            long dayDiff = msDiff / (24 * 60 * 60 * 1000);
+            return dayDiff + "일 후";
+        }
+
+        long lastDayMsDiff = today.getTime() - lastDate.getTime(); //항상 양수
+        long lastDayDiff = lastDayMsDiff / (24 * 60 * 60 * 1000);
+
+        String dday = "";
+        int day = mPotion.getValue().day;
+        //마지막 기록이 오늘일 때
+        if (lastDayDiff == 0) {
+            int totalTimes = last.totalTimes;
+            if (totalTimes >= mPotion.getValue().times)
+                dday = day + "일 후";
+            else
+                // 아직 하루 복용 횟수를 다 못채웠을 때
+                dday = "TODAY";
+        }
+        // 먹어야될 주기이거나 지났을 때
+        else if (lastDayDiff >= day) dday = "TODAY";
+
+        // 먹어야 될 주기가 아직 되지 않았을 때
+        else dday = (day - lastDayDiff) + "일 후";
+
+        return dday;
     }
     public String getDiffFromLast() {
         if(mPotion.getValue() == null)
@@ -52,13 +88,15 @@ public class HomeViewModel extends AndroidViewModel {
         // intake_calendar - 마지막 복용일로부터 지난 일 수 계산
         Intake last = intakeRepository.getLastIntake(mPotion.getValue().id);
         if (last == null){
-            return "없음";
+            return "첫 기록을 해보세요";
         }
         Date lastDate = MyUtil.stringToDate(last.date);
         Date today = MyUtil.getFormattedToday();
 
         long lastDayMsDiff = today.getTime() - lastDate.getTime(); //항상 양수
         long lastDayDiff = lastDayMsDiff / (24 * 60 * 60 * 1000);
+        if(lastDayDiff == 0)
+            return "오늘";
 
         return lastDayDiff + "일 전";
     }
@@ -72,12 +110,20 @@ public class HomeViewModel extends AndroidViewModel {
         if(mPotion.getValue() == null){
             return null;
         }
+
         String beginStr = mPotion.getValue().beginDate;
         Date today = MyUtil.getFormattedToday();
         Date beginDate = MyUtil.stringToDate(beginStr);
-        long msDiff = beginDate.getTime() - today.getTime();
-        long dayDiff = msDiff / (24 * 60 * 60 * 1000) + 1;
-        return String.valueOf(dayDiff)+"일 째 진행중";
+        long msDiff = today.getTime() - beginDate.getTime();
+        long dayDiff = Math.abs(msDiff) / (24 * 60 * 60 * 1000);
+
+        // 아직 시작 전인 포션
+        if(beginDate.before(today)){
+            return dayDiff + "일 후 시작";
+        }
+
+        return dayDiff +"일 째 진행중";
+
     }
 
     public void onItemClick(int pos) {
