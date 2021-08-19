@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.palebluedot.mypotion.R;
 import com.palebluedot.mypotion.data.model.MyPotion;
 import com.palebluedot.mypotion.databinding.FragmentHomeBinding;
+import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 
 import java.util.ArrayList;
@@ -35,6 +36,14 @@ public class HomeFragment extends Fragment {
 
         RecyclerView recyclerView = binding.homeRecycler;
         HomeRecyclerAdapter adapter = new HomeRecyclerAdapter(model);
+        adapter.setOnItemClickListener(new HomeRecyclerAdapter.OnItemClickEventListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                model.onItemClick(position);
+                // HomeViewModel would be update selected potion
+            }
+        });
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
 
@@ -55,26 +64,12 @@ public class HomeFragment extends Fragment {
             public void onChanged(MyPotion selectedPotion) {
                 if(selectedPotion != null) {
                     binding.setData(selectedPotion);
+                    binding.setModel(model);
                     emptyCard.setVisibility(View.GONE);
                     potionCard.setVisibility(View.VISIBLE);
                 }
             }
         });
-
-//        model.pos.observe(getActivity(), new Observer<Integer>() {
-//            @Override
-//            public void onChanged(Integer pos) {
-//                if (pos < 0) {
-//                    emptyCard.setVisibility(View.VISIBLE);
-//                    potionCard.setVisibility(View.GONE);
-//                }
-//                else {
-//                    emptyCard.setVisibility(View.GONE);
-//                    potionCard.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
-
 
         return root;
     }

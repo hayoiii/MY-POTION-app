@@ -80,8 +80,8 @@ public class HomeViewModel extends AndroidViewModel {
         return String.valueOf(dayDiff)+"일 째 진행중";
     }
 
-    public void onItemClickListener(int pos) {
-        if(pos > -1)
+    public void onItemClick(int pos) {
+        if(pos > -1 && mPotionList.getValue().size() > pos)
             mPotion.setValue(mPotionList.getValue().get(pos));
     }
 }

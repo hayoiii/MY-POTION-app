@@ -22,9 +22,9 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     private ColorStateList secondary;
     private ColorStateList contrastDark;
     private ColorStateList contrastLight;
-
     protected ArrayList<MyPotion> mData = null;
     HomeViewModel model;
+    private OnItemClickEventListener mItemClickListener;
 
     public HomeRecyclerAdapter(HomeViewModel model) {
         mData = new ArrayList<>();
@@ -34,6 +34,13 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     public void setData(ArrayList<MyPotion> data) {
         this.mData = data;
         notifyDataSetChanged();
+    }
+
+    public interface OnItemClickEventListener {
+        void onItemClick(View view, int position);
+    }
+    public void setOnItemClickListener(OnItemClickEventListener listener) {
+        mItemClickListener = listener;
     }
 
     @NonNull
@@ -68,18 +75,23 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         return mData.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         final TextView aliasText, factoryText, ddayText;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             aliasText = itemView.findViewById(R.id.home_item_alias);
             factoryText = itemView.findViewById(R.id.home_item_factory);
             ddayText = itemView.findViewById(R.id.home_item_label);
-        }
 
-        public void setOnClickListener(HomeViewModel model, int position) {
-            model.onItemClickListener(position);
-            // HomeViewModel would be update selected potion
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && mItemClickListener != null) {
+                        mItemClickListener.onItemClick(view, position);
+                    }
+                }
+            });
         }
     }
 }
