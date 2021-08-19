@@ -27,16 +27,18 @@
             android:textColor="@color/primary"
             android:textSize="@dimen/text_info_title"
             android:background="@drawable/round_rect"
-            android:backgroundTint="@color/secondary"/>
+            tools:backgroundTint="@color/secondary"
+            android:backgroundTint='@{dday.equals("TODAY") ? @color/secondary : @color/contrastDark}'/>
 
-        <ImageView
-            android:src="@drawable/chat_down_arrow"
+        <View
+            android:background="@drawable/chat_down_arrow"
             android:layout_below="@id/text_chat_bubble"
             android:layout_centerHorizontal="true"
             android:layout_width="16dip"
             android:layout_height="16dip"
             android:layout_gravity="center_horizontal"
-            app:tint="@color/secondary" />
+            tools:backgroundTint="@color/secondary"
+            android:backgroundTint='@{dday.equals("TODAY") ? @color/secondary : @color/contrastDark}'/>
 
     </RelativeLayout>
 </layout>

@@ -192,11 +192,12 @@
 
         </androidx.cardview.widget.CardView>
 
-        <include layout="@layout/component_chat_balloon"
-            app:dday="@{model.getDday(data.id)}"
-            android:layout_height="wrap_content"
+        <include
+            layout="@layout/component_chat_balloon"
             android:layout_width="wrap_content"
-            android:layout_centerHorizontal="true"/>
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            app:dday="@{model.getDday(data)}" />
 
     </RelativeLayout>
 </layout>

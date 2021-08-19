@@ -40,35 +40,37 @@ public class HomeViewModel extends AndroidViewModel {
     public String getFactory() {
         return mPotion.getValue()!=null ? mPotion.getValue().factory : null;
     }
-    public String getDday(int potionId) {
-        if(mPotion.getValue() == null)  return null;
 
-        // intake_calendar - 마지막 복용일로부터 몇 일 후 복용해야 하는 지 계산
-        Intake last = intakeRepository.getLastIntake(mPotion.getValue().id);
-        //복용 데이터 없을 때
-        if (last == null){
-            return "TODAY";
-        }
-        Date beginDate = MyUtil.stringToDate(mPotion.getValue().beginDate);
-        Date lastDate = MyUtil.stringToDate(last.date);
+    public String getDday(MyPotion potion) {
+        if(potion == null)  return null;
+
+        Date beginDate = MyUtil.stringToDate(potion.beginDate);
         Date today = MyUtil.getFormattedToday();
 
         // 아직 시작 전인 포션
-        if(beginDate.before(today)){
+        if(today.before(beginDate)){
             long msDiff = beginDate.getTime() - today.getTime();
             long dayDiff = msDiff / (24 * 60 * 60 * 1000);
             return dayDiff + "일 후";
         }
 
+        // intake_calendar - 마지막 복용일로부터 몇 일 후 복용해야 하는 지 계산
+        Intake last = intakeRepository.getLastIntake(potion.id);
+        //복용 데이터 없을 때
+        if (last == null){
+            return "TODAY";
+        }
+
+        Date lastDate = MyUtil.stringToDate(last.date);
         long lastDayMsDiff = today.getTime() - lastDate.getTime(); //항상 양수
         long lastDayDiff = lastDayMsDiff / (24 * 60 * 60 * 1000);
 
         String dday = "";
-        int day = mPotion.getValue().day;
+        int day = potion.day;
         //마지막 기록이 오늘일 때
         if (lastDayDiff == 0) {
             int totalTimes = last.totalTimes;
-            if (totalTimes >= mPotion.getValue().times)
+            if (totalTimes >= potion.times)
                 dday = day + "일 후";
             else
                 // 아직 하루 복용 횟수를 다 못채웠을 때

@@ -2,6 +2,7 @@ package com.palebluedot.mypotion.ui.home;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +66,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         MyPotion potion = Objects.requireNonNull(mData).get(position);
         holder.aliasText.setText(potion.alias);
         holder.factoryText.setText(potion.factory);
-        holder.ddayText.setText(model.getDday(potion.id));
+        holder.ddayText.setText(model.getDday(potion));
     }
 
     @Override
