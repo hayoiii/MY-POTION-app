@@ -1,6 +1,10 @@
 package com.palebluedot.mypotion.util;
 
 public class Constant {
+    public static SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("aa hh:mm#", java.util.Locale.getDefault());  //#으로 split하여 사용
+    public static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
+    public static SimpleDateFormat FREINDLY_DATE_FORMAT = new SimpleDateFormat("yyyy년 MM월 dd일", java.util.Locale.getDefault());
+
     public static final String[] TAGS={
             "기억력 상승",
             "혈행 개선",
