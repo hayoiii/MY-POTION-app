@@ -48,9 +48,11 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         View root = binding.getRoot();
-        View emptyCard, potionCard;
-        emptyCard = root.findViewById(R.id.empty_card);
-        potionCard = root.findViewById(R.id.potion_card);
+        View emptyCard = binding.emptyCard.getRoot();
+        EasyFlipView potionCard = binding.potionCard.homeFlipView;
+//        binding.homeCardLayout.setOnClickListener(v -> {
+//            potionCard.flipTheView();
+//        });
 
         model.mPotionList.observe(getViewLifecycleOwner(), new Observer<List<MyPotion>>() {
             @Override
