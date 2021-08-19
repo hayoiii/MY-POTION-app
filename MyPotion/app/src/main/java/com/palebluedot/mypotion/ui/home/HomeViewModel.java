@@ -40,7 +40,12 @@ public class HomeViewModel extends AndroidViewModel {
     public String getFactory() {
         return mPotion.getValue()!=null ? mPotion.getValue().factory : null;
     }
-
+    public String getEffect() {
+        if(mPotion.getValue() != null)
+            return TagManager.getInstance().listToString(mPotion.getValue().effectTags);
+        else
+            return null;
+    }
     public String getDday(MyPotion potion) {
         if(potion == null)  return null;
 
@@ -101,12 +106,6 @@ public class HomeViewModel extends AndroidViewModel {
             return "오늘";
 
         return lastDayDiff + "일 전";
-    }
-    public String getEffect() {
-        if(mPotion.getValue() != null)
-            return TagManager.getInstance().listToString(mPotion.getValue().effectTags);
-        else
-            return null;
     }
     public String getIngDays() {
         if(mPotion.getValue() == null){
