@@ -11,14 +11,15 @@ import java.util.List;
 
 @Dao
 public interface IntakeDao {
-    @Query("SELECT * FROM intake_calendar WHERE potion_id = :potionId ORDER BY rowid DESC LIMIT 1")
+    @Query("SELECT * FROM intake_calendar WHERE potion_id = :potionId ORDER BY intake_date DESC LIMIT 1")
     List<Intake> getLastById(int potionId);
+
+    @Query("SELECT * FROM intake_calendar WHERE potion_id = :potionId AND intake_date = date('now', 'localtime')")
+    List<Intake> getTodayDataById(int potionId);
 
     @Insert
     void insert(Intake intake);
 
-    @Query("UPDATE intake_calendar " +
-            "SET intake_time = :time, total_times = :totalTimes, when_flag = :whenFlag " +
-            "WHERE rowid = :intakeId")
-    void update(int intakeId, String time, int totalTimes, int whenFlag);
+    @Update
+    int update(Intake... intakes);
 }

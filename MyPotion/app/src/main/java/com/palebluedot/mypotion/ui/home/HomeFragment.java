@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.palebluedot.mypotion.R;
+import com.palebluedot.mypotion.data.model.Intake;
 import com.palebluedot.mypotion.data.model.MyPotion;
 import com.palebluedot.mypotion.databinding.FragmentHomeBinding;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
@@ -23,8 +24,9 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel model;
+    HomeViewModel model;
     private FragmentHomeBinding binding;
+    int selectedPosition = -1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 model.onItemClick(position);
+                selectedPosition = position;
                 // HomeViewModel would be update selected potion
             }
         });
@@ -61,6 +64,13 @@ public class HomeFragment extends Fragment {
                 adapter.setData(new ArrayList<>(myPotions));
             }
         });
+        model.mTodayIntake.observe(getViewLifecycleOwner(), new Observer<Intake>() {
+            @Override
+            public void onChanged(Intake intake) {
+                binding.setModel(model);
+                adapter.notifyItemChanged(selectedPosition);
+            }
+        });
 
         model.mPotion.observe(getViewLifecycleOwner(), new Observer<MyPotion>() {
             @Override
@@ -68,7 +78,6 @@ public class HomeFragment extends Fragment {
                 if(selectedPotion != null) {
                     binding.setData(selectedPotion);
                     binding.setModel(model);
-                    //TODO: replace with binding
                     emptyCard.setVisibility(View.GONE);
                     potionCard.setVisibility(View.VISIBLE);
                 }

@@ -22,7 +22,7 @@ import java.util.Objects;
 public class HomeViewModel extends AndroidViewModel {
     public LiveData<List<MyPotion>> mPotionList;
     public MutableLiveData<MyPotion> mPotion;
-    public MutableLiveData<Intake> mLastIntake;
+    public MutableLiveData<Intake> mTodayIntake;
 
     private MyPotionRepository potionRepository;
     private IntakeRepository intakeRepository;
@@ -32,34 +32,32 @@ public class HomeViewModel extends AndroidViewModel {
         intakeRepository = new IntakeRepository(application.getApplicationContext());
         mPotion = new MutableLiveData<MyPotion>();
         mPotionList = potionRepository.getHomeList();
-        mLastIntake = new MutableLiveData<>();
+        mTodayIntake = new MutableLiveData<>();
     }
 
     public void intake() {
         if(mPotion.getValue() == null) return;
-
-        boolean update = mLastIntake.getValue() != null;
-
+        Intake todayIntake = mTodayIntake.getValue();
+        boolean update = todayIntake != null;
+        Intake intake;
         String date = MyUtil.dateToString(new Date());
         String time = MyUtil.dateToTimeString(new Date());
         int totalTimes = 1;
         int whenFlag = WhenManager.now(getApplication().getSharedPreferences(WhenManager.SP_NAME, Context.MODE_PRIVATE));
         if(update) {
-            Intake oldIntake = mLastIntake.getValue();
-            totalTimes = oldIntake.totalTimes + 1;
-            whenFlag |= oldIntake.whenFlag;
-            time = oldIntake.time + time;
+            totalTimes = todayIntake.totalTimes + 1;
+            whenFlag |= todayIntake.whenFlag;
+            time = todayIntake.time + time;
+            intake = new Intake(todayIntake.id, date, time, totalTimes, whenFlag, mPotion.getValue().id);
         }
-
-        Intake intake = new Intake(date, time, totalTimes, whenFlag, mPotion.getValue().id);
+        else {
+            intake = new Intake(date, time, totalTimes, whenFlag, mPotion.getValue().id);
+        }
         intakeRepository.intake(intake, update);
-        mLastIntake.setValue(intake);
+        mTodayIntake.setValue(intake);
     }
 
     /* potion card data */
-    public String getAlias() {
-        return mPotion.getValue()!=null ? mPotion.getValue().alias : null;
-    }
     public String getFactory() {
         return mPotion.getValue()!=null ? mPotion.getValue().factory : null;
     }
@@ -149,17 +147,19 @@ public class HomeViewModel extends AndroidViewModel {
         return dayDiff +"일 째 진행중";
     }
     public int getTotalTimes() {
-        if(mPotion.getValue() == null || mLastIntake.getValue() == null)
+        if(mPotion.getValue() == null || mTodayIntake.getValue() == null)
             return 0;
 
-        return mLastIntake.getValue().totalTimes;
+        return mTodayIntake.getValue().totalTimes;
     }
     /* -- potion card data --*/
 
+    //initiate the potion card
     public void onItemClick(int pos) {
         if(pos > -1 && mPotionList.getValue().size() > pos) {
             mPotion.setValue(mPotionList.getValue().get(pos));
-            mLastIntake.postValue(intakeRepository.getLastIntake(mPotion.getValue().id));
+            Intake todayIntake = intakeRepository.getTodayData(mPotion.getValue().id);
+            mTodayIntake.setValue(todayIntake);
         }
     }
 }

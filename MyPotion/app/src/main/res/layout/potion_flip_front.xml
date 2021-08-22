@@ -168,12 +168,13 @@
                 </LinearLayout>
 
                 <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/front_progressbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/front_content_layout"
                     android:max="@{data.times}"
-                    android:progress="@{model.totalTimes}"
-                    />
+                    android:progress="@{model.totalTimes}" />
+
                 <ImageButton
                     android:id="@+id/front_menu_btn"
                     android:layout_width="24dp"

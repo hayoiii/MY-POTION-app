@@ -40,6 +40,18 @@ public class IntakeRepository {
         }
         return null;
     }
+    @Nullable
+    public Intake getTodayData(int potionId) {
+        TodayDataService service = new TodayDataService(potionId);
+        try {
+            return service.execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public void intake(Intake intake, boolean update){
         Runnable runnable = new Runnable() {
@@ -48,7 +60,7 @@ public class IntakeRepository {
                 if(!update)
                     dao.insert(intake);
                 else
-                    dao.update(intake.id, intake.time, intake.totalTimes, intake.whenFlag);
+                    dao.update(intake);
             }
         };
         Executor diskIO = Executors.newSingleThreadExecutor();
@@ -63,6 +75,22 @@ public class IntakeRepository {
         @Override
         protected Intake doInBackground(Void... voids) {
             List<Intake> result = dao.getLastById(potionId);
+            Intake ret = null;
+            if(!result.isEmpty()) {
+                ret = result.get(0);
+            }
+            return ret;
+        }
+    }
+
+    private class TodayDataService extends AsyncTask<Void, Void, Intake> {
+        private final int potionId;
+        TodayDataService(int potionId){
+            this.potionId = potionId;
+        }
+        @Override
+        protected Intake doInBackground(Void... voids) {
+            List<Intake> result = dao.getTodayDataById(potionId);
             Intake ret = null;
             if(!result.isEmpty()) {
                 ret = result.get(0);

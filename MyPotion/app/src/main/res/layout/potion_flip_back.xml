@@ -167,8 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:max="@{data.times}"
-                    android:progress="@{model.totalTimes}"
-                />
+                    android:progress="@{model.totalTimes}" />
                 <ImageButton
                     android:id="@+id/back_menu_btn"
                     android:layout_width="24dp"
