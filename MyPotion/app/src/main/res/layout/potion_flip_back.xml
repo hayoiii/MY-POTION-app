@@ -159,7 +159,9 @@
                     android:layout_marginTop="4dp"
                     android:background="@color/primary"
                     android:text="자세히"
-                    android:tint="@color/secondary" />
+                    android:tint="@color/secondary"
+                    android:enabled="@{data.serialNo != null ? true : false}"
+                    />
 
                 <com.google.android.material.progressindicator.LinearProgressIndicator
                     android:id="@+id/back_progressbar"
@@ -179,7 +181,8 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/ic_baseline_more_vert_24"
-                    android:backgroundTint="@color/contrastDark" />
+                    android:backgroundTint="@color/contrastDark"
+                    />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

@@ -106,13 +106,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
         noDataView = view.findViewById(R.id.no_data);
 
-        //터치 못하도록 막기
-        activityListView = requireActivity().findViewById(R.id.result_list_view);
-        activityListView.setVisibility(View.INVISIBLE);
-        activityPageLayout = requireActivity().findViewById(R.id.search_pagination);
-        activityPageLayout.setVisibility(View.INVISIBLE);
-
-
         // action buttons
         Button addBtn = view.findViewById(R.id.detail_add_btn);
         ShineButton likeBtn = view.findViewById(R.id.like_fab);
@@ -133,6 +126,16 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         goToFrontBtn.setOnClickListener(v -> detailFlip.flipTheView());
 
         rawMaterialList = view.findViewById(R.id.raw_material_list);
+
+
+        // SearchActivity일 경우
+        activityListView = requireActivity().findViewById(R.id.result_list_view);
+        if(activityListView != null) {
+            activityListView.setVisibility(View.INVISIBLE);
+            activityPageLayout = requireActivity().findViewById(R.id.search_pagination);
+            activityPageLayout.setVisibility(View.INVISIBLE);
+        }
+
         return view;
     }
 

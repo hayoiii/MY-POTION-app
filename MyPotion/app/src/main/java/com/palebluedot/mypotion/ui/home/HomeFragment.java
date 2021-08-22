@@ -16,6 +16,7 @@ import com.palebluedot.mypotion.R;
 import com.palebluedot.mypotion.data.model.Intake;
 import com.palebluedot.mypotion.data.model.MyPotion;
 import com.palebluedot.mypotion.databinding.FragmentHomeBinding;
+import com.palebluedot.mypotion.feature.detail.DetailFragment;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 
@@ -26,6 +27,8 @@ public class HomeFragment extends Fragment {
 
     HomeViewModel model;
     private FragmentHomeBinding binding;
+    private DetailFragment detailFragment;
+
     int selectedPosition = -1;
 
     //TODO: 다른 액티비티에서 넘어올 때 리스트 업데이트하기 (새 포션 추가 액티비티 등)
@@ -59,6 +62,19 @@ public class HomeFragment extends Fragment {
 
         //TODO: flip card, image button - touch prob
         binding.potionCard.potionFlipFront.frontBtn.setOnClickListener(view -> model.intake());
+        binding.potionCard.potionFlipBack.backDetailBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                detailFragment = DetailFragment.newInstance(model.mPotion.getValue().serialNo, model.mPotion.getValue().name, model.mPotion.getValue().factory);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .add(R.id.home_detail_fragment, detailFragment)
+                        .addToBackStack("home_detail")
+                        .commit();
+            }
+        });
+
+
+
         model.mPotionList.observe(getViewLifecycleOwner(), new Observer<List<MyPotion>>() {
             @Override
             public void onChanged(List<MyPotion> myPotions) {
