@@ -28,7 +28,8 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     int selectedPosition = -1;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
+    //TODO: 다른 액티비티에서 넘어올 때 리스트 업데이트하기 (새 포션 추가 액티비티 등)
+   public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         model = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
 
