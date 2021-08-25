@@ -10,6 +10,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -28,8 +29,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private HomeFragment homeFragement;
-
-
+    private NavController navController;
+    private NavHostFragment navHostFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +54,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setOpenableLayout(drawer)
                 .build();
 
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+        navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment_content_main);
-        NavController navController = navHostFragment.getNavController();
+        navController = navHostFragment.getNavController();
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -69,10 +70,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         homeFragement = new HomeFragment();
         navController.navigate(R.id.nav_home);
-//        getSupportFragmentManager().beginTransaction()
-//                .add(R.id.nav_host_fragment_content_main, homeFragement)
-//                .addToBackStack("home")
-//                .commit();
     }
 
     @Override
@@ -102,5 +99,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent1);
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //TODO: 앱을 종료할 것인지 확인
+
     }
 }

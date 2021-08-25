@@ -27,6 +27,7 @@ import com.palebluedot.mypotion.data.model.PotionDetail;
 import com.palebluedot.mypotion.databinding.FragmentDetailBinding;
 import com.palebluedot.mypotion.feature.produce.ProduceActivity;
 import com.palebluedot.mypotion.feature.search.SearchActivity;
+import com.palebluedot.mypotion.ui.home.HomeFragment;
 import com.palebluedot.mypotion.util.MyUtil;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
@@ -49,7 +50,11 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     private ListView activityListView;
     private LinearLayout activityPageLayout;
     private TextView tagsText;
+    private String PARENT_TAG = SearchActivity.TAG;
 
+    public void setParentTag(String PARENT_TAG) {
+        this.PARENT_TAG = PARENT_TAG;
+    }
 
     public static DetailFragment newInstance(String serialNo, String name, String factory) {
         Bundle args = new Bundle();
@@ -114,8 +119,15 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
         ImageButton mCloseBtn = view.findViewById(R.id.detail_close_btn);
         mCloseBtn.setOnClickListener(v -> {
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction().remove(DetailFragment.this).commit();
+            FragmentManager fragmentManager = null;
+            if (PARENT_TAG.equals(SearchActivity.TAG)) {
+                fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.popBackStack();
+            }
+            else if (PARENT_TAG.equals(HomeFragment.TAG)) {
+                fragmentManager = getParentFragmentManager();
+                fragmentManager.popBackStack();
+            }
         });
 
         // 카드 뒤집는 동작
@@ -129,8 +141,8 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
 
         // SearchActivity일 경우
-        activityListView = requireActivity().findViewById(R.id.result_list_view);
-        if(activityListView != null) {
+        if(PARENT_TAG.equals(SearchActivity.TAG)) {
+            activityListView = requireActivity().findViewById(R.id.result_list_view);
             activityListView.setVisibility(View.INVISIBLE);
             activityPageLayout = requireActivity().findViewById(R.id.search_pagination);
             activityPageLayout.setVisibility(View.INVISIBLE);
@@ -144,8 +156,10 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     public void onDestroyView() {
         super.onDestroyView();
 //        CookieBar.dismiss(getActivity());
-        activityListView.setVisibility(View.VISIBLE);
-        activityPageLayout.setVisibility(View.VISIBLE);
+        if(PARENT_TAG.equals(SearchActivity.TAG)) {
+            activityListView.setVisibility(View.VISIBLE);
+            activityPageLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

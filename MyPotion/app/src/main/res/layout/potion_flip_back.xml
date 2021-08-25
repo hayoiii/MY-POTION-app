@@ -158,10 +158,9 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="4dp"
                     android:background="@color/primary"
-                    android:text="자세히"
-                    android:tint="@color/secondary"
                     android:enabled="@{data.serialNo != null ? true : false}"
-                    />
+                    android:text="자세히"
+                    android:tint="@color/secondary" />
 
                 <com.google.android.material.progressindicator.LinearProgressIndicator
                     android:id="@+id/back_progressbar"

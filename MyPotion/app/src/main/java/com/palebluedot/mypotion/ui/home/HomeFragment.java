@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-
+    static public String TAG = "HomeFragment";
     HomeViewModel model;
     private FragmentHomeBinding binding;
     private DetailFragment detailFragment;
@@ -62,18 +63,14 @@ public class HomeFragment extends Fragment {
 
         //TODO: flip card, image button - touch prob
         binding.potionCard.potionFlipFront.frontBtn.setOnClickListener(view -> model.intake());
-        binding.potionCard.potionFlipBack.backDetailBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                detailFragment = DetailFragment.newInstance(model.mPotion.getValue().serialNo, model.mPotion.getValue().name, model.mPotion.getValue().factory);
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .add(R.id.home_detail_fragment, detailFragment)
-                        .addToBackStack("home_detail")
-                        .commit();
-            }
+        binding.potionCard.potionFlipBack.backDetailBtn.setOnClickListener(view -> {
+            detailFragment = DetailFragment.newInstance(model.mPotion.getValue().serialNo, model.mPotion.getValue().name, model.mPotion.getValue().factory);
+            detailFragment.setParentTag(TAG);
+            getChildFragmentManager().beginTransaction()
+                    .add(R.id.home_detail_fragment, detailFragment)
+                    .addToBackStack("home_detail")
+                    .commit();
         });
-
-
 
         model.mPotionList.observe(getViewLifecycleOwner(), new Observer<List<MyPotion>>() {
             @Override
@@ -104,9 +101,12 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
+
 }

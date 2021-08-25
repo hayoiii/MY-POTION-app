@@ -21,7 +21,7 @@ import com.palebluedot.mypotion.feature.detail.DetailFragment;
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
-
+    public static String TAG = "SearchActivity";
     private SearchViewModel model;
     private DetailFragment detailFragment;
     private EditText mSearchView;
