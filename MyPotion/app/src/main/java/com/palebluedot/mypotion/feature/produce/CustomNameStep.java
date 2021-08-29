@@ -28,10 +28,9 @@ public class CustomNameStep extends Step<String> {
         super(title);
     }
 
-    public CustomNameStep(String title, String old) {
-        super(title);
+    public void setOld(String old) {
         this.old = old;
-        this.EDIT_MODE = true;
+        EDIT_MODE = true;
     }
 
     @NonNull
@@ -47,7 +46,7 @@ public class CustomNameStep extends Step<String> {
         if(EDIT_MODE)
             nameEditText.setText(old);
 
-        nameEditText.setHint(R.string.form_custom_name);
+        nameEditText.setHint(R.string.form_hint_name);
         nameEditText.setSingleLine(true);
 
         nameEditText.addTextChangedListener(new TextWatcher() {

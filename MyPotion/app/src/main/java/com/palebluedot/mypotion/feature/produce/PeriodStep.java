@@ -28,13 +28,13 @@ public class PeriodStep extends Step<PeriodStep.PeriodHolder> {
     public PeriodStep(String title){
         super(title);
     }
-    public PeriodStep(String title, int old_days, int old_times, int old_whenFlag) {
-        super(title);
+    public void setOld(int old_days, int old_times, int old_whenFlag) {
         this.old_days = old_days;
         this.old_times = old_times;
         this.old_when = old_whenFlag;
         EDIT_MODE = true;
     }
+
 
     @Override
     protected View createStepContentLayout() {

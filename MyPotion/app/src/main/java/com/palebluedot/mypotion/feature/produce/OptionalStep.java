@@ -28,21 +28,20 @@ public class OptionalStep extends Step<String> {
     private int type=-1;
     private boolean EDIT_MODE = false;
     private String old = null;
-    private String name = null;
+    private String data = null;
     boolean isDuplicated = false;
 
-    public OptionalStep(String title, String old, int type) {
-        super(title);
-        this.type = type;
-        this.old = old;
-        this.EDIT_MODE = true;
-    }
     public OptionalStep(String title, int type){
         super(title);
         this.type = type;
     }
-    public void setName(String name){
-        this.name = name;
+
+    public void setData(String data) {
+        this.data = data;
+    }
+    public void setOld(@NonNull String old){
+        this.old = old;
+        this.EDIT_MODE = true;
     }
 
     @NonNull
@@ -125,7 +124,7 @@ public class OptionalStep extends Step<String> {
         String description = getStepData();
         if(type == FORM_TYPE_ALIAS){
             return description.equals("")
-                    ? name
+                    ? data
                     : description;
         }
 
@@ -144,11 +143,11 @@ public class OptionalStep extends Step<String> {
     @Override
     protected IsDataValid isStepDataValid(String stepData) {
         if(type == FORM_TYPE_ALIAS){
-            if(EDIT_MODE && old.equals(stepData))
+            if(EDIT_MODE && old != null && old.equals(stepData))
                 return new IsDataValid(true);
 
-            if(stepData.equals("") && name != null)
-                stepData = name;
+            if(stepData.equals("") && data != null)
+                stepData = data;
                 // 중복 확인
                 if(repository.isDuplicatedAlias(stepData)){
                     return new IsDataValid(false, duplicationErrorString);

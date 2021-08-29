@@ -8,14 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.palebluedot.mypotion.R;
 import com.palebluedot.mypotion.data.model.MyPotion;
 import com.palebluedot.mypotion.data.repository.mypotion.MyPotionRepository;
-import com.palebluedot.mypotion.data.repository.results.SearchResultsRepository;
 import com.palebluedot.mypotion.util.Constant;
 import com.palebluedot.mypotion.util.MyCode;
-import com.palebluedot.mypotion.util.MyUtil;
 
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
 import java.util.List;
 
 import ernestoyaquello.com.verticalstepperform.VerticalStepperFormView;
@@ -26,7 +22,7 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
 
     private VerticalStepperFormView verticalStepperForm;
     private final String[] steps = {"포션 이름", "메모", "효과 태그", "시작 날짜", "복용 주기"};
-    private final String[] mySteps = {"포션 이름", "제조사", "메모", "효과 태그", "시작 날짜", "복용 주기"};  //for customizing
+    private final String[] mySteps = {"제품명", "제조사", "포션 이름","메모", "효과 태그", "시작 날짜", "복용 주기"};  //for customizing
 
     private CustomNameStep customNameStep;
     private OptionalStep factoryStep;
@@ -59,18 +55,13 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
         CUSTOM_MODE = intent.getBooleanExtra("CUSTOM_MODE", false);
 
         /* null when CUSTOM_MODE */
-        id = intent.getIntExtra("id", -1);
         name = intent.getStringExtra("name");
         factory = intent.getStringExtra("factory");
         effect = intent.getStringExtra("effect");
         serialNo = intent.getStringExtra("serialNo");
 
-        if(EDIT_MODE){
-            // TODO: get old data
-        }
-
         aliasStep = new OptionalStep(steps[0], OptionalStep.FORM_TYPE_ALIAS);
-        aliasStep.setName(name);
+        aliasStep.setData(name);
         memoStep = new OptionalStep(steps[1], OptionalStep.FORM_TYPE_MEMO);
         tagsStep = new TagsStep(steps[2]);
 
@@ -79,11 +70,24 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
         beginDateStep = new BeginDateStep(steps[3]);
         periodStep = new PeriodStep(steps[4]);
 
+        if(EDIT_MODE){
+            aliasStep.setOld(intent.getStringExtra("alias"));
+            memoStep.setOld(intent.getStringExtra("memo"));
+            tagsStep.initTags(intent.getStringExtra("effect"));
+            beginDateStep.setOld(intent.getStringExtra("beginDate"));
+            periodStep.setOld(intent.getIntExtra("days", 1), intent.getIntExtra("times", 1), intent.getIntExtra("whenFlag", 0));
+        }
+
         if(CUSTOM_MODE) {
             //aliasStep 대신 customNameStep 사용
             //factoryStep 추가
             customNameStep = new CustomNameStep(mySteps[0]);
             factoryStep = new OptionalStep(mySteps[1], OptionalStep.FORM_TYPE_FACTORY);
+
+            if(EDIT_MODE) {
+                customNameStep.setOld(name);
+                factoryStep.setOld(factory);
+            }
 
             verticalStepperForm
                     .setup(this, customNameStep, factoryStep, aliasStep, memoStep, tagsStep, beginDateStep, periodStep)
@@ -104,6 +108,7 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
             factory = factoryStep.getStepData();
         }
 
+        //alias is non null
         if (alias.equals(""))
             alias = name;
 

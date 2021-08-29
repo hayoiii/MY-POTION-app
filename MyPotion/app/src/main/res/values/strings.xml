@@ -3,7 +3,6 @@
     <string name="app_label">하루 1포션</string>
 
     <string name="form_hint_name">제품명 (필수)</string>
-    <string name="form_custom_name">포션 이름 (필수)</string>
     <string name="form_hint_memo">기본 정보에 표시되는 메모 (선택)</string>
     <string name="form_hint_factory">제조사 (선택)</string>
     <string name="form_hint_alias">포션 이름 (선택)</string>

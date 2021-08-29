@@ -34,17 +34,6 @@ public class TagsStep extends Step<LinkedList<String>> {
         tags = new LinkedList<>();
     }
 
-    public TagsStep(String title, String old) {
-        super(title);
-        EDIT_MODE = true;
-        String[] tagsStrArray = old.split("#");
-        // 공백 제거
-        for(int i =1; i< tagsStrArray.length; i++){
-            tagsStrArray[i] = tagsStrArray[i].trim();
-        }
-        tags = new LinkedList<>(Arrays.asList(tagsStrArray));
-        tags.remove(0);
-    }
     public void initTags(String effect){
         if(tags!=null)
             tags = new LinkedList<String>(TagManager.getInstance().extract(effect));
