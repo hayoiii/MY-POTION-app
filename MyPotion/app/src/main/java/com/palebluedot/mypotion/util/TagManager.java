@@ -53,6 +53,9 @@ public class TagManager {
 
     public List<String> extract(String effect){
         List<String> tags = new ArrayList<>();
+        if (effect == null || effect.equals(""))
+            return tags;
+
         for(int i =0; i<keywords.length; i++){
             if(effect.contains(keywords[i]) && !tags.contains(keywords[i])){
                 tags.add(Constant.TAGS_FOR_EXTRACT[i]);
