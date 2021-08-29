@@ -25,6 +25,39 @@ public class MyPotionRepository {
         listData = new MutableLiveData<>();
     }
 
+    public void insert(MyPotion potion) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                dao.insert(potion);
+            }
+        };
+        Executor diskIO = Executors.newSingleThreadExecutor();
+        diskIO.execute(runnable);
+    }
+
+    public void update(MyPotion potion) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                dao.update(potion);
+            }
+        };
+        Executor diskIO = Executors.newSingleThreadExecutor();
+        diskIO.execute(runnable);
+    }
+
+    public void delete(MyPotion potion) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                dao.delete(potion);
+            }
+        };
+        Executor diskIO = Executors.newSingleThreadExecutor();
+        diskIO.execute(runnable);
+    }
+
     public LiveData<List<MyPotion>> getHomeList(){
         HomeListService service = new HomeListService();
         try {
@@ -39,15 +72,13 @@ public class MyPotionRepository {
         }
     }
 
-    public void insert(MyPotion potion) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                dao.insert(potion);
-            }
-        };
-        Executor diskIO = Executors.newSingleThreadExecutor();
-        diskIO.execute(runnable);
+    private class HomeListService extends AsyncTask<Void, Void, LiveData<List<MyPotion>>> {
+        @Override
+        protected LiveData<List<MyPotion>> doInBackground(Void... voids) {
+            List<MyPotion> result = dao.getAllExceptFinsihed();
+            listData.postValue(result);
+            return listData;
+        }
     }
 
     public boolean isDuplicatedAlias(String alias) {
@@ -73,15 +104,6 @@ public class MyPotionRepository {
         protected Boolean doInBackground(Void... voids) {
             MyPotionId[] result = dao.findDuplicatedAliasId(alias);
             return result.length != 0;
-        }
-    }
-
-    private class HomeListService extends AsyncTask<Void, Void, LiveData<List<MyPotion>>> {
-        @Override
-        protected LiveData<List<MyPotion>> doInBackground(Void... voids) {
-            List<MyPotion> result = dao.getAllExceptFinsihed();
-            listData.postValue(result);
-            return listData;
         }
     }
 }
