@@ -152,6 +152,24 @@ public class HomeViewModel extends AndroidViewModel {
 
         return mTodayIntake.getValue().totalTimes;
     }
+
+    public void finishSelectedPotion() {
+        MyPotion potion = mPotion.getValue();
+        if (potion == null) throw new AssertionError();
+        potion.finishDate = MyUtil.dateToString(new Date());
+
+        potionRepository.update(potion);
+        mPotion.setValue(null);
+        //TODO: refresh potion list
+    }
+
+    public void deleteSelectedPotion() {
+        MyPotion potion = mPotion.getValue();
+        potionRepository.delete(potion);
+        mPotion.setValue(null);
+        //TODO: refresh potion list
+    }
+
     /* -- potion card data --*/
 
     //initiate the potion card
