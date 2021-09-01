@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private DetailFragment detailFragment;
     MaterialAlertDialogBuilder alertDialogBuilder;
+    HomeRecyclerAdapter adapter;
 
     View.OnClickListener cardMenuHandler = new View.OnClickListener() {
         CharSequence[] menuItems = {"수정하기", "완료하기", "삭제하기", "취소"};
@@ -62,9 +63,11 @@ public class HomeFragment extends Fragment {
                         break;
                     case 1: //완료하기
                         model.finishSelectedPotion();
+                        adapter.notifyItemRemoved(selectedPosition);
                         break;
                     case 2: //삭제하기
                         model.deleteSelectedPotion();
+                        adapter.notifyItemRemoved(selectedPosition);
                         break;
                     case 3: //취소
                         dialog.dismiss();
@@ -88,7 +91,7 @@ public class HomeFragment extends Fragment {
         binding.setLifecycleOwner(getActivity());
 
         RecyclerView recyclerView = binding.homeRecycler;
-        HomeRecyclerAdapter adapter = new HomeRecyclerAdapter(model);
+        adapter = new HomeRecyclerAdapter(model);
 
         //TODO: select effect
         adapter.setOnItemClickListener(new HomeRecyclerAdapter.OnItemClickEventListener() {
@@ -107,7 +110,6 @@ public class HomeFragment extends Fragment {
         View emptyCard = binding.emptyCard.getRoot();
         EasyFlipView potionCard = binding.potionCard.homeFlipView;
 
-        //TODO: flip card, image button - touch prob
         binding.potionCard.potionFlipFront.frontBtn.setOnClickListener(view -> model.intake());
         binding.potionCard.potionFlipBack.backDetailBtn.setOnClickListener(view -> {
             detailFragment = DetailFragment.newInstance(model.mPotion.getValue().serialNo, model.mPotion.getValue().name, model.mPotion.getValue().factory);

@@ -160,14 +160,14 @@ public class HomeViewModel extends AndroidViewModel {
 
         potionRepository.update(potion);
         mPotion.setValue(null);
-        //TODO: refresh potion list
+        potionRepository.getHomeList();
     }
 
     public void deleteSelectedPotion() {
         MyPotion potion = mPotion.getValue();
         potionRepository.delete(potion);
         mPotion.setValue(null);
-        //TODO: refresh potion list
+        potionRepository.getHomeList();
     }
 
     /* -- potion card data --*/
