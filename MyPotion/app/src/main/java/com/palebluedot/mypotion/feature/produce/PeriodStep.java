@@ -85,7 +85,7 @@ public class PeriodStep extends Step<PeriodStep.PeriodHolder> {
             whenList.add(chip.getText().toString());
         }
 
-        return mData.days+"일 마다"+ "하루 "+ mData.times +" 회씩\n"
+        return mData.days+"일 마다 "+ "하루 "+ mData.times +" 회씩\n"
                 +TextUtils.join(", ",whenList);
     }
 

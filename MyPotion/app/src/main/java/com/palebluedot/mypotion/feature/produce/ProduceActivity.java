@@ -128,8 +128,8 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
         MyPotion potion = new MyPotion(serialNo, alias, name, factory, dateStr, null, tags, memo, days, times, whenFlag);
         repository.insert(potion);
 
-        //TODO: doen't work
         finishActivity(MyCode.PRODUCE_COMPLETE);
+        finish();
     }
 
     // TODO : sweet alert
@@ -140,6 +140,7 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
 //        AlertUtil.setSAD(this, cancleSAD, R.color.warning_stroke_color);
 
         finishActivity(MyCode.PRODUCE_CANCEL);
+        finish();
     }
 
     @Override

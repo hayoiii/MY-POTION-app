@@ -143,10 +143,11 @@ public class OptionalStep extends Step<String> {
     @Override
     protected IsDataValid isStepDataValid(String stepData) {
         if(type == FORM_TYPE_ALIAS){
-            if(EDIT_MODE && old != null && old.equals(stepData))
-                return new IsDataValid(true);
-
-            if(stepData.equals("") && data != null)
+            if(EDIT_MODE) {
+                if(old != null && old.equals(stepData))
+                    return new IsDataValid(true);
+            }
+            else if(stepData.equals("") && data != null)
                 stepData = data;
                 // 중복 확인
                 if(repository.isDuplicatedAlias(stepData)){

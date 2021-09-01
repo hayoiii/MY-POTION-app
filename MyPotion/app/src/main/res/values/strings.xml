@@ -8,12 +8,12 @@
     <string name="form_hint_alias">포션 이름 (선택)</string>
 
     <string name="dialog_cancel">정말 취소하시겠습니까?</string>
-    <string name="dialog_input_will_be_lost">지금까지 작성한 내용이 사라집니다.</string>
+    <string name="dialog_input_will_be_lost">지금까지 작성한 내용이 사라집니다</string>
     <string name="dialog_no">아니오</string>
     <string name="dialog_yes">네</string>
     <string name="form_empty_field">(비어있음)</string>
-    <string name="form_error_min_characters">최소 %1$d자 이상 입력하세요.</string>
-    <string name="form_error_potion_duplication">이미 존재하는 포션 이름입니다.</string>
+    <string name="form_error_min_characters">최소 %1$d자 이상 입력하세요</string>
+    <string name="form_error_potion_duplication">이미 존재하는 포션입니다</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
