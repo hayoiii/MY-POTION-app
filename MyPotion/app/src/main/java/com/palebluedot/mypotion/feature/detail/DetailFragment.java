@@ -27,6 +27,7 @@ import com.palebluedot.mypotion.data.model.PotionDetail;
 import com.palebluedot.mypotion.databinding.FragmentDetailBinding;
 import com.palebluedot.mypotion.feature.produce.ProduceActivity;
 import com.palebluedot.mypotion.feature.search.SearchActivity;
+import com.palebluedot.mypotion.ui.home.HomeFragment;
 import com.palebluedot.mypotion.util.MyUtil;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
@@ -34,7 +35,6 @@ import com.wajahatkarim3.easyflipview.EasyFlipView;
 import java.util.ArrayList;
 
 
-//TODO: like db 추가, 성분 추가
 public class DetailFragment extends Fragment implements View.OnClickListener {
     public DetailFragment() {
         // Required empty public constructor
@@ -50,7 +50,11 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     private ListView activityListView;
     private LinearLayout activityPageLayout;
     private TextView tagsText;
+    private String PARENT_TAG = SearchActivity.TAG;
 
+    public void setParentTag(String PARENT_TAG) {
+        this.PARENT_TAG = PARENT_TAG;
+    }
 
     public static DetailFragment newInstance(String serialNo, String name, String factory) {
         Bundle args = new Bundle();
@@ -107,13 +111,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
         noDataView = view.findViewById(R.id.no_data);
 
-        //터치 못하도록 막기
-        activityListView = requireActivity().findViewById(R.id.result_list_view);
-        activityListView.setVisibility(View.INVISIBLE);
-        activityPageLayout = requireActivity().findViewById(R.id.search_pagination);
-        activityPageLayout.setVisibility(View.INVISIBLE);
-
-
         // action buttons
         Button addBtn = view.findViewById(R.id.detail_add_btn);
         ShineButton likeBtn = view.findViewById(R.id.like_fab);
@@ -122,8 +119,15 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
         ImageButton mCloseBtn = view.findViewById(R.id.detail_close_btn);
         mCloseBtn.setOnClickListener(v -> {
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction().remove(DetailFragment.this).commit();
+            FragmentManager fragmentManager = null;
+            if (PARENT_TAG.equals(SearchActivity.TAG)) {
+                fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.popBackStack();
+            }
+            else if (PARENT_TAG.equals(HomeFragment.TAG)) {
+                fragmentManager = getParentFragmentManager();
+                fragmentManager.popBackStack();
+            }
         });
 
         // 카드 뒤집는 동작
@@ -134,6 +138,16 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
         goToFrontBtn.setOnClickListener(v -> detailFlip.flipTheView());
 
         rawMaterialList = view.findViewById(R.id.raw_material_list);
+
+
+        // SearchActivity일 경우
+        if(PARENT_TAG.equals(SearchActivity.TAG)) {
+            activityListView = requireActivity().findViewById(R.id.result_list_view);
+            activityListView.setVisibility(View.INVISIBLE);
+            activityPageLayout = requireActivity().findViewById(R.id.search_pagination);
+            activityPageLayout.setVisibility(View.INVISIBLE);
+        }
+
         return view;
     }
 
@@ -142,8 +156,10 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
     public void onDestroyView() {
         super.onDestroyView();
 //        CookieBar.dismiss(getActivity());
-        activityListView.setVisibility(View.VISIBLE);
-        activityPageLayout.setVisibility(View.VISIBLE);
+        if(PARENT_TAG.equals(SearchActivity.TAG)) {
+            activityListView.setVisibility(View.VISIBLE);
+            activityPageLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -167,7 +183,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 
 //    @Override
 //    public void onCheckedChanged(View view, boolean checked) {
-//        //TODO: 프로그레스바로 로딩 구현하기
 //        if(valid) {
 //            boolean succeed = insertOrDeleteLike(checked);
 //            if (!succeed) {
@@ -185,7 +200,6 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
 //                            .setTitle("저장되었습니다.").setTitleColor(R.color.primary_text)
 //                            .setMessage("저장소에서 확인하실 수 있습니다.\n기록을 시작하려면 엘릭서를 제조하세요.").setMessageColor(R.color.primary_text)
 //                            .setIcon(R.drawable.ic_filled_check_circle_24)
-//                            //TODO : when from likes
 //                            .setAction("저장소로 이동", () -> {
 //                                //MainActivity의 likes로 이동
 //                                CookieBar.dismiss(getActivity());

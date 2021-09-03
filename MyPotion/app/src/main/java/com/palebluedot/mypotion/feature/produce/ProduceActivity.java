@@ -8,13 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.palebluedot.mypotion.R;
 import com.palebluedot.mypotion.data.model.MyPotion;
 import com.palebluedot.mypotion.data.repository.mypotion.MyPotionRepository;
-import com.palebluedot.mypotion.data.repository.results.SearchResultsRepository;
 import com.palebluedot.mypotion.util.Constant;
-import com.palebluedot.mypotion.util.MyUtil;
+import com.palebluedot.mypotion.util.MyCode;
 
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
 import java.util.List;
 
 import ernestoyaquello.com.verticalstepperform.VerticalStepperFormView;
@@ -25,7 +22,7 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
 
     private VerticalStepperFormView verticalStepperForm;
     private final String[] steps = {"포션 이름", "메모", "효과 태그", "시작 날짜", "복용 주기"};
-    private final String[] mySteps = {"포션 이름", "제조사", "메모", "효과 태그", "시작 날짜", "복용 주기"};  //for customizing
+    private final String[] mySteps = {"제품명", "제조사", "포션 이름","메모", "효과 태그", "시작 날짜", "복용 주기"};  //for customizing
 
     private CustomNameStep customNameStep;
     private OptionalStep factoryStep;
@@ -56,23 +53,30 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
         Intent intent = getIntent();
         EDIT_MODE = intent.getBooleanExtra("EDIT_MODE", false);
         CUSTOM_MODE = intent.getBooleanExtra("CUSTOM_MODE", false);
-        id = intent.getIntExtra("id", -1);
+
+        /* null when CUSTOM_MODE */
         name = intent.getStringExtra("name");
         factory = intent.getStringExtra("factory");
         effect = intent.getStringExtra("effect");
         serialNo = intent.getStringExtra("serialNo");
 
-        if(EDIT_MODE){
-            // TODO: get old data
-        }
-
         aliasStep = new OptionalStep(steps[0], OptionalStep.FORM_TYPE_ALIAS);
-        aliasStep.setName(name);
+        aliasStep.setData(name);
         memoStep = new OptionalStep(steps[1], OptionalStep.FORM_TYPE_MEMO);
         tagsStep = new TagsStep(steps[2]);
-        tagsStep.initTags(effect);
+
+        if(!CUSTOM_MODE)
+            tagsStep.initTags(effect);
         beginDateStep = new BeginDateStep(steps[3]);
         periodStep = new PeriodStep(steps[4]);
+
+        if(EDIT_MODE){
+            aliasStep.setOld(intent.getStringExtra("alias"));
+            memoStep.setOld(intent.getStringExtra("memo"));
+            tagsStep.initTags(intent.getStringExtra("effect"));
+            beginDateStep.setOld(intent.getStringExtra("beginDate"));
+            periodStep.setOld(intent.getIntExtra("days", 1), intent.getIntExtra("times", 1), intent.getIntExtra("whenFlag", 0));
+        }
 
         if(CUSTOM_MODE) {
             //aliasStep 대신 customNameStep 사용
@@ -80,8 +84,13 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
             customNameStep = new CustomNameStep(mySteps[0]);
             factoryStep = new OptionalStep(mySteps[1], OptionalStep.FORM_TYPE_FACTORY);
 
+            if(EDIT_MODE) {
+                customNameStep.setOld(name);
+                factoryStep.setOld(factory);
+            }
+
             verticalStepperForm
-                    .setup(this, customNameStep, factoryStep, memoStep, tagsStep, beginDateStep, periodStep)
+                    .setup(this, customNameStep, factoryStep, aliasStep, memoStep, tagsStep, beginDateStep, periodStep)
                     .init();
         }
         else {
@@ -93,8 +102,14 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
 
     @Override
     public void onCompletedForm() {
-        String alias = CUSTOM_MODE ? customNameStep.getStepData() : aliasStep.getStepData();
-        if (!CUSTOM_MODE && alias.equals(""))
+        String alias = aliasStep.getStepData();
+        if(CUSTOM_MODE) {
+            name = customNameStep.getStepData();
+            factory = factoryStep.getStepData();
+        }
+
+        //alias is non null
+        if (alias.equals(""))
             alias = name;
 
         String memo = memoStep.getStepData();
@@ -109,19 +124,23 @@ public class ProduceActivity extends AppCompatActivity implements StepperFormLis
         int times = periodHolder.times;
         int whenFlag = periodHolder.whenFlag;
 
-        if(CUSTOM_MODE)
-            factory = factoryStep.getStepData();
-        MyPotion potion = new MyPotion(serialNo, alias, name, factory, dateStr, "", tags, memo, days, times, whenFlag);
+
+        MyPotion potion = new MyPotion(serialNo, alias, name, factory, dateStr, null, tags, memo, days, times, whenFlag);
         repository.insert(potion);
 
+        finishActivity(MyCode.PRODUCE_COMPLETE);
+        finish();
     }
 
     // TODO : sweet alert
     @Override
     public void onCancelledForm() {
-//        SweetAlertDialog cancleSAD =AlertUtil.createCancleSAD(this, null);
+//        SweetAlertDialog cancleSAD = AlertUtil.createCancleSAD(this, null);
 //        cancleSAD.show();
 //        AlertUtil.setSAD(this, cancleSAD, R.color.warning_stroke_color);
+
+        finishActivity(MyCode.PRODUCE_CANCEL);
+        finish();
     }
 
     @Override

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WhenManager {
+    public static final String SP_NAME = "when";
     public static final int WHEN_1_BREAKFAST = 0x01;
     public static final int WHEN_2_AM = 0x02;
     public static final int WHEN_3_LUNCH = 0x04;

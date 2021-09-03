@@ -14,20 +14,6 @@ public class MyPotion {
     @ColumnInfo(name="rowid")
     public int id;
 
-    public MyPotion(String serialNo, String alias, String name, String factory, String beginDate, String finishDate, List<String> effectTags, String memo, int day, int times, int whenFlag) {
-        this.serialNo = serialNo;
-        this.alias = alias;
-        this.name = name;
-        this.factory = factory;
-        this.beginDate = beginDate;
-        this.finishDate = finishDate;
-        this.effectTags = effectTags;
-        this.memo = memo;
-        this.day = day;
-        this.times = times;
-        this.whenFlag = whenFlag;
-    }
-
     @ColumnInfo(name="alias")
     public String alias;
 
@@ -61,4 +47,19 @@ public class MyPotion {
     @Nullable
     @ColumnInfo(name="serial_no")
     public String serialNo;
+
+
+    public MyPotion(String serialNo, String alias, String name, String factory, String beginDate, String finishDate, List<String> effectTags, String memo, int day, int times, int whenFlag) {
+        this.serialNo = serialNo;
+        this.alias = alias;
+        this.name = name;
+        this.factory = factory;
+        this.beginDate = beginDate;
+        this.finishDate = finishDate;
+        this.effectTags = effectTags;
+        this.memo = memo;
+        this.day = day;
+        this.times = times;
+        this.whenFlag = whenFlag;
+    }
 }

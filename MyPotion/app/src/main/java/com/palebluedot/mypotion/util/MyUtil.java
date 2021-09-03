@@ -1,6 +1,9 @@
 package com.palebluedot.mypotion.util;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MyUtil {
     public static ArrayList<String> splitByComma(String raw) {
@@ -29,5 +32,35 @@ public class MyUtil {
         }
 
         return materials;
+    }
+
+    public static Date getFormattedToday(){
+        Date today = new Date();
+        String str = Constant.DATE_FORMAT.format(today);
+        try {
+            today = Constant.DATE_FORMAT.parse(str);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return today;
+    }
+
+    public static String dateToString(Date date) {
+        String dateStr = Constant.DATE_FORMAT.format(date);
+        return dateStr;
+    }
+
+    public static String dateToTimeString(Date datetime){
+        return Constant.TIME_FORMAT.format(datetime);
+    }
+
+    public static Date stringToDate(String formattedStr){
+        Date date = null;
+        try {
+            date = Constant.DATE_FORMAT.parse(formattedStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 }

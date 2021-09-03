@@ -3,17 +3,10 @@ package com.palebluedot.mypotion.data.model;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.sql.Date;
-import java.sql.Time;
-
-@Entity(tableName = "intake_calendar",
-        foreignKeys = @ForeignKey(
-                entity=MyPotion.class,
-                parentColumns= "rowid",
-                childColumns="potion_id")
-)
+@Entity(tableName = "intake_calendar")
 public class Intake {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name="rowid")
@@ -23,7 +16,7 @@ public class Intake {
     public String date;
 
     @ColumnInfo(name = "intake_time")
-    public Time time;
+    public String time;
 
     @ColumnInfo(name = "total_times")
     public int totalTimes;
@@ -33,4 +26,21 @@ public class Intake {
 
     @ColumnInfo(name = "potion_id")
     public int potionId;
+
+    public Intake(String date, String time, int totalTimes, int whenFlag, int potionId) {
+        this.date = date;
+        this.time = time;
+        this.totalTimes = totalTimes;
+        this.whenFlag = whenFlag;
+        this.potionId = potionId;
+    }
+    @Ignore
+    public Intake(int id, String date, String time, int totalTimes, int whenFlag, int potionId) {
+        this.id = id;
+        this.date = date;
+        this.time = time;
+        this.totalTimes = totalTimes;
+        this.whenFlag = whenFlag;
+        this.potionId = potionId;
+    }
 }

@@ -20,8 +20,9 @@ import com.palebluedot.mypotion.feature.detail.DetailFragment;
 
 import java.util.ArrayList;
 
+//TODO: go to home fragment after producing a potion
 public class SearchActivity extends AppCompatActivity {
-
+    public static String TAG = "SearchActivity";
     private SearchViewModel model;
     private DetailFragment detailFragment;
     private EditText mSearchView;
@@ -42,7 +43,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
+//TODO: databinding
         mTotalLayout = findViewById(R.id.search_total_layout);
         mPagination = findViewById(R.id.search_pagination);
         mPageNo = findViewById(R.id.curr_pageNo);

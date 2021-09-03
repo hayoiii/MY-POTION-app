@@ -9,7 +9,7 @@ import androidx.room.TypeConverters;
 
 import com.palebluedot.mypotion.data.model.MyPotion;
 
-@Database(entities = {MyPotion.class}, version = 2)
+@Database(entities = {MyPotion.class}, version = 3)
 @TypeConverters({com.palebluedot.mypotion.data.TypeConverters.class})
 public abstract class MyPotionDatabase extends RoomDatabase {
     private static MyPotionDatabase instance = null;

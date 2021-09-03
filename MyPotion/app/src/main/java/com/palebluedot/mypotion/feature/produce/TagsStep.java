@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import ernestoyaquello.com.verticalstepperform.Step;
 
 public class TagsStep extends Step<LinkedList<String>> {
-//TODO: 다이얼로그로 빼기
+//TODO: 다이얼로그로 빼기, 갯수 제한 넣기
     private LinkedList<String> tags;
     private View tagsStepContent;
 
@@ -34,17 +34,6 @@ public class TagsStep extends Step<LinkedList<String>> {
         tags = new LinkedList<>();
     }
 
-    public TagsStep(String title, String old) {
-        super(title);
-        EDIT_MODE = true;
-        String[] tagsStrArray = old.split("#");
-        // 공백 제거
-        for(int i =1; i< tagsStrArray.length; i++){
-            tagsStrArray[i] = tagsStrArray[i].trim();
-        }
-        tags = new LinkedList<>(Arrays.asList(tagsStrArray));
-        tags.remove(0);
-    }
     public void initTags(String effect){
         if(tags!=null)
             tags = new LinkedList<String>(TagManager.getInstance().extract(effect));
@@ -198,7 +187,7 @@ public class TagsStep extends Step<LinkedList<String>> {
         if(num == 0)
             return getContext().getString(R.string.form_empty_field);
 
-        String checkedTags= TagManager.getInstance().toTagStyle(tags);
+        String checkedTags= TagManager.getInstance().listToString(tags);
         return checkedTags;
     }
 

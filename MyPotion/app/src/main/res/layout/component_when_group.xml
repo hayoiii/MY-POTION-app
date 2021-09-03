@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="flag"
+            type="int" />
+    </data>
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="4dp"
+        android:scrollbarAlwaysDrawHorizontalTrack="true">
+
+        <LinearLayout
+            android:id="@+id/when_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:tag="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:backgroundTint="@{(flag | 1) == flag ? @color/primary_accent_light : @color/contrastLight}"
+                android:background="@drawable/chip_shape"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="아침"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info" />
+
+            <TextView
+                android:tag="2"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/chip_shape"
+                android:backgroundTint="@{(flag | 2 )== flag ? @color/primary_accent_light : @color/contrastLight}"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="오전"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info" />
+
+            <TextView
+                android:tag="4"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:backgroundTint="@{(flag | 4) == flag ? @color/primary_accent_light : @color/contrastLight}"
+                android:background="@drawable/chip_shape"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="점심"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info" />
+
+            <TextView
+                android:tag="8"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/chip_shape"
+                android:backgroundTint="@{(flag | 8) == flag ? @color/primary_accent_light : @color/contrastLight}"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="오후"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info" />
+
+            <TextView
+                android:tag="16"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:backgroundTint="@{(flag | 16) == flag ? @color/primary_accent_light : @color/contrastLight}"
+                android:background="@drawable/chip_shape"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="저녁"
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info" />
+
+            <TextView
+                android:tag="32"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/chip_shape"
+                android:backgroundTint="@{(flag | 32)  == flag ? @color/primary_accent_light : @color/contrastLight}"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="2dp"
+                android:text="  밤  "
+                android:textColor="@color/primary_text"
+                android:textSize="@dimen/text_info" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+</layout>

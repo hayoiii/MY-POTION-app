@@ -30,10 +30,9 @@ public class BeginDateStep extends Step<int[]> {
         super(title);
     }
 
-    public BeginDateStep(String title, String old) {
-        super(title);
+    public void setOld(String old) {
         this.old = old;
-        this.EDIT_MODE = true;
+        EDIT_MODE = true;
     }
 
     @NonNull

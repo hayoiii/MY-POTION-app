@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="model"
+            type="com.palebluedot.mypotion.ui.home.HomeViewModel" />
+        <variable
+            name="data"
+            type="com.palebluedot.mypotion.data.model.MyPotion" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="4dp"
+        android:layout_height="wrap_content">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/card_min_height"
+            android:layout_centerHorizontal="true"
+
+            app:cardCornerRadius="12dp"
+            app:cardElevation="20dp"
+            app:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/front_content_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/padding_card">
+
+                    <TextView
+                        android:id="@+id/front_alias_or_product"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="12dp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="@{data.alias}"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/text_title"
+                        android:textStyle="bold"
+                        tools:text="네이쳐드림 혈행 개선에" />
+
+                    <TextView
+                        android:id="@+id/front_tags_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollHorizontally="true"
+                        android:textAlignment="center"
+
+                        android:textColor="@color/secondary_text"
+                        android:textSize="@dimen/text_info"
+                        android:text="@{model.effect}" />
+
+                    <TextView
+                        android:id="@+id/front_memo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/text_info_title"
+                        tools:text="sample memo"
+                        android:text="@{data.memo}"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:orientation="horizontal"
+                        android:paddingEnd="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="하루 "
+                            android:textColor="@color/primary_text"
+                            android:textSize="@dimen/text_info" />
+
+                        <TextView
+                            android:id="@+id/front_times"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="#80FFCC80"
+
+                            android:paddingHorizontal="8dp"
+                            android:textColor="@color/primary_text"
+                            android:textSize="@dimen/text_info"
+                            tools:text="3"
+                            android:text="@{String.valueOf(data.times)}"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="회씩 "
+                            android:textColor="@color/primary_text"
+                            android:textSize="@dimen/text_info" />
+
+                        <TextView
+                            android:id="@+id/front_days"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="#80FFCC80"
+                            android:paddingHorizontal="8dp"
+                            android:textColor="@color/primary_text"
+                            android:textSize="@dimen/text_info"
+                            tools:text="2"
+                            android:text="@{String.valueOf(data.day)}"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="일마다"
+                            android:textColor="@color/primary_text"
+                            android:textSize="@dimen/text_info" />
+                    </LinearLayout>
+
+
+                    <include
+                        android:id="@+id/front_when"
+                        app:flag="@{data.whenFlag}"
+                        layout="@layout/component_when_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end" />
+
+                    <ImageButton
+                        android:id="@+id/front_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/primary"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:src="@drawable/ic_filled_check_circle_24" />
+
+                    <!--            android:layout_above="@id/front_progress"-->
+                    <!--            <com.mackhartley.roundedprogressbar.RoundedProgressBar-->
+                    <!--                android:id="@+id/front_progress"-->
+                    <!--                android:layout_width="match_parent"-->
+                    <!--                android:layout_height="8dp"-->
+                    <!--                android:layout_alignParentBottom="true"-->
+                    <!--                app:rpbProgressBgColor="@color/contrastLight"-->
+                    <!--                app:rpbProgressColor="@color/secondary"-->
+                    <!--                app:rpbShowProgressText="true"-->
+                    <!--                app:rpbTextSize="8dp"-->
+                    <!--                app:rpbTextColor="@color/white"-->
+                    <!--                app:rpbBgTextColor="@color/secondary_dark"/>-->
+                </LinearLayout>
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/front_progressbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/front_content_layout"
+                    android:max="@{data.times}"
+                    android:progress="@{model.totalTimes}"
+                    app:showAnimationBehavior="outward"
+                    />
+
+                <ImageButton
+                    android:id="@+id/front_menu_btn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/ic_baseline_more_vert_24"
+                    android:backgroundTint="@color/contrastDark"
+                    tools:ignore="TouchTargetSizeCheck"
+                    />
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <include
+            layout="@layout/component_chat_balloon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            app:dday="@{model.getDday(data)}" />
+
+    </RelativeLayout>
+</layout>

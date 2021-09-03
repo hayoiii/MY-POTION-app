@@ -3,11 +3,13 @@ package com.palebluedot.mypotion.data.repository.mypotion;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.palebluedot.mypotion.data.model.MyPotion;
 import com.palebluedot.mypotion.data.model.MyPotionId;
-import com.palebluedot.mypotion.data.model.SearchResults;
-import com.palebluedot.mypotion.data.repository.RepositoryCallback;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -15,11 +17,12 @@ import java.util.concurrent.Executors;
 public class MyPotionRepository {
     private MyPotionDatabase database;
     MyPotionDao dao;
-    boolean isDuplicated;
+    MutableLiveData<List<MyPotion>> listData;
 
     public MyPotionRepository(Context context) {
         this.database = MyPotionDatabase.getInstance(context);
         this.dao = database.myPotionDao();
+        listData = new MutableLiveData<>();
     }
 
     public void insert(MyPotion potion) {
@@ -31,6 +34,51 @@ public class MyPotionRepository {
         };
         Executor diskIO = Executors.newSingleThreadExecutor();
         diskIO.execute(runnable);
+    }
+
+    public void update(MyPotion potion) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                dao.update(potion);
+            }
+        };
+        Executor diskIO = Executors.newSingleThreadExecutor();
+        diskIO.execute(runnable);
+    }
+
+    public void delete(MyPotion potion) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                dao.delete(potion);
+            }
+        };
+        Executor diskIO = Executors.newSingleThreadExecutor();
+        diskIO.execute(runnable);
+    }
+
+    public LiveData<List<MyPotion>> getHomeList(){
+        HomeListService service = new HomeListService();
+        try {
+            service.execute().get();
+            return listData;
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private class HomeListService extends AsyncTask<Void, Void, LiveData<List<MyPotion>>> {
+        @Override
+        protected LiveData<List<MyPotion>> doInBackground(Void... voids) {
+            List<MyPotion> result = dao.getAllExceptFinsihed();
+            listData.postValue(result);
+            return listData;
+        }
     }
 
     public boolean isDuplicatedAlias(String alias) {
