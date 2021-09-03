@@ -5,30 +5,26 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.palebluedot.mypotion.databinding.ActivityMainBinding;
 import com.palebluedot.mypotion.feature.produce.ProduceActivity;
 import com.palebluedot.mypotion.feature.search.SearchActivity;
-import com.palebluedot.mypotion.ui.home.HomeFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    private HomeFragment homeFragement;
     private NavController navController;
     private NavHostFragment navHostFragment;
     @Override
@@ -68,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         searchBtn.setOnClickListener(this);
         addBtn.setOnClickListener(this);
 
-        homeFragement = new HomeFragment();
         navController.navigate(R.id.nav_home);
     }
 
