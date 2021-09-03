@@ -63,10 +63,17 @@ public class MyPotionRepository {
         try {
             service.execute().get();
             return listData;
-        } catch (ExecutionException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
             return null;
-        } catch (InterruptedException e) {
+        }
+    }
+
+    public List<MyPotion> getFinishedList() {
+        FinishedListService service = new FinishedListService();
+        try {
+            return service.execute().get();
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
             return null;
         }
@@ -81,14 +88,19 @@ public class MyPotionRepository {
         }
     }
 
+    private class FinishedListService extends AsyncTask<Void, Void, List<MyPotion>> {
+        @Override
+        protected List<MyPotion> doInBackground(Void... voids) {
+            List<MyPotion> result = dao.getAllFisnished();
+            return result;
+        }
+    }
+
     public boolean isDuplicatedAlias(String alias) {
         DuplicatedAliasService service = new DuplicatedAliasService(alias);
         try {
             return service.execute().get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            return false;
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
             return false;
         }

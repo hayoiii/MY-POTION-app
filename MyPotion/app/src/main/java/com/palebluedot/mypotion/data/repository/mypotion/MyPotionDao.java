@@ -1,11 +1,9 @@
 package com.palebluedot.mypotion.data.repository.mypotion;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -22,6 +20,9 @@ public interface MyPotionDao {
 
     @Query("SELECT * FROM my_potion WHERE finish_date is null")
     List<MyPotion> getAllExceptFinsihed();
+
+    @Query("SELECT * FROM my_potion WHERE finish_date is not null")
+    List<MyPotion> getAllFisnished();
 
     @Query("SELECT * FROM my_potion WHERE rowid = :id")
     MyPotion getPotionById(int id);
