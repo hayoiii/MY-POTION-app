@@ -20,6 +20,7 @@ import com.palebluedot.mypotion.feature.detail.DetailFragment;
 
 import java.util.ArrayList;
 
+//TODO: go to home fragment after producing a potion
 public class SearchActivity extends AppCompatActivity {
     public static String TAG = "SearchActivity";
     private SearchViewModel model;

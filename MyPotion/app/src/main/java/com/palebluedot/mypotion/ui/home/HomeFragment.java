@@ -28,6 +28,7 @@ import com.wajahatkarim3.easyflipview.EasyFlipView;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO: refresh after producing
 public class HomeFragment extends Fragment {
     static public String TAG = "HomeFragment";
     HomeViewModel model;
@@ -41,6 +42,7 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
+            //TODO: dialog before finishing, deleteting
             alertDialogBuilder.setTitle(model.mPotion.getValue().alias);
             alertDialogBuilder.setItems(menuItems, (dialog, which) -> {
                 dialog.dismiss();
