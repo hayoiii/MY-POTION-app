@@ -1,5 +1,9 @@
 package com.palebluedot.mypotion.util;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -62,5 +66,20 @@ public class MyUtil {
             e.printStackTrace();
         }
         return date;
+    }
+    //dp를 px로 변환 (dp를 입력받아 px을 리턴)
+    public static float dpToPx(int dp, Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return px;
+    }
+
+    //px을 dp로 변환 (px을 입력받아 dp를 리턴)
+    public static float pxToDp(int px, Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float dp = px / ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return dp;
     }
 }
