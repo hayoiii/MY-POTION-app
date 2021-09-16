@@ -51,7 +51,7 @@ public class SearchListAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_search, parent, false);
-            TextView productText = convertView.findViewById(R.id.item_product);
+            TextView productText = convertView.findViewById(R.id.item_name);
             TextView factoryText = convertView.findViewById(R.id.item_factory);
 
             holder.productText = productText;
