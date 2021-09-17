@@ -54,16 +54,6 @@
                     android:textStyle="bold"
                     tools:text="건강기능식품 별칭" />
 
-                <TextView
-                    android:id="@+id/front_tags_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginBottom="@dimen/margin_top_text"
-                    android:textColor="@color/secondary_dark"
-                    android:textSize="@dimen/text_info"
-                    tools:text="#피로회복 #혈행개선" />
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -94,7 +84,22 @@
                         android:textSize="@dimen/text_info"
                         tools:text="2021-10-31" />
                 </LinearLayout>
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/item_chipGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:singleLine="false">
 
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="44dp"
+                        android:clickable="false"
+                        app:checkedIconVisible="false"
+                        app:chipBackgroundColor="@color/secondary_light"
+                        app:closeIconEnabled="false"
+                        tools:text="#피로회복" />
+
+                </com.google.android.material.chip.ChipGroup>
             </LinearLayout>
         </RelativeLayout>
 
