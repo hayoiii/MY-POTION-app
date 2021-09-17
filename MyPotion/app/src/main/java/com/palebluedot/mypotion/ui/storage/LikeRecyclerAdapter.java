@@ -83,14 +83,14 @@ public class LikeRecyclerAdapter extends RecyclerView.Adapter<LikeRecyclerAdapte
                 if (pos != RecyclerView.NO_POSITION) {
                     // 리스너 객체의 메서드 호출.
                     if (mListener != null) {
-                        mListener.onItemClick(v, pos);
+                        mListener.onItemClick(v, mData.get(pos));
                     }
                 }
             });
         }
     }
     public interface OnItemClickListener {
-        void onItemClick(View v, int position);
+        void onItemClick(View v, Like like);
     }
     private LikeRecyclerAdapter.OnItemClickListener mListener = null ;
     // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드

@@ -15,11 +15,13 @@ import com.google.android.material.tabs.TabLayout;
 import com.palebluedot.mypotion.R;
 import com.palebluedot.mypotion.data.model.Like;
 import com.palebluedot.mypotion.databinding.FragmentStorageBinding;
+import com.palebluedot.mypotion.feature.detail.DetailFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StorageFragment extends Fragment {
+    static public String TAG = "StorageFragment";
 
     private StorageViewModel model;
     private FragmentStorageBinding binding;
@@ -60,16 +62,25 @@ public class StorageFragment extends Fragment {
         tabLayout.addOnTabSelectedListener(onTabSelectedListener);
         likeAdapter = new LikeRecyclerAdapter();
 
-        likeAdapter.setOnItemClickListener(new LikeRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                // TODO: detail fragment
-            }
+        likeAdapter.setOnItemClickListener((v, like) -> {
+            // detail fragment
+            // TODO: touch x
+            DetailFragment detailFragment = DetailFragment.newInstance(like.serialNo, like.name, like.factory);
+            detailFragment.setParentTag(TAG);
+            getChildFragmentManager().beginTransaction()
+                    .add(R.id.storage_detail_fragment, detailFragment)
+                    .addToBackStack("like_detail")
+                    .commit();
         });
         binding.storageLikeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.storageLikeRecycler.setAdapter(likeAdapter);
-        //TODO: loading time
-        likeAdapter.setData(new ArrayList<>(model.mLikeList));
+
+        model.mLikeList.observe(getViewLifecycleOwner(), new Observer<List<Like>>() {
+            @Override
+            public void onChanged(List<Like> likes) {
+                likeAdapter.setData(new ArrayList<>(likes));
+            }
+        });
 
         return root;
     }

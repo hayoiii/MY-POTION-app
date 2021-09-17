@@ -27,39 +27,42 @@
             />
 
     </com.google.android.material.tabs.TabLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/like_recycler_container"
+    <RelativeLayout
+        android:id="@+id/storage_detail_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:descendantFocusability="blocksDescendants"
-        android:overScrollMode="always"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/storage_like_recycler"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/like_recycler_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/list_padding_bottom"
-            android:visibility="gone"
-            tools:listitem="@layout/item_like" />
+            android:descendantFocusability="blocksDescendants"
+            android:overScrollMode="always"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/storage_like_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/list_padding_bottom"
+                android:visibility="visible"
+                tools:listitem="@layout/item_like" />
 
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/history_recycler_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:descendantFocusability="blocksDescendants"
-        android:overScrollMode="always"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/storage_history_recycler"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/history_recycler_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/list_padding_bottom"
-            android:visibility="visible"
-            tools:listitem="@layout/item_history" />
-    </androidx.core.widget.NestedScrollView>
-
+            android:descendantFocusability="blocksDescendants"
+            android:overScrollMode="always"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/storage_history_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/list_padding_bottom"
+                android:visibility="gone"
+                tools:listitem="@layout/item_history" />
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
 </LinearLayout>

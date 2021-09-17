@@ -17,14 +17,18 @@ import java.util.List;
 public class StorageViewModel extends AndroidViewModel {
     private MyPotionRepository potionRepository;
     private LikeRepository likeRepository;
-    public List<MyPotion> mPotionList;
-    public List<Like> mLikeList;
+    public MutableLiveData<List<MyPotion>> mPotionList;
+    public MutableLiveData<List<Like>> mLikeList;
 
     public StorageViewModel(Application application) {
         super(application);
         this.potionRepository = new MyPotionRepository(application.getApplicationContext());
         this.likeRepository = new LikeRepository(application);
-        this.mPotionList = potionRepository.getFinishedList();
-        this.mLikeList = likeRepository.getLikeList();
+        this.mPotionList = new MutableLiveData<>();
+        this.mLikeList = new MutableLiveData<>();
+        this.mPotionList.postValue(potionRepository.getFinishedList());
+        this.mLikeList.postValue(likeRepository.getLikeList());
     }
+
+
 }

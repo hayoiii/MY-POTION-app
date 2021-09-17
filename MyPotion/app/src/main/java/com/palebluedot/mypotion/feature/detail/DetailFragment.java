@@ -28,6 +28,7 @@ import com.palebluedot.mypotion.databinding.FragmentDetailBinding;
 import com.palebluedot.mypotion.feature.produce.ProduceActivity;
 import com.palebluedot.mypotion.feature.search.SearchActivity;
 import com.palebluedot.mypotion.ui.home.HomeFragment;
+import com.palebluedot.mypotion.ui.storage.StorageFragment;
 import com.palebluedot.mypotion.util.MyUtil;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
@@ -125,6 +126,10 @@ public class DetailFragment extends Fragment implements View.OnClickListener {
                 fragmentManager.popBackStack();
             }
             else if (PARENT_TAG.equals(HomeFragment.TAG)) {
+                fragmentManager = getParentFragmentManager();
+                fragmentManager.popBackStack();
+            }
+            else if (PARENT_TAG.equals(StorageFragment.TAG)) {
                 fragmentManager = getParentFragmentManager();
                 fragmentManager.popBackStack();
             }
