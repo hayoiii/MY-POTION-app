@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.tabs.TabLayout;
 import com.palebluedot.mypotion.R;
 import com.palebluedot.mypotion.data.model.Like;
+import com.palebluedot.mypotion.data.model.MyPotion;
 import com.palebluedot.mypotion.databinding.FragmentStorageBinding;
 import com.palebluedot.mypotion.feature.detail.DetailFragment;
 
@@ -26,28 +27,25 @@ public class StorageFragment extends Fragment {
     private StorageViewModel model;
     private FragmentStorageBinding binding;
     LikeRecyclerAdapter likeAdapter;
+    HistoryRecyclerAdapter historyAdapter;
 
     private final TabLayout.OnTabSelectedListener onTabSelectedListener = new TabLayout.OnTabSelectedListener() {
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
             if (tab.getText().equals(getString(R.string.tab_like))) {
-                binding.storageLikeRecycler.setVisibility(View.VISIBLE);
-                binding.storageHistoryRecycler.setVisibility(View.GONE);
+                binding.likeRecyclerContainer.setVisibility(View.VISIBLE);
+                binding.historyRecyclerContainer.setVisibility(View.GONE);
             }
             else {
-                binding.storageLikeRecycler.setVisibility(View.GONE);
-                binding.storageHistoryRecycler.setVisibility(View.VISIBLE);
+                binding.likeRecyclerContainer.setVisibility(View.GONE);
+                binding.historyRecyclerContainer.setVisibility(View.VISIBLE);
             }
         }
-
         @Override
         public void onTabUnselected(TabLayout.Tab tab) {
-
         }
-
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
-
         }
     };
 
@@ -61,7 +59,7 @@ public class StorageFragment extends Fragment {
         TabLayout tabLayout = binding.tabLayout;
         tabLayout.addOnTabSelectedListener(onTabSelectedListener);
         likeAdapter = new LikeRecyclerAdapter();
-
+        historyAdapter = new HistoryRecyclerAdapter();
         likeAdapter.setOnItemClickListener((v, like) -> {
             // detail fragment
             // TODO: touch x
@@ -72,13 +70,26 @@ public class StorageFragment extends Fragment {
                     .addToBackStack("like_detail")
                     .commit();
         });
+        historyAdapter.setOnItemClickListener((v, potion) -> {
+            //TODO: potion card
+        });
+
         binding.storageLikeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.storageLikeRecycler.setAdapter(likeAdapter);
+        binding.storageHistoryRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.storageHistoryRecycler.setAdapter(historyAdapter);
 
         model.mLikeList.observe(getViewLifecycleOwner(), new Observer<List<Like>>() {
             @Override
             public void onChanged(List<Like> likes) {
                 likeAdapter.setData(new ArrayList<>(likes));
+            }
+        });
+
+        model.mPotionList.observe(getViewLifecycleOwner(), new Observer<List<MyPotion>>() {
+            @Override
+            public void onChanged(List<MyPotion> myPotions) {
+                historyAdapter.setData(new ArrayList<>(myPotions));
             }
         });
 

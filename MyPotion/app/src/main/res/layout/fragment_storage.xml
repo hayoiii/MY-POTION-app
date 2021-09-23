@@ -34,6 +34,7 @@
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/like_recycler_container"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:descendantFocusability="blocksDescendants"
@@ -44,13 +45,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingBottom="@dimen/list_padding_bottom"
-                android:visibility="visible"
                 tools:listitem="@layout/item_like" />
 
         </androidx.core.widget.NestedScrollView>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/history_recycler_container"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:descendantFocusability="blocksDescendants"
@@ -61,7 +62,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingBottom="@dimen/list_padding_bottom"
-                android:visibility="gone"
                 tools:listitem="@layout/item_history" />
         </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
