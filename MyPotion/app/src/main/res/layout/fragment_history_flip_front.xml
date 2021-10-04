@@ -141,7 +141,7 @@
                         android:layout_gravity="end"
                         app:flag="@{data.whenFlag}" />
                     <Button
-                        android:id="@+id/back_detail_btn"
+                        android:id="@+id/front_detail_btn"
                         style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"

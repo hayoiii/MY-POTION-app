@@ -66,12 +66,31 @@ public class StorageFragment extends Fragment {
             DetailFragment detailFragment = DetailFragment.newInstance(like.serialNo, like.name, like.factory);
             detailFragment.setParentTag(TAG);
             getChildFragmentManager().beginTransaction()
-                    .add(R.id.storage_detail_fragment, detailFragment)
+                    .add(R.id.child_fragment, detailFragment)
                     .addToBackStack("like_detail")
                     .commit();
         });
         historyAdapter.setOnItemClickListener((v, potion) -> {
             //TODO: potion card
+            HistoryFragment historyFragment = HistoryFragment.newInstance(potion);
+            historyFragment.setOnClickDetailListener(new HistoryFragment.onClickDetailListener() {
+                @Override
+                public void onClick(View v, MyPotion potion) {
+                    if(potion.serialNo == null) return;
+
+                    DetailFragment detailFragment = DetailFragment.newInstance(potion.serialNo, potion.name, potion.factory);
+                    getChildFragmentManager().beginTransaction()
+                            .remove(historyFragment)
+                            .add(R.id.child_fragment, detailFragment)
+                            .addToBackStack("history_detail")
+                            .commit();
+                }
+            });
+
+            getChildFragmentManager().beginTransaction()
+                    .add(R.id.history_flip_view, historyFragment)
+                    .addToBackStack("history_card")
+                    .commit();
         });
 
         binding.storageLikeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));

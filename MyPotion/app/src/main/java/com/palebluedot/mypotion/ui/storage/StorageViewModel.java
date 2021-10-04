@@ -22,7 +22,6 @@ public class StorageViewModel extends AndroidViewModel {
     private LikeRepository likeRepository;
     public MutableLiveData<List<MyPotion>> mPotionList;
     public MutableLiveData<List<Like>> mLikeList;
-    public MutableLiveData<MyPotion> mPotion;
 
     public StorageViewModel(Application application) {
         super(application);
@@ -34,22 +33,4 @@ public class StorageViewModel extends AndroidViewModel {
         this.mLikeList.postValue(likeRepository.getLikeList());
     }
 
-    public String getEffect() {
-        if(mPotion.getValue() != null)
-            return TagManager.getInstance().listToString(mPotion.getValue().effectTags);
-        else
-            return null;
-    }
-    public String getIngDays() {
-        if(mPotion.getValue() == null){
-            return null;
-        }
-
-        String beginStr = mPotion.getValue().beginDate;
-        Date today = MyUtil.getFormattedToday();
-        Date beginDate = MyUtil.stringToDate(beginStr);
-        long msDiff = today.getTime() - beginDate.getTime();
-        long dayDiff = Math.abs(msDiff) / (24 * 60 * 60 * 1000);
-        return "총 "+ dayDiff +"일";
-    }
 }

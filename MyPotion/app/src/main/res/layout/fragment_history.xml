@@ -4,7 +4,7 @@
     <data>
         <variable
             name="model"
-            type="com.palebluedot.mypotion.ui.storage.StorageViewModel" />
+            type="com.palebluedot.mypotion.ui.storage.HistoryFragment" />
         <variable
             name="data"
             type="com.palebluedot.mypotion.data.model.MyPotion" />
@@ -26,14 +26,14 @@
             app:flipEnabled="true"
             app:flipOnTouch="true">
             <!-- Back Layout Goes Here -->
-            <include layout="@layout/history_flip_back"
+            <include layout="@layout/fragment_history_flip_back"
                 android:id="@+id/history_flip_back"
                 app:model="@{model}"
                 app:data="@{data}"
                 />
 
             <!-- Front Layout Goes Here -->
-            <include layout="@layout/history_flip_front"
+            <include layout="@layout/fragment_history_flip_front"
                 android:id="@+id/history_flip_front"
                 app:model="@{model}"
                 app:data="@{data}"

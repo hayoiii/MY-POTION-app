@@ -28,7 +28,7 @@
 
     </com.google.android.material.tabs.TabLayout>
     <RelativeLayout
-        android:id="@+id/storage_detail_fragment"
+        android:id="@+id/child_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

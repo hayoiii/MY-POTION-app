@@ -1,5 +1,8 @@
 package com.palebluedot.mypotion.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -9,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "my_potion")
-public class MyPotion {
+public class MyPotion implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name="rowid")
     public int id;
@@ -61,5 +64,53 @@ public class MyPotion {
         this.day = day;
         this.times = times;
         this.whenFlag = whenFlag;
+    }
+
+    protected MyPotion(Parcel in) {
+        id = in.readInt();
+        alias = in.readString();
+        name = in.readString();
+        factory = in.readString();
+        beginDate = in.readString();
+        finishDate = in.readString();
+        effectTags = in.createStringArrayList();
+        memo = in.readString();
+        day = in.readInt();
+        times = in.readInt();
+        whenFlag = in.readInt();
+        serialNo = in.readString();
+    }
+
+    public static final Creator<MyPotion> CREATOR = new Creator<MyPotion>() {
+        @Override
+        public MyPotion createFromParcel(Parcel in) {
+            return new MyPotion(in);
+        }
+
+        @Override
+        public MyPotion[] newArray(int size) {
+            return new MyPotion[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(alias);
+        parcel.writeString(name);
+        parcel.writeString(factory);
+        parcel.writeString(beginDate);
+        parcel.writeString(finishDate);
+        parcel.writeStringList(effectTags);
+        parcel.writeString(memo);
+        parcel.writeInt(day);
+        parcel.writeInt(times);
+        parcel.writeInt(whenFlag);
+        parcel.writeString(serialNo);
     }
 }
