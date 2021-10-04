@@ -6,7 +6,7 @@
     <data>
         <variable
             name="model"
-            type="com.palebluedot.mypotion.ui.storage.StorageViewModel" />
+            type="com.palebluedot.mypotion.ui.storage.HistoryFragment" />
         <variable
             name="data"
             type="com.palebluedot.mypotion.data.model.MyPotion" />

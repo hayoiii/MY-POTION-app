@@ -79,6 +79,7 @@ public class StorageFragment extends Fragment {
                     if(potion.serialNo == null) return;
 
                     DetailFragment detailFragment = DetailFragment.newInstance(potion.serialNo, potion.name, potion.factory);
+                    detailFragment.setParentTag(TAG);
                     getChildFragmentManager().beginTransaction()
                             .remove(historyFragment)
                             .add(R.id.child_fragment, detailFragment)
@@ -88,7 +89,7 @@ public class StorageFragment extends Fragment {
             });
 
             getChildFragmentManager().beginTransaction()
-                    .add(R.id.history_flip_view, historyFragment)
+                    .add(R.id.child_fragment, historyFragment)
                     .addToBackStack("history_card")
                     .commit();
         });

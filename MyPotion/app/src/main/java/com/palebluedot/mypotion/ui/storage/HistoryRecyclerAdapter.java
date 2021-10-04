@@ -82,6 +82,16 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<HistoryRecycler
             finishText = view.findViewById(R.id.item_finish);
             chipGroup = view.findViewById(R.id.item_chipGroup);
             menuBtn = view.findViewById(R.id.item_menu_btn);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mListener != null) {
+                        int positon = getAdapterPosition();
+                        mListener.onItemClick(v, mData.get(positon));
+                    }
+                }
+            });
         }
     }
 
