@@ -99,8 +99,6 @@
                         tools:text="2020/12/30"
                         android:text="@{data.beginDate}"
                         />
-
-
                 </LinearLayout>
 
                 <LinearLayout

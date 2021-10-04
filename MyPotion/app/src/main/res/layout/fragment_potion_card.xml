@@ -9,18 +9,20 @@
             type="com.palebluedot.mypotion.data.model.MyPotion" />
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:background="#50000000"
-        tools:context=".feature.detail.DetailFragment">
+        android:gravity="center"
+        >
 
         <!-- The primary full-screen view. This can be replaced with whatever view
              is needed to present your content, e.g. VideoView, SurfaceView,
              TextureView, etc. -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="12dp"
             app:cardBackgroundColor="@color/white"
             android:elevation="32dp"
@@ -28,278 +30,215 @@
             app:cardUseCompatPadding="true">
 
             <RelativeLayout
+                android:id="@+id/upper_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:id="@+id/detail_close_btn"
+                    android:id="@+id/close_btn"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_alignParentEnd="true"
                     android:background="#00FFFFFF"
                     android:src="@drawable/ic_close_24" />
-                <LinearLayout
-                    android:id="@+id/upper_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="24dp"
 
-                    android:orientation="vertical"
-                    android:paddingHorizontal="16dp"
-                    android:paddingTop="36dp">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/factory_text"
+                    <LinearLayout
+                        android:id="@+id/upper_content_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:text="@{data.factory}"
-                        android:textAlignment="center"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="@dimen/text_info"
-                        tools:text="제조사 ex_동아제약" />
+                        android:orientation="vertical"
+                        android:paddingHorizontal="@dimen/padding_card">
 
-                    <TextView
-                        android:id="@+id/alias_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{data.alias}"
-                        android:textAlignment="center"
-                        android:textColor="@color/primary_text"
-                        android:textSize="@dimen/text_title"
-                        android:textStyle="bold"
-                        tools:text="홍삼 튼튼" />
-
-                    <TextView
-                        android:id="@+id/effect_tags"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/secondary_dark"
-                        android:textSize="@dimen/text_info"
-                        android:textStyle="bold"
-                        tools:text="#유산균 #지방 감소 #지방 감소 #지방 감소 #지방 감소 #지방 감소 #지방 감소" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="8dp">
-                        <Button
-                            android:id="@+id/detail_btn"
-                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                        <TextView
+                            android:id="@+id/upper_alias"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="상세보기"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/upper_layout"
-                    android:background="@color/contrastLight" />
-                <include layout="@layout/component_no_data" android:id="@+id/no_data" android:visibility="gone"/>
-                <LinearLayout
-                    android:visibility="visible"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/upper_layout"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/margin_section_title_bottom"
-
-                            android:layout_weight="1"
-                            android:text="상세 정보"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginTop="12dp"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:maxLines="2"
+                            android:text="@{data.alias}"
                             android:textColor="@color/primary_text"
                             android:textSize="@dimen/text_title"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                    <androidx.core.widget.NestedScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        >
-                        <LinearLayout
+                            android:textStyle="bold"
+                            tools:text="네이쳐드림 혈행 개선에" />
+
+                        <TextView
+                            android:id="@+id/upper_tags_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:paddingBottom="@dimen/list_padding_bottom"
+                            android:scrollHorizontally="true"
+                            android:text="@{model.effect}"
+
+                            android:textAlignment="center"
+                            android:textColor="@color/secondary_text"
+                            android:textSize="@dimen/text_info" />
+
+                        <TextView
+                            android:id="@+id/upper_memo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="12dp"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="@{data.memo}"
+                            android:textColor="@color/primary_text"
+                            android:textSize="@dimen/text_info_title"
+                            tools:text="sample memo" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:orientation="horizontal"
+                            android:paddingEnd="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="하루 "
+                                android:textColor="@color/primary_text"
+                                android:textSize="@dimen/text_info" />
+
+                            <TextView
+                                android:id="@+id/upper_times"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/primary_accent_light"
+
+                                android:paddingHorizontal="8dp"
+                                android:text="@{String.valueOf(data.times)}"
+                                android:textColor="@color/primary_text"
+                                android:textSize="@dimen/text_info"
+                                tools:text="3" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="회씩 "
+                                android:textColor="@color/primary_text"
+                                android:textSize="@dimen/text_info" />
+
+                            <TextView
+                                android:id="@+id/upper_days"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/primary_accent_light"
+                                android:paddingHorizontal="8dp"
+                                android:text="@{String.valueOf(data.day)}"
+                                android:textColor="@color/primary_text"
+                                android:textSize="@dimen/text_info"
+                                tools:text="2" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="일마다"
+                                android:textColor="@color/primary_text"
+                                android:textSize="@dimen/text_info" />
+                        </LinearLayout>
+
+
+                        <include
+                            android:id="@+id/upper_when"
+                            layout="@layout/component_when_group"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            app:flag="@{data.whenFlag}" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="@dimen/margin_section_title_bottom"
+                            android:background="@color/divider" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="시작일"
+                                android:textColor="@color/primary_text"
+                                android:textSize="@dimen/text_info_title" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginLeft="40dp"
+                                android:textColor="@color/secondary_text"
+                                tools:text="2020/12/30"
+                                android:text="@{data.beginDate}"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="종료일"
+                                android:textColor="@color/primary_text"
+                                android:textSize="@dimen/text_info_title" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginLeft="40dp"
+                                android:textColor="@color/secondary_text"
+                                tools:text="2020/12/30"
+                                android:text="@{data.finishDate}"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/back_last_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_top_text"
+                            android:orientation="horizontal"
                             >
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-
-                                android:text="주된 기능성"
+                                android:text="총 일수"
                                 android:textColor="@color/primary_text"
-                                android:textSize="@dimen/text_info_title"
-                                android:textStyle="bold" />
-
+                                android:textSize="@dimen/text_info_title" />
 
                             <TextView
-                                android:id="@+id/effect_text"
-                                android:layout_width="match_parent"
+                                android:id="@+id/back_ing"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-
-                                tools:text="유산균 증식 및 유해균 억제 어쩌"
-                                android:text="@{data.effect}"
+                                android:layout_gravity="bottom"
+                                android:layout_marginLeft="40dp"
                                 android:textColor="@color/secondary_text"
-                                android:textSize="@dimen/text_info" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="2dp"
-                                android:layout_marginVertical="16dp"
-                                android:background="@color/divider" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-
-                                android:text="성상"
-                                android:textColor="@color/primary_text"
-                                android:textSize="@dimen/text_info_title"
-                                android:textStyle="bold" />
-
-
-                            <TextView
-                                android:id="@+id/shape_text"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-
-                                tools:text="이미, 이취가 없고 고유의 향미가 있는 미황색의 분말"
-                                android:textColor="@color/secondary_text"
-                                android:textSize="@dimen/text_info" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="2dp"
-                                android:layout_marginVertical="16dp"
-                                android:background="@color/divider" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-
-                                android:text="섭취량 / 섭취방법"
-                                android:textColor="@color/primary_text"
-                                android:textSize="@dimen/text_info_title"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/take_way_text"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-
-                                tools:text="1일 1회, 1회 1정을 물과 함께 섭취하십시오."
-                                android:text="@{data.takeWay}"
-                                android:textColor="@color/secondary_text"
-                                android:textSize="@dimen/text_info" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="2dp"
-                                android:layout_marginVertical="16dp"
-                                android:background="@color/divider" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-
-                                android:text="섭취 시 주의사항"
-                                android:textColor="@color/primary_text"
-                                android:textSize="@dimen/text_info_title"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/caution_text"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-
-                                tools:text="특정질환, 특이체질, 알레르기체질, 임산부의 경우에는 간혹 개인에 따라 과민반응이 나타날 수 있으므로 원료를 확인하시고, 섭취전에 전문가와 상담하시기 바랍니다.
-이상사례 발생 시 섭취를 중단하고 전문가와 상담할 것
-임산부, 수유여성 및 어린이는 섭취에 주의
-우유 및 유제품에 대하여 알레르기를 나타내는 사람은 섭취에 주의"
-                                android:text="@{data.caution}"
-                                android:textColor="@color/secondary_text"
-                                android:textSize="@dimen/text_info" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="2dp"
-                                android:layout_marginVertical="16dp"
-                                android:background="@color/divider" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-
-                                android:text="유통기한"
-                                android:textColor="@color/primary_text"
-                                android:textSize="@dimen/text_info_title"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/expiration_text"
-                                android:layout_width="match_parent"
-
-                                android:layout_height="wrap_content"
-                                tools:text="제조일로부터 24개월까지 "
-                                android:text="@{data.expiration}"
-                                android:textColor="@color/secondary_text"
-                                android:textSize="@dimen/text_info" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="2dp"
-                                android:layout_marginVertical="16dp"
-                                android:background="@color/divider" />
-
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-
-                                android:text="보관 방법"
-                                android:textColor="@color/primary_text"
-                                android:textSize="@dimen/text_info_title"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/store_way_text"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-
-                                tools:text="자외선이 닿지 않는 서늘한 곳에 보관"
-                                android:text="@{data.storeWay}"
-                                android:textColor="@color/secondary_text"
-                                android:textSize="@dimen/text_info" />
-
+                                tools:text="7일 전"
+                                android:text="@{model.diffFromLast}"
+                                />
 
                         </LinearLayout>
-                    </androidx.core.widget.NestedScrollView>
-                </LinearLayout>
+                    </LinearLayout>
+
+                </RelativeLayout>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
-    </FrameLayout>
+    </LinearLayout>
 </layout>

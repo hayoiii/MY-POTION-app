@@ -60,11 +60,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:scrollHorizontally="true"
-                        android:textAlignment="center"
+                        android:text="@{model.effect}"
 
+                        android:textAlignment="center"
                         android:textColor="@color/secondary_text"
-                        android:textSize="@dimen/text_info"
-                        android:text="@{model.effect}" />
+                        android:textSize="@dimen/text_info" />
 
                     <TextView
                         android:id="@+id/front_memo"
@@ -74,11 +74,10 @@
                         android:layout_marginBottom="12dp"
                         android:ellipsize="end"
                         android:maxLines="2"
+                        android:text="@{data.memo}"
                         android:textColor="@color/primary_text"
                         android:textSize="@dimen/text_info_title"
-                        tools:text="sample memo"
-                        android:text="@{data.memo}"
-                        />
+                        tools:text="sample memo" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -101,11 +100,10 @@
                             android:background="@color/primary_accent_light"
 
                             android:paddingHorizontal="8dp"
+                            android:text="@{String.valueOf(data.times)}"
                             android:textColor="@color/primary_text"
                             android:textSize="@dimen/text_info"
-                            tools:text="3"
-                            android:text="@{String.valueOf(data.times)}"
-                            />
+                            tools:text="3" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -120,11 +118,10 @@
                             android:layout_height="wrap_content"
                             android:background="@color/primary_accent_light"
                             android:paddingHorizontal="8dp"
+                            android:text="@{String.valueOf(data.day)}"
                             android:textColor="@color/primary_text"
                             android:textSize="@dimen/text_info"
-                            tools:text="2"
-                            android:text="@{String.valueOf(data.day)}"
-                            />
+                            tools:text="2" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -137,11 +134,11 @@
 
                     <include
                         android:id="@+id/front_when"
-                        app:flag="@{data.whenFlag}"
                         layout="@layout/component_when_group"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end" />
+                        android:layout_gravity="end"
+                        app:flag="@{data.whenFlag}" />
 
                     <ImageButton
                         android:id="@+id/front_btn"
@@ -189,8 +186,7 @@
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/ic_baseline_more_vert_24"
                     android:backgroundTint="@color/contrastDark"
-                    tools:ignore="TouchTargetSizeCheck"
-                    />
+                    tools:ignore="TouchTargetSizeCheck" />
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
