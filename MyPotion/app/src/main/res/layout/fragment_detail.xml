@@ -44,6 +44,7 @@
                     android:layout_marginRight="8dp"
                     android:background="#00FFFFFF"
                     android:src="@drawable/ic_close_24" />
+
                 <LinearLayout
                     android:id="@+id/upper_layout"
                     android:layout_width="match_parent"

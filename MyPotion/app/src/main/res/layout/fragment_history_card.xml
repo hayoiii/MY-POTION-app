@@ -1,0 +1,45 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="model"
+            type="com.palebluedot.mypotion.ui.storage.StorageViewModel" />
+        <variable
+            name="data"
+            type="com.palebluedot.mypotion.data.model.MyPotion" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#50000000">
+        <com.wajahatkarim3.easyflipview.EasyFlipView
+
+            android:id="@+id/history_flip_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            app:flipDuration="400"
+            app:flipEnabled="true"
+            app:flipOnTouch="true">
+            <!-- Back Layout Goes Here -->
+            <include layout="@layout/history_flip_back"
+                android:id="@+id/history_flip_back"
+                app:model="@{model}"
+                app:data="@{data}"
+                />
+
+            <!-- Front Layout Goes Here -->
+            <include layout="@layout/history_flip_front"
+                android:id="@+id/history_flip_front"
+                app:model="@{model}"
+                app:data="@{data}"
+                />
+
+        </com.wajahatkarim3.easyflipview.EasyFlipView>
+    </LinearLayout>
+
+</layout>
